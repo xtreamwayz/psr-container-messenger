@@ -6,6 +6,10 @@ cache:
   directories:
     - $HOME/.composer/cache
 
+env:
+  global:
+    - COMPOSER_ARGS="--ansi --optimize-autoloader --no-interaction --no-suggest --prefer-dist"
+
 matrix:
   include:
     - php: 7.1
@@ -30,8 +34,8 @@ matrix:
         - DEPS=latest
 
 install:
-  - if [[ $DEPS == 'latest' ]]; then composer update --prefer-source --no-interaction ; fi
-  - if [[ $DEPS == 'lowest' ]]; then composer update --prefer-source --prefer-lowest --prefer-stable --no-interaction ; fi
+  - if [[ $DEPS == 'latest' ]]; then composer update $COMPOSER_ARGS ; fi
+  - if [[ $DEPS == 'lowest' ]]; then composer update $COMPOSER_ARGS --prefer-lowest --prefer-stable ; fi
   - composer show --installed
 
 script:
