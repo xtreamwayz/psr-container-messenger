@@ -2,14 +2,18 @@
 
 _Symfony Messenger + Enqueue for Zend Expressive_
 
-This packages brings a command bus and optional queue to your Zend Expressive project. Basically it's a bundle of 
+[![Build Status](https://travis-ci.org/xtreamlabs/expressive-messenger.svg)](https://travis-ci.org/xtreamlabs/expressive-messenger)
+[![Packagist](https://img.shields.io/packagist/v/xtreamlabs/expressive-messenger.svg)](https://packagist.org/packages/xtreamlabs/expressive-messenger)
+[![Packagist](https://img.shields.io/packagist/vpre/xtreamlabs/expressive-messenger.svg)](https://packagist.org/packages/xtreamlabs/expressive-messenger)
+
+This packages brings a command bus and optional queue to your Zend Expressive project. Basically it's a bundle of
 factories to make life easier for you. The real work is done by [Symfony Messenger](https://github.com/symfony/messenger)
 and [enqueue](https://github.com/php-enqueue/enqueue).
 
 ## Installation
 
     composer require xtreamlabs/expressive-messenger
-    
+
 If you have the [zend-component-installer](https://github.com/zendframework/zend-component-installer) installed, the
 ConfigProvider is installed automatically.
 
@@ -107,7 +111,7 @@ return [
             // This queue is added by default
             'queue.default.receiver' => [QueueReceiverFactory::class, 'queue.default'],
             'queue.default.sender'   => [QueueSenderFactory::class, 'queue.default'],
-            
+
             // Add a second queue
             'queue.another.receiver' => [QueueReceiverFactory::class, 'queue.another'],
             'queue.another.sender'   => [QueueSenderFactory::class, 'queue.another'],
