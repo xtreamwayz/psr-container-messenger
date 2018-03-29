@@ -1,0 +1,28 @@
+language: php
+
+sudo: false
+
+cache:
+  directories:
+    - $HOME/.composer/cache
+
+php:
+  - 7.1
+  - 7.2
+  - nightly
+
+env:
+  matrix:
+    - DEPENDENCIES="latest"
+    - DEPENDENCIES="lowest"
+
+install:
+  - if [[ $DEPENDENCIES == 'latest' ]]; then composer update --no-interaction ; fi
+  - if [[ $DEPENDENCIES == 'lowest' ]]; then composer update --prefer-lowest --prefer-stable --no-interaction ; fi
+  - composer show --installed
+
+script:
+  - composer validate --no-check-all --no-check-publish
+  - ./vendor/bin/phpunit
+  - ./vendor/bin/phpcs
+  - ./vendor/bin/phpstan analyse -l 7 src
