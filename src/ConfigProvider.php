@@ -19,6 +19,7 @@ class ConfigProvider
         return [
             'dependencies' => $this->getDependencies(),
             'messenger'    => $this->getMessenger(),
+            'console'      => $this->getConsole(),
         ];
     }
 
@@ -49,6 +50,19 @@ class ConfigProvider
             'middleware' => [
                 SendMessageMiddleware::class,
                 HandleMessageMiddleware::class,
+            ],
+        ];
+    }
+
+    public function getConsole() : array
+    {
+        return [
+            'commands' => [
+                Command\MessengerConsumerCommand::class,
+            ],
+
+            'lazy_services' => [
+                MessageBusInterface::class,
             ],
         ];
     }

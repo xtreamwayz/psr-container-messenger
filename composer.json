@@ -19,7 +19,8 @@
         "zendframework/zend-servicemanager": "^3.3"
     },
     "suggest": {
-        "enqueue/enqueue": "For using the php-enqueue library as a queue."
+        "enqueue/enqueue": "For using the php-enqueue library as a queue.",
+        "xtreamlabs/expressive-console": "For auto configuring the cli command."
     },
     "config": {
         "sort-packages": true
