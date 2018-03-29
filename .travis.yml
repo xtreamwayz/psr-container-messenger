@@ -1,28 +1,41 @@
-language: php
-
 sudo: false
+
+language: php
 
 cache:
   directories:
     - $HOME/.composer/cache
 
-php:
-  - 7.1
-  - 7.2
-  - nightly
-
-env:
-  matrix:
-    - DEPENDENCIES="latest"
-    - DEPENDENCIES="lowest"
+matrix:
+  include:
+    - php: 7.1
+      env:
+        - DEPS=lowest
+    - php: 7.1
+      env:
+        - DEPS=latest
+        - CHECK_CS=true
+        - TEST_COVERAGE=true
+    - php: 7.2
+      env:
+        - DEPS=lowest
+    - php: 7.2
+      env:
+        - DEPS=latest
+    - php: nightly
+      env:
+        - DEPS=lowest
+    - php: nightly
+      env:
+        - DEPS=latest
 
 install:
-  - if [[ $DEPENDENCIES == 'latest' ]]; then composer update --no-interaction ; fi
-  - if [[ $DEPENDENCIES == 'lowest' ]]; then composer update --prefer-lowest --prefer-stable --no-interaction ; fi
+  - if [[ $DEPS == 'latest' ]]; then composer update --prefer-source --no-interaction ; fi
+  - if [[ $DEPS == 'lowest' ]]; then composer update --prefer-source --prefer-lowest --prefer-stable --no-interaction ; fi
   - composer show --installed
 
 script:
   - composer validate --no-check-all --no-check-publish
+  - if [[ $EXECUTE_CS_CHECK == 'true' ]]; then ./vendor/bin/phpcs ; fi
   - ./vendor/bin/phpunit
-  - ./vendor/bin/phpcs
   - ./vendor/bin/phpstan analyse -l 7 src
