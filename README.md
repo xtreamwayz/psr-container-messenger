@@ -43,7 +43,7 @@ return [
             // These middleware are added by default
         ],
 
-        'senders' => [
+        'routing' => [
             // These are loaded into the SendMessageMiddleware
         ],
     ]
@@ -125,7 +125,7 @@ return [
             HandleMessageMiddleware::class,
         ],
 
-        'senders' => [
+        'routing' => [
             // These are loaded into the SendMessageMiddleware
             MyMessage::class => ['queue.default.sender'],
         ],

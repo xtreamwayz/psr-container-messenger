@@ -16,7 +16,7 @@ class SendMessageMiddlewareFactory
         $config = $container->has('config') ? $container->get('config') : [];
         $config = $config['messenger'] ?? [];
 
-        $senderLocator = new SenderLocator($container, $config['senders'] ?? []);
+        $senderLocator = new SenderLocator($container, $config['routing'] ?? []);
 
         return new SendMessageMiddleware($senderLocator);
     }
