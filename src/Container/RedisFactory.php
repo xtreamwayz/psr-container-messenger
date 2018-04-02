@@ -8,11 +8,25 @@ use Enqueue\Redis\RedisConnectionFactory;
 use Interop\Queue\PsrContext;
 use Psr\Container\ContainerInterface;
 
+/**
+ * @see https://github.com/php-enqueue/enqueue-dev/blob/master/docs/transport/redis.md#create-context
+ *
+ * Expected config
+ *
+ *  'redis' => [
+ *      'host'   => '127.0.0.1',
+ *      'port'   => 6379,
+ *      'vendor' => 'phpredis',
+ *  ],
+ */
 class RedisFactory
 {
     public function __invoke(ContainerInterface $container) : PsrContext
     {
-        $factory = new RedisConnectionFactory(['host' => 'redis']);
+        $config = $container->has('config') ? $container->get('config') : [];
+        $config = $config['redis'] ?? [];
+
+        $factory = new RedisConnectionFactory($config);
 
         return $factory->createContext();
     }
