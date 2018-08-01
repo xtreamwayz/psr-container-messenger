@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace XtreamLabs\Expressive\Messenger\Container;
+namespace Xtreamwayz\Expressive\Messenger\Container;
 
 use Psr\Container\ContainerInterface;
 use Symfony\Component\Messenger\Asynchronous\Middleware\SendMessageMiddleware;
 use Symfony\Component\Messenger\Asynchronous\Routing\SenderLocator;
-use Symfony\Component\Messenger\MiddlewareInterface;
+use Symfony\Component\Messenger\Middleware\MiddlewareInterface;
 
 class SendMessageMiddlewareFactory
 {

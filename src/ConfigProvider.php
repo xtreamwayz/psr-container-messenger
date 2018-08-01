@@ -2,14 +2,13 @@
 
 declare(strict_types=1);
 
-namespace XtreamLabs\Expressive\Messenger;
+namespace Xtreamwayz\Expressive\Messenger;
 
 use Interop\Queue\PsrContext;
 use Symfony\Component\Messenger\Asynchronous\Middleware\SendMessageMiddleware;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Messenger\Middleware\HandleMessageMiddleware;
-use Symfony\Component\Messenger\Transport\Serialization\DecoderInterface;
-use Symfony\Component\Messenger\Transport\Serialization\EncoderInterface;
+use Symfony\Component\Messenger\Transport\Serialization\Serializer;
 use Symfony\Component\Serializer\SerializerInterface;
 
 class ConfigProvider
@@ -28,17 +27,15 @@ class ConfigProvider
         // @codingStandardsIgnoreStart
         return [
             'factories' => [
-                'queue.default.receiver' => [Queue\QueueReceiverFactory::class, 'queue.default'],
-                'queue.default.sender'   => [Queue\QueueSenderFactory::class, 'queue.default'],
+                'messenger.transport.default' => [Queue\QueueTransportFactory::class, 'messenger.transport.default'],
 
                 Command\MessengerConsumerCommand::class => Command\MessengerConsumerCommandFactory::class,
-                DecoderInterface::class                 => Container\DecoderFactory::class,
-                EncoderInterface::class                 => Container\EncoderFactory::class,
                 HandleMessageMiddleware::class          => Container\HandleMessageMiddlewareFactory::class,
                 MessageBusInterface::class              => Container\MessageBusFactory::class,
                 PsrContext::class                       => Container\RedisFactory::class,
                 SendMessageMiddleware::class            => Container\SendMessageMiddlewareFactory::class,
                 SerializerInterface::class              => Container\SerializerFactory::class,
+                Serializer::class                       => Container\TransportSerializerFactory::class,
             ],
         ];
         // @codingStandardsIgnoreEnd
@@ -51,19 +48,17 @@ class ConfigProvider
                 SendMessageMiddleware::class,
                 HandleMessageMiddleware::class,
             ],
+
+            // These are loaded into the SendMessageMiddleware
+            // App\MyMessage::class => ['messenger.transport.default'],
+            'routing'    => [],
         ];
     }
 
     public function getConsole() : array
     {
         return [
-            'commands' => [
-                Command\MessengerConsumerCommand::class,
-            ],
-
-            'lazy_services' => [
-                MessageBusInterface::class,
-            ],
+            'commands' => [Command\MessengerConsumerCommand::class],
         ];
     }
 }

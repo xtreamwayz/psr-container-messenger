@@ -2,9 +2,9 @@
 
 _Symfony Messenger + Enqueue for Zend Expressive_
 
-[![Build Status](https://travis-ci.org/xtreamlabs/expressive-messenger.svg)](https://travis-ci.org/xtreamlabs/expressive-messenger)
-[![Packagist](https://img.shields.io/packagist/v/xtreamlabs/expressive-messenger.svg)](https://packagist.org/packages/xtreamlabs/expressive-messenger)
-[![Packagist](https://img.shields.io/packagist/vpre/xtreamlabs/expressive-messenger.svg)](https://packagist.org/packages/xtreamlabs/expressive-messenger)
+[![Build Status](https://travis-ci.org/xtreamwayz/expressive-messenger.svg)](https://travis-ci.org/xtreamwayz/expressive-messenger)
+[![Packagist](https://img.shields.io/packagist/v/xtreamwayz/expressive-messenger.svg)](https://packagist.org/packages/xtreamwayz/expressive-messenger)
+[![Packagist](https://img.shields.io/packagist/vpre/xtreamwayz/expressive-messenger.svg)](https://packagist.org/packages/xtreamwayz/expressive-messenger)
 
 This packages brings a command bus and optional queue to your Zend Expressive project. Basically it's a bundle of
 factories to make life easier for you. The real work is done by [Symfony Messenger](https://github.com/symfony/messenger)
@@ -12,7 +12,7 @@ and [enqueue](https://github.com/php-enqueue/enqueue).
 
 ## Installation
 
-    composer require xtreamlabs/expressive-messenger
+    composer require Xtreamwayz/expressive-messenger
 
 If you have the [zend-component-installer](https://github.com/zendframework/zend-component-installer) installed, the
 ConfigProvider is installed automatically.
@@ -28,8 +28,8 @@ namespace App;
 
 use App\Handler\MyMessageHandlerFactory;
 use App\Message\MyMessage;
-use XtreamLabs\Expressive\Messenger\Queue\QueueReceiverFactory;
-use XtreamLabs\Expressive\Messenger\Queue\QueueSenderFactory;
+use Xtreamwayz\Expressive\Messenger\Queue\QueueReceiverFactory;
+use Xtreamwayz\Expressive\Messenger\Queue\QueueSenderFactory;
 
 return [
     'dependencies' => [
@@ -100,8 +100,8 @@ use App\Handler\MyMessageHandlerFactory;
 use App\Message\MyMessage;
 use Symfony\Component\Messenger\Asynchronous\Middleware\SendMessageMiddleware;
 use Symfony\Component\Messenger\Middleware\HandleMessageMiddleware;
-use XtreamLabs\Expressive\Messenger\Queue\QueueReceiverFactory;
-use XtreamLabs\Expressive\Messenger\Queue\QueueSenderFactory;
+use Xtreamwayz\Expressive\Messenger\Queue\QueueReceiverFactory;
+use Xtreamwayz\Expressive\Messenger\Queue\QueueSenderFactory;
 
 return [
     'dependencies' => [

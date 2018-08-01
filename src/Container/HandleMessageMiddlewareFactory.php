@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace XtreamLabs\Expressive\Messenger\Container;
+namespace Xtreamwayz\Expressive\Messenger\Container;
 
 use Psr\Container\ContainerInterface;
-use Symfony\Component\Messenger\ContainerHandlerLocator;
+use Symfony\Component\Messenger\Handler\Locator\ContainerHandlerLocator;
 use Symfony\Component\Messenger\Middleware\HandleMessageMiddleware;
-use Symfony\Component\Messenger\MiddlewareInterface;
+use Symfony\Component\Messenger\Middleware\MiddlewareInterface;
 
 class HandleMessageMiddlewareFactory
 {

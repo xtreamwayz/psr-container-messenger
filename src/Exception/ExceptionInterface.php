@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace XtreamLabs\Expressive\Messenger\Exception;
+namespace Xtreamwayz\Expressive\Messenger\Exception;
 
 interface ExceptionInterface
 {
