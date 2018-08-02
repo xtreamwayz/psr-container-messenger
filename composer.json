@@ -21,7 +21,7 @@
     },
     "suggest": {
         "enqueue/enqueue": "For using the php-enqueue library as a queue.",
-        "Xtreamwayz/expressive-console": "For auto configuring the cli command."
+        "xtreamwayz/expressive-console": "For auto configuring the cli command."
     },
     "config": {
         "sort-packages": true
