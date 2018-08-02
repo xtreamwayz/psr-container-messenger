@@ -58,7 +58,9 @@ class ConfigProvider
     public function getConsole() : array
     {
         return [
-            'commands' => [Command\MessengerConsumerCommand::class],
+            'commands' => [
+                'messenger:consume' => Command\MessengerConsumerCommand::class
+            ],
         ];
     }
 }
