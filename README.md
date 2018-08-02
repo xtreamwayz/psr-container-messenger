@@ -126,7 +126,7 @@ return [
 
         'routing' => [
             // These are loaded into the SendMessageMiddleware
-            MyMessage::class => ['messenger.transport.default'],
+            MyMessage::class => 'messenger.transport.default',
         ],
     ]
 ];

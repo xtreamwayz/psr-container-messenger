@@ -50,7 +50,7 @@ class ConfigProvider
             ],
 
             // These are loaded into the SendMessageMiddleware
-            // App\MyMessage::class => ['messenger.transport.default'],
+            // App\MyMessage::class => 'messenger.transport.default',
             'routing'    => [],
         ];
     }
