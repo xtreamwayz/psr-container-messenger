@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace XtreamLabs\Expressive\Messenger\Command;
+namespace Xtreamwayz\Expressive\Messenger\Command;
 
 use Psr\Container\ContainerInterface;
 use Symfony\Component\Console\Command\Command;
@@ -11,7 +11,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Messenger\MessageBusInterface;
-use Symfony\Component\Messenger\Transport\Enhancers\MaximumCountReceiver;
+use Symfony\Component\Messenger\Transport\Enhancers\StopWhenMessageCountIsExceededReceiver;
 use Symfony\Component\Messenger\Transport\ReceiverInterface;
 use Symfony\Component\Messenger\Worker;
 use function sprintf;
@@ -73,7 +73,7 @@ EOF
 
         $limit = $input->getOption('limit');
         if ($limit) {
-            $receiver = new MaximumCountReceiver($receiver, $limit);
+            $receiver = new StopWhenMessageCountIsExceededReceiver($receiver, $limit);
         }
 
         $worker = new Worker($receiver, $this->bus);

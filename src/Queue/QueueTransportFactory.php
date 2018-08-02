@@ -2,17 +2,18 @@
 
 declare(strict_types=1);
 
-namespace XtreamLabs\Expressive\Messenger\Queue;
+namespace Xtreamwayz\Expressive\Messenger\Queue;
 
 use DomainException;
 use Interop\Queue\PsrContext;
 use Psr\Container\ContainerInterface;
 use Symfony\Component\Messenger\Transport\SenderInterface;
-use Symfony\Component\Messenger\Transport\Serialization\EncoderInterface;
+use Symfony\Component\Messenger\Transport\Serialization\Serializer;
+use Symfony\Component\Messenger\Transport\TransportInterface;
 use function array_key_exists;
 use function sprintf;
 
-class QueueSenderFactory
+class QueueTransportFactory
 {
     /** @var string */
     private $queueName;
@@ -22,10 +23,10 @@ class QueueSenderFactory
         $this->queueName = $queueName ?? 'messenger.queue.default';
     }
 
-    public function __invoke(ContainerInterface $container) : SenderInterface
+    public function __invoke(ContainerInterface $container) : TransportInterface
     {
-        return new QueueSender(
-            $container->get(EncoderInterface::class),
+        return new QueueTransport(
+            $container->get(Serializer::class),
             $container->get(PsrContext::class),
             $this->queueName
         );

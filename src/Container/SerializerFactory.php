@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace XtreamLabs\Expressive\Messenger\Container;
+namespace Xtreamwayz\Expressive\Messenger\Container;
 
 use Psr\Container\ContainerInterface;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;

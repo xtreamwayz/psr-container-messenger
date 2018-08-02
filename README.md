@@ -2,9 +2,9 @@
 
 _Symfony Messenger + Enqueue for Zend Expressive_
 
-[![Build Status](https://travis-ci.org/xtreamlabs/expressive-messenger.svg)](https://travis-ci.org/xtreamlabs/expressive-messenger)
-[![Packagist](https://img.shields.io/packagist/v/xtreamlabs/expressive-messenger.svg)](https://packagist.org/packages/xtreamlabs/expressive-messenger)
-[![Packagist](https://img.shields.io/packagist/vpre/xtreamlabs/expressive-messenger.svg)](https://packagist.org/packages/xtreamlabs/expressive-messenger)
+[![Build Status](https://travis-ci.org/xtreamwayz/expressive-messenger.svg)](https://travis-ci.org/xtreamwayz/expressive-messenger)
+[![Packagist](https://img.shields.io/packagist/v/xtreamwayz/expressive-messenger.svg)](https://packagist.org/packages/xtreamwayz/expressive-messenger)
+[![Packagist](https://img.shields.io/packagist/vpre/xtreamwayz/expressive-messenger.svg)](https://packagist.org/packages/xtreamwayz/expressive-messenger)
 
 This packages brings a command bus and optional queue to your Zend Expressive project. Basically it's a bundle of
 factories to make life easier for you. The real work is done by [Symfony Messenger](https://github.com/symfony/messenger)
@@ -12,7 +12,7 @@ and [enqueue](https://github.com/php-enqueue/enqueue).
 
 ## Installation
 
-    composer require xtreamlabs/expressive-messenger
+    composer require Xtreamwayz/expressive-messenger
 
 If you have the [zend-component-installer](https://github.com/zendframework/zend-component-installer) installed, the
 ConfigProvider is installed automatically.
@@ -28,8 +28,8 @@ namespace App;
 
 use App\Handler\MyMessageHandlerFactory;
 use App\Message\MyMessage;
-use XtreamLabs\Expressive\Messenger\Queue\QueueReceiverFactory;
-use XtreamLabs\Expressive\Messenger\Queue\QueueSenderFactory;
+use Xtreamwayz\Expressive\Messenger\Queue\QueueReceiverFactory;
+use Xtreamwayz\Expressive\Messenger\Queue\QueueSenderFactory;
 
 return [
     'dependencies' => [
@@ -63,6 +63,7 @@ use App\Message\MyMessage;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
+use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Zend\Diactoros\Response\JsonResponse;
 
@@ -79,7 +80,7 @@ class TestHandler implements RequestHandlerInterface
     public function handle(ServerRequestInterface $request) : ResponseInterface
     {
         $this->bus->dispatch(
-            new MyMessage(['foo' => 'bar'])
+            new Envelope(new MyMessage(['foo' => 'bar']))
         );
 
         return new JsonResponse([], 204);
@@ -100,8 +101,7 @@ use App\Handler\MyMessageHandlerFactory;
 use App\Message\MyMessage;
 use Symfony\Component\Messenger\Asynchronous\Middleware\SendMessageMiddleware;
 use Symfony\Component\Messenger\Middleware\HandleMessageMiddleware;
-use XtreamLabs\Expressive\Messenger\Queue\QueueReceiverFactory;
-use XtreamLabs\Expressive\Messenger\Queue\QueueSenderFactory;
+use Xtreamwayz\Expressive\Messenger\Queue\QueueTransportFactory;
 
 return [
     'dependencies' => [
@@ -109,12 +109,11 @@ return [
             'handler.' . MyMessage::class => MyMessageHandlerFactory::class,
 
             // This queue is added by default
-            'queue.default.receiver' => [QueueReceiverFactory::class, 'queue.default'],
-            'queue.default.sender'   => [QueueSenderFactory::class, 'queue.default'],
+            'messenger.transport.default' => [QueueTransportFactory::class, 'messenger.transport.default'],
 
             // Add a second queue
-            'queue.another.receiver' => [QueueReceiverFactory::class, 'queue.another'],
-            'queue.another.sender'   => [QueueSenderFactory::class, 'queue.another'],
+            'messenger.transport.commands' => [QueueTransportFactory::class, 'messenger.transport.commands'],
+            'messenger.transport.events'   => [QueueTransportFactory::class, 'messenger.transport.events'],
         ],
     ],
 
@@ -127,7 +126,7 @@ return [
 
         'routing' => [
             // These are loaded into the SendMessageMiddleware
-            MyMessage::class => ['queue.default.sender'],
+            MyMessage::class => ['messenger.transport.default'],
         ],
     ]
 ];

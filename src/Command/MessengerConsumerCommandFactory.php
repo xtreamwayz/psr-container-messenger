@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace XtreamLabs\Expressive\Messenger\Command;
+namespace Xtreamwayz\Expressive\Messenger\Command;
 
 use Psr\Container\ContainerInterface;
 use Symfony\Component\Messenger\MessageBusInterface;

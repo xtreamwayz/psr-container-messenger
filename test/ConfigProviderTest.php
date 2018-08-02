@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace XtreamLabsTest\Expressive\Messenger;
+namespace XtreamwayzTest\Expressive\Messenger;
 
 use PHPUnit\Framework\TestCase;
-use XtreamLabs\Expressive\Messenger\ConfigProvider;
+use Xtreamwayz\Expressive\Messenger\ConfigProvider;
 use Zend\ServiceManager\Config;
 use Zend\ServiceManager\ServiceManager;
 use function is_array;
@@ -49,13 +49,8 @@ class ConfigProviderTest extends TestCase
     public function testServicesDefinedInConfigProvider() : void
     {
         $dependencies = $this->provider->getDependencies();
+        $container    = $this->getContainer($dependencies);
 
-        //ServerUrlHelper::class           => $this->prophesize(ServerUrlHelper::class)->reveal(),
-        //UrlHelper::class                 => $this->prophesize(UrlHelper::class)->reveal(),
-        //TemplateRendererInterface::class => $this->prophesize(TemplateRendererInterface::class)->reveal(),
-        $dependencies['services'] = [];
-
-        $container = $this->getContainer($dependencies);
         foreach ($dependencies['factories'] as $name => $factory) {
             if (is_array($factory)) {
                 $factory = $factory[0];

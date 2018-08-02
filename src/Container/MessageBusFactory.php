@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace XtreamLabs\Expressive\Messenger\Container;
+namespace Xtreamwayz\Expressive\Messenger\Container;
 
 use Psr\Container\ContainerInterface;
 use Symfony\Component\Messenger\MessageBus;
 use Symfony\Component\Messenger\MessageBusInterface;
-use XtreamLabs\Expressive\Messenger\Exception\InvalidConfigException;
+use Xtreamwayz\Expressive\Messenger\Exception\InvalidConfigException;
 
 class MessageBusFactory
 {
