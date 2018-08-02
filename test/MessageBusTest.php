@@ -4,17 +4,23 @@ declare(strict_types=1);
 
 namespace XtreamwayzTest\Expressive\Messenger;
 
+use Enqueue\Redis\Redis;
+use Enqueue\Redis\RedisContext;
+use Interop\Queue\PsrContext;
 use PHPUnit\Framework\TestCase;
+use Prophecy\Argument;
+use Psr\Container\ContainerInterface;
 use Symfony\Component\Messenger\Asynchronous\Transport\ReceivedMessage;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\Exception\NoHandlerForMessageException;
 use Symfony\Component\Messenger\MessageBusInterface;
+use Symfony\Component\Messenger\Transport\Serialization\Serializer;
 use Xtreamwayz\Expressive\Messenger\ConfigProvider;
-use XtreamwayzTest\Expressive\Messenger\Fixtures\DummyCommand;
-use XtreamwayzTest\Expressive\Messenger\Fixtures\DummyCommandHandlerFactory;
 use XtreamwayzTest\Expressive\Messenger\Fixtures\DummyMessage;
+use XtreamwayzTest\Expressive\Messenger\Fixtures\DummyMessageHandlerInterface;
 use Zend\ServiceManager\Config;
 use Zend\ServiceManager\ServiceManager;
+use function json_encode;
 use function sprintf;
 
 class MessageBusTest extends TestCase
@@ -25,6 +31,9 @@ class MessageBusTest extends TestCase
     /** @var array */
     private $dependencies;
 
+    /** @var ContainerInterface */
+    private $container;
+
     protected function setUp() : void
     {
         $this->config       = (new ConfigProvider())();
@@ -33,11 +42,11 @@ class MessageBusTest extends TestCase
 
     private function createMessageBus() : MessageBusInterface
     {
-        $container = new ServiceManager();
-        (new Config($this->dependencies))->configureServiceManager($container);
-        $container->setService('config', $this->config);
+        $this->container = new ServiceManager();
+        (new Config($this->dependencies))->configureServiceManager($this->container);
+        $this->container->setService('config', $this->config);
 
-        return $container->get(MessageBusInterface::class);
+        return $this->container->get(MessageBusInterface::class);
     }
 
     public function testItHasNoDummyHandler() : void
@@ -55,26 +64,69 @@ class MessageBusTest extends TestCase
 
     public function testItCanHandleMessages() : void
     {
-        $this->dependencies['factories']['handler.' . DummyCommand::class] = DummyCommandHandlerFactory::class;
-
-        $message  = new DummyCommand('Hello');
+        $message  = new DummyMessage('Hello');
         $envelope = new Envelope($message, [new ReceivedMessage()]);
+
+        $handler = $this->prophesize(DummyMessageHandlerInterface::class);
+        $handler->__invoke($message)->shouldBeCalled();
+
+        $this->dependencies['services']['handler.' . DummyMessage::class] = $handler->reveal();
 
         $bus = $this->createMessageBus();
         $bus->dispatch($envelope);
     }
 
-    public function testItCanQueueMessages() : void
+    public function testItCanSendMessagesToTheQueue() : void
     {
-        $this->config['messenger']['routing'][DummyCommand::class] = 'messenger.transport.default';
+        $this->config['messenger']['routing'][DummyMessage::class] = 'messenger.transport.default';
 
-        $message  = new DummyCommand('Hello');
+        $message  = new DummyMessage('Hello');
         $envelope = new Envelope($message);
 
+        $redis = $this->prophesize(Redis::class);
+        $redis->lpush('messenger.transport.default', Argument::type('string'))->shouldBeCalled();
+        $psrContext = new RedisContext($redis->reveal());
+
+        $this->dependencies['services'][PsrContext::class] = $psrContext;
+
         $bus = $this->createMessageBus();
-
-        $this->expectExceptionMessage('No connection could be made because the target machine actively refused it.');
-
         $bus->dispatch($envelope);
+    }
+
+    public function testItReceivesMessagesFromTheQueue() : void
+    {
+        $this->config['messenger']['routing'][DummyMessage::class] = 'messenger.transport.default';
+
+        $redis      = $this->prophesize(Redis::class);
+        $psrContext = new RedisContext($redis->reveal());
+
+        $this->dependencies['services'][PsrContext::class] = $psrContext;
+        $this->createMessageBus();
+
+        $message        = new DummyMessage('Hello');
+        $envelope       = new Envelope($message);
+        $serializer     = $this->container->get(Serializer::class);
+        $encodedMessage = $serializer->encode($envelope);
+        $psrMessage     = $psrContext->createMessage(
+            $encodedMessage['body'],
+            $encodedMessage['properties'] ?? [],
+            $encodedMessage['headers'] ?? []
+        );
+
+        $redis
+            ->brpop('messenger.transport.default', 1)
+            ->willReturn(json_encode($psrMessage))
+            ->shouldBeCalledTimes(1);
+
+        $transport = $this->container->get('messenger.transport.default');
+        $transport->receive(function (?Envelope $envelope) use ($transport) : void {
+            $transport->stop();
+
+            self::assertNotNull($envelope);
+
+            $message = $envelope->getMessage();
+            self::assertInstanceOf(DummyMessage::class, $message);
+            self::assertEquals('hello', $message->getMessage());
+        });
     }
 }
