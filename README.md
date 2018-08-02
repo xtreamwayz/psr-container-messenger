@@ -12,7 +12,7 @@ and [enqueue](https://github.com/php-enqueue/enqueue).
 
 ## Installation
 
-    composer require Xtreamwayz/expressive-messenger
+    composer require xtreamwayz/expressive-messenger
 
 If you have the [zend-component-installer](https://github.com/zendframework/zend-component-installer) installed, the
 ConfigProvider is installed automatically.
