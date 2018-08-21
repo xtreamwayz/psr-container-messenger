@@ -32,6 +32,85 @@ $eventBus = $container->get('messenger.bus.event');
 $queryBus = $container->get('messenger.bus.query');
 ```
 
+## Configuration
+
+```php
+<?php
+
+declare(strict_types=1);
+
+namespace App;
+
+use App\Domain\Command\RegisterUser;
+use App\Domain\Event\UserRegistered;
+use App\Domain\Handler\FindUserHandler;
+use App\Domain\Handler\FindUserHandlerFactory;
+use App\Domain\Handler\RegisterUserHandler;
+use App\Domain\Handler\RegisterUserHandlerFactory;
+use App\Domain\Handler\UserRegisteredHandler;
+use App\Domain\Handler\UserRegisteredHandlerFactory;
+use App\Domain\Query\FindUser;
+
+return [
+    'dependencies' => [
+        'factories' => [
+            FindUserHandler::class       => FindUserHandlerFactory::class,
+            RegisterUserHandler::class   => RegisterUserHandlerFactory::class,
+            UserRegisteredHandler::class => UserRegisteredHandlerFactory::class,
+        ],
+    ],
+
+    'messenger' => [
+        'default_bus'        => 'messenger.bus.command',
+        'default_middleware' => true,
+        'buses'              => [
+            // Command bus
+            'messenger.bus.command' => [
+                'handlers'   => [
+                    // A command must have one handler
+                    RegisterUser::class => RegisterUserHandler::class
+                ],
+                'middleware' => [
+                    // Add custom middleware    
+                ],
+                'routes'     => [
+                    // Transport routes to senders (queue, 3rd party, https endpoint)
+                    RegisterUser::class => 'messenger.bus.command'
+                ],
+            ],
+            // Event bus
+            'messenger.bus.event'   => [
+                'handlers'   => [
+                    // An event may have multiple handlers
+                    UserRegistered::class => [
+                        SendTermsEmailHandler::class,
+                        SendActivationEmailHandler::class,
+                    ],
+                ],
+                'middleware' => [
+                    AllowNoHandlerMiddleware::class,
+                    // Add custom middleware    
+                ],
+                'routes'     => [
+                    // Transport routes to senders (queue, 3rd party, https endpoint)
+                ],
+            ],
+            'messenger.bus.query'   => [
+                'handlers'   => [
+                    FindUser::class => FindUserHandler::class
+                ],
+                'middleware' => [
+                    // Add custom middleware
+                ],
+                'routes'     => [
+                    // Transport routes to senders (queue, 3rd party, https endpoint)
+                ],
+            ],
+        ],
+    ],
+];
+```
+
 ### Using the command bus
 
 ```php
@@ -41,14 +120,15 @@ declare(strict_types=1);
 
 namespace App\Handler;
 
-use App\Message\MyMessage;
+use App\Domain\Command\RegisterUser;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
+use Ramsey\Uuid\Uuid;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Zend\Diactoros\Response\JsonResponse;
 
-class TestHandler implements RequestHandlerInterface
+class RegisterHandler implements RequestHandlerInterface
 {
     /** @var MessageBusInterface */
     private $bus;
@@ -61,90 +141,14 @@ class TestHandler implements RequestHandlerInterface
     public function handle(ServerRequestInterface $request) : ResponseInterface
     {
         $this->bus->dispatch(
-            new MyMessage(['foo' => 'bar'])
+            new RegisterUser([
+                'id'       => Uuid::uuid4()->toString(),
+                'email'    => $request->getAttribute('email'),
+                'password' => $request->getAttribute('password'),
+            ])
         );
 
         return new JsonResponse([], 204);
     }
 }
-```
-
-## Command Bus with Queue
-
-```php
-<?php
-
-declare(strict_types=1);
-
-namespace App;
-
-use App\Domain\Command\MyCommand;
-use App\Domain\Handler\MyCommandHandler;
-use App\Domain\Handler\MyCommandHandlerFactory;
-use App\Domain\Query\MyQuery;
-use App\Domain\Handler\MyQueryHandler;
-use App\Domain\Handler\MyQueryHandlerFactory;
-use App\Domain\Event\MyEvent;
-use App\Domain\Handler\MyEventHandler;
-use App\Domain\Handler\MyEventHandlerFactory;
-
-return [
-    'dependencies' => [
-        'factories' => [
-            MyEventHandler::class   => MyEventHandlerFactory::class,
-            MyCommandHandler::class => MyCommandHandlerFactory::class,
-            MyQueryHandler::class   => MyQueryHandlerFactory::class,
-        ],
-    ],
-
-    'messenger' => [
-        'default_bus'        => 'messenger.bus.command',
-        'default_middleware' => true,
-        'buses'              => [
-            // Command bus
-            'messenger.bus.command' => [
-                'handlers'   => [
-                    // A command must have one handler
-                    MyCommand::class => MyCommandHandler::class
-                ],
-                'middleware' => [
-                    // Add custom middleware    
-                ],
-                'routes'     => [
-                    // Transport routes to senders (queue, 3rd party, https endpoint)
-                    MyCommand::class => 'messenger.bus.command'
-                ],
-            ],
-            // Event bus
-            'messenger.bus.event'   => [
-                'handlers'   => [
-                    // An event may have multiple handlers
-                    MyEvent::class => MyEventHandler::class,  
-                    AnotherEvent::class => [
-                        AnotherEventHandler::class,
-                        SecondAnotherEventHandler::class,
-                    ],  
-                ],
-                'middleware' => [
-                    AllowNoHandlerMiddleware::class,
-                    // Add custom middleware    
-                ],
-                'routes'     => [
-                    // Transport routes to senders (queue, 3rd party, https endpoint)
-                ],
-            ],
-            'messenger.bus.query'   => [
-                'handlers'   => [
-                    MyQuery::class => MyQueryHandler::class
-                ],
-                'middleware' => [
-                    // Add custom middleware
-                ],
-                'routes'     => [
-                    // Transport routes to senders (queue, 3rd party, https endpoint)
-                ],
-            ],
-        ],
-    ],
-];
 ```
