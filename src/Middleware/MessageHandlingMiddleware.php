@@ -45,7 +45,7 @@ class MessageHandlingMiddleware implements MiddlewareInterface
         }
 
         $result = [];
-        foreach ((array) $this->messageHandlers[$messageClass] as $handlerClass) {
+        foreach ($this->messageHandlers[$messageClass] as $handlerClass) {
             $handler  = $this->handlerResolver->get($handlerClass);
             $result[] = $handler($message);
         }
