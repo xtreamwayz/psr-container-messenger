@@ -15,39 +15,21 @@ and [enqueue](https://github.com/php-enqueue/enqueue).
     composer require xtreamwayz/expressive-messenger
 
 If you have the [zend-component-installer](https://github.com/zendframework/zend-component-installer) installed, the
-ConfigProvider is installed automatically.
+configuration is added automatically for you.
 
-## Command Bus
+## Command, Query and Event buses
+
+By default there are 3 buses registered.
 
 ```php
-<?php
+// Each dispatched command must have one handler. 
+$commandBus = $container->get('messenger.bus.command');
 
-declare(strict_types=1);
+// Each dispatched event may have zero or more handlers.
+$eventBus = $container->get('messenger.bus.event');
 
-namespace App;
-
-use App\Handler\MyMessageHandlerFactory;
-use App\Message\MyMessage;
-use Xtreamwayz\Expressive\Messenger\Queue\QueueReceiverFactory;
-use Xtreamwayz\Expressive\Messenger\Queue\QueueSenderFactory;
-
-return [
-    'dependencies' => [
-        'factories' => [
-            'handler.' . MyMessage::class => MyMessageHandlerFactory::class,
-        ],
-    ],
-
-    'messenger' => [
-        'middleware' => [
-            // These middleware are added by default
-        ],
-
-        'routing' => [
-            // These are loaded into the SendMessageMiddleware
-        ],
-    ]
-];
+// Each dispatched query must have one handler and returns a result.
+$queryBus = $container->get('messenger.bus.query');
 ```
 
 ### Using the command bus
@@ -63,7 +45,6 @@ use App\Message\MyMessage;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
-use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Zend\Diactoros\Response\JsonResponse;
 
@@ -80,7 +61,7 @@ class TestHandler implements RequestHandlerInterface
     public function handle(ServerRequestInterface $request) : ResponseInterface
     {
         $this->bus->dispatch(
-            new Envelope(new MyMessage(['foo' => 'bar']))
+            new MyMessage(['foo' => 'bar'])
         );
 
         return new JsonResponse([], 204);
@@ -97,37 +78,73 @@ declare(strict_types=1);
 
 namespace App;
 
-use App\Handler\MyMessageHandlerFactory;
-use App\Message\MyMessage;
-use Symfony\Component\Messenger\Asynchronous\Middleware\SendMessageMiddleware;
-use Symfony\Component\Messenger\Middleware\HandleMessageMiddleware;
-use Xtreamwayz\Expressive\Messenger\Queue\QueueTransportFactory;
+use App\Domain\Command\MyCommand;
+use App\Domain\Handler\MyCommandHandler;
+use App\Domain\Handler\MyCommandHandlerFactory;
+use App\Domain\Query\MyQuery;
+use App\Domain\Handler\MyQueryHandler;
+use App\Domain\Handler\MyQueryHandlerFactory;
+use App\Domain\Event\MyEvent;
+use App\Domain\Handler\MyEventHandler;
+use App\Domain\Handler\MyEventHandlerFactory;
 
 return [
     'dependencies' => [
         'factories' => [
-            'handler.' . MyMessage::class => MyMessageHandlerFactory::class,
-
-            // This queue is added by default
-            'messenger.transport.default' => [QueueTransportFactory::class, 'messenger.transport.default'],
-
-            // Add a second queue
-            'messenger.transport.commands' => [QueueTransportFactory::class, 'messenger.transport.commands'],
-            'messenger.transport.events'   => [QueueTransportFactory::class, 'messenger.transport.events'],
+            MyEventHandler::class   => MyEventHandlerFactory::class,
+            MyCommandHandler::class => MyCommandHandlerFactory::class,
+            MyQueryHandler::class   => MyQueryHandlerFactory::class,
         ],
     ],
 
     'messenger' => [
-        'middleware' => [
-            // These middleware are added by default
-            SendMessageMiddleware::class,
-            HandleMessageMiddleware::class,
+        'default_bus'        => 'messenger.bus.command',
+        'default_middleware' => true,
+        'buses'              => [
+            // Command bus
+            'messenger.bus.command' => [
+                'handlers'   => [
+                    // A command must have one handler
+                    MyCommand::class => MyCommandHandler::class
+                ],
+                'middleware' => [
+                    // Add custom middleware    
+                ],
+                'routes'     => [
+                    // Transport routes to senders (queue, 3rd party, https endpoint)
+                    MyCommand::class => 'messenger.bus.command'
+                ],
+            ],
+            // Event bus
+            'messenger.bus.event'   => [
+                'handlers'   => [
+                    // An event may have multiple handlers
+                    MyEvent::class => MyEventHandler::class,  
+                    AnotherEvent::class => [
+                        AnotherEventHandler::class,
+                        SecondAnotherEventHandler::class,
+                    ],  
+                ],
+                'middleware' => [
+                    AllowNoHandlerMiddleware::class,
+                    // Add custom middleware    
+                ],
+                'routes'     => [
+                    // Transport routes to senders (queue, 3rd party, https endpoint)
+                ],
+            ],
+            'messenger.bus.query'   => [
+                'handlers'   => [
+                    MyQuery::class => MyQueryHandler::class
+                ],
+                'middleware' => [
+                    // Add custom middleware
+                ],
+                'routes'     => [
+                    // Transport routes to senders (queue, 3rd party, https endpoint)
+                ],
+            ],
         ],
-
-        'routing' => [
-            // These are loaded into the SendMessageMiddleware
-            MyMessage::class => 'messenger.transport.default',
-        ],
-    ]
+    ],
 ];
 ```

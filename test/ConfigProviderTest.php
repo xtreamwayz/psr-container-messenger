@@ -42,8 +42,22 @@ class ConfigProviderTest extends TestCase
 
         $this->assertArrayHasKey('messenger', $config);
         $this->assertInternalType('array', $config['messenger']);
-        $this->assertArrayHasKey('middleware', $config['messenger']);
-        $this->assertInternalType('array', $config['messenger']['middleware']);
+        $this->assertArrayHasKey('default_middleware', $config['messenger']);
+        $this->assertTrue($config['messenger']['default_middleware']);
+        $this->assertArrayHasKey('buses', $config['messenger']);
+        $this->assertInternalType('array', $config['messenger']['buses']);
+        $this->assertArrayHasKey('messenger.bus.command', $config['messenger']['buses']);
+        $this->assertArrayHasKey('messenger.bus.event', $config['messenger']['buses']);
+        $this->assertArrayHasKey('messenger.bus.query', $config['messenger']['buses']);
+
+        foreach ($config['messenger']['buses'] as $bus) {
+            $this->assertArrayHasKey('handlers', $bus);
+            $this->assertInternalType('array', $bus['handlers']);
+            $this->assertArrayHasKey('middleware', $bus);
+            $this->assertInternalType('array', $bus['middleware']);
+            $this->assertArrayHasKey('routes', $bus);
+            $this->assertInternalType('array', $bus['routes']);
+        }
     }
 
     public function testServicesDefinedInConfigProvider() : void
