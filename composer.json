@@ -45,8 +45,7 @@
         }
     },
     "scripts": {
-        "analyse": "phpstan analyse --level=0 src",
-        "analyse-strict": "phpstan analyse -l 7 src",
+        "analyse": "phpstan analyse",
         "check": [
             "@cs-check",
             "@test",

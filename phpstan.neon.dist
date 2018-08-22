@@ -1,0 +1,11 @@
+parameters:
+    level: 7
+    paths:
+        - %currentWorkingDirectory%/src
+        - %currentWorkingDirectory%/test
+    excludes_analyse:
+        - %currentWorkingDirectory%/src/Transport/EnqueueTransportFactory.php
+
+    ignoreErrors:
+        # extension not available
+        - '#Call to an undefined method Prophecy\\Prophecy\\[a-zA-Z0-9\\_]+::__invoke\(\)#'

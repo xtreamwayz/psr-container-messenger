@@ -44,7 +44,7 @@ script:
   - composer validate --no-check-all --no-check-publish
   - if [[ $EXECUTE_CS_CHECK == 'true' ]]; then ./vendor/bin/phpcs ; fi
   - ./vendor/bin/phpunit
-  - ./vendor/bin/phpstan analyse -l 7 src
+  - ./vendor/bin/phpstan analyse
 
 notifications:
   email: false
