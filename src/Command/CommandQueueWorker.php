@@ -16,15 +16,15 @@ use Symfony\Component\Messenger\Transport\ReceiverInterface;
 use Symfony\Component\Messenger\Worker;
 use function sprintf;
 
-class MessengerConsumerCommand extends Command
+class CommandQueueWorker extends Command
 {
     /** @var string */
     protected static $defaultName = 'messenger:consume';
 
-    /** @var MessageBusInterface  */
+    /** @var MessageBusInterface */
     private $bus;
 
-    /** @var ContainerInterface  */
+    /** @var ContainerInterface */
     private $receiverLocator;
 
     public function __construct(MessageBusInterface $bus, ContainerInterface $receiverLocator)

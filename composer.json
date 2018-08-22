@@ -12,7 +12,8 @@
     "require-dev": {
         "ext-json": "*",
         "doctrine/coding-standard": "^4.0",
-        "enqueue/enqueue": "^0.8.33",
+        "enqueue/enqueue": "^0.8.35",
+        "enqueue/null": "^0.8.24",
         "enqueue/redis": "^0.8.23",
         "phpstan/phpstan": "^0.10.2",
         "phpunit/phpunit": "^7.2",
@@ -45,17 +46,16 @@
         }
     },
     "scripts": {
-        "analyse": "phpstan analyse --level=0 src",
-        "analyse-strict": "phpstan analyse -l 7 src",
+        "analyse": "phpstan analyse",
         "check": [
             "@cs-check",
             "@test",
             "@analyse"
         ],
-        "cs-check": "phpcs --colors",
-        "cs-fix": "phpcbf --colors",
-        "test": "phpunit --colors=always",
-        "test-coverage": "phpunit --colors=always --coverage-clover clover.xml"
+        "cs-check": "phpcs",
+        "cs-fix": "phpcbf",
+        "test": "phpunit",
+        "test-coverage": "phpunit --coverage-clover clover.xml"
     },
     "support": {
         "issues": "https://github.com/Xtreamwayz/expressive-session/issues",

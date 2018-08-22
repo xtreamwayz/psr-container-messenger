@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace Xtreamwayz\Expressive\Messenger;
 
-use Interop\Queue\PsrContext;
 use Symfony\Component\Messenger\Asynchronous\Middleware\SendMessageMiddleware;
 use Symfony\Component\Messenger\MessageBusInterface;
+use Symfony\Component\Messenger\Middleware\AllowNoHandlerMiddleware;
 use Symfony\Component\Messenger\Middleware\HandleMessageMiddleware;
 use Symfony\Component\Messenger\Transport\Serialization\Serializer;
 use Symfony\Component\Serializer\SerializerInterface;
+use Xtreamwayz\Expressive\Messenger\Container\MessageBusFactory;
+use Zend\ServiceManager\Factory\InvokableFactory;
 
 class ConfigProvider
 {
@@ -27,15 +29,22 @@ class ConfigProvider
         // @codingStandardsIgnoreStart
         return [
             'factories' => [
-                'messenger.transport.default' => [Queue\QueueTransportFactory::class, 'messenger.transport.default'],
+                MessageBusInterface::class        => Container\MessageBusFactory::class,
+                'messenger.bus.command'           => [MessageBusFactory::class, 'messenger.bus.command'],
+                'messenger.bus.event'             => [MessageBusFactory::class, 'messenger.bus.event'],
+                'messenger.bus.query'             => [MessageBusFactory::class, 'messenger.bus.query'],
 
-                Command\MessengerConsumerCommand::class => Command\MessengerConsumerCommandFactory::class,
-                HandleMessageMiddleware::class          => Container\HandleMessageMiddlewareFactory::class,
-                MessageBusInterface::class              => Container\MessageBusFactory::class,
-                PsrContext::class                       => Container\RedisFactory::class,
-                SendMessageMiddleware::class            => Container\SendMessageMiddlewareFactory::class,
-                SerializerInterface::class              => Container\SerializerFactory::class,
-                Serializer::class                       => Container\TransportSerializerFactory::class,
+                // Command
+                Command\CommandQueueWorker::class => Command\CommandQueueWorkerFactory::class,
+
+                // Middleware
+                AllowNoHandlerMiddleware::class   => InvokableFactory::class,
+                HandleMessageMiddleware::class    => Container\HandleMessageMiddlewareFactory::class,
+                SendMessageMiddleware::class      => Container\SendMessageMiddlewareFactory::class,
+
+                // Transport
+                SerializerInterface::class        => Container\SerializerFactory::class,
+                Serializer::class                 => Container\TransportSerializerFactory::class,
             ],
         ];
         // @codingStandardsIgnoreEnd
@@ -44,14 +53,27 @@ class ConfigProvider
     public function getMessenger() : array
     {
         return [
-            'middleware' => [
-                SendMessageMiddleware::class,
-                HandleMessageMiddleware::class,
+            'default_bus'        => 'messenger.bus.command',
+            'default_middleware' => true,
+            'buses'              => [
+                'messenger.bus.command' => [
+                    'handlers'   => [],
+                    'middleware' => [],
+                    'routes'     => [],
+                ],
+                'messenger.bus.event'   => [
+                    'handlers'   => [],
+                    'middleware' => [
+                        AllowNoHandlerMiddleware::class,
+                    ],
+                    'routes'     => [],
+                ],
+                'messenger.bus.query'   => [
+                    'handlers'   => [],
+                    'middleware' => [],
+                    'routes'     => [],
+                ],
             ],
-
-            // These are loaded into the SendMessageMiddleware
-            // App\MyMessage::class => 'messenger.transport.default',
-            'routing'    => [],
         ];
     }
 
@@ -59,7 +81,7 @@ class ConfigProvider
     {
         return [
             'commands' => [
-                'messenger:consume' => Command\MessengerConsumerCommand::class
+                'messenger:consume' => Command\CommandQueueWorker::class,
             ],
         ];
     }
