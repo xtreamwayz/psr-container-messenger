@@ -37,6 +37,9 @@ class EnqueueTransportFactory
     /** @var string */
     private $dsn;
 
+    /** @var string */
+    private $queueName;
+
     /**
      * EnqueueTransportFactory constructor
      *
@@ -49,9 +52,10 @@ class EnqueueTransportFactory
      *
      * @see https://github.com/php-enqueue/enqueue-dev/tree/master/docs/transport
      */
-    public function __construct(?string $dsn = null)
+    public function __construct(string $dsn, ?string $queueName = null)
     {
-        $this->dsn = $dsn ?? 'redis:';
+        $this->dsn       = $dsn ?? 'null:';
+        $this->queueName = $queueName ?? 'messenger.transport.default';
     }
 
     public function __invoke(ContainerInterface $container) : TransportInterface
@@ -65,7 +69,7 @@ class EnqueueTransportFactory
         return new EnqueueTransport(
             $container->get(Serializer::class),
             $psrContext,
-            $this->dsn
+            $this->queueName
         );
     }
 
@@ -90,7 +94,7 @@ class EnqueueTransportFactory
             );
         }
 
-        return (new self($dsn))($arguments[0]);
+        return (new self($dsn, $arguments[1] ?? 'messenger.transport.default'))($arguments[0]);
     }
 
     private function dsnToConnectionFactory(string $dsn) : PsrConnectionFactory
