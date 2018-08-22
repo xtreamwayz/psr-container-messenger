@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace XtreamwayzTest\Expressive\Messenger\Handler;
+namespace XtreamwayzTest\Expressive\Messenger;
 
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Messenger\Exception\NoHandlerForMessageException;
