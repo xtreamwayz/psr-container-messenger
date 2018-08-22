@@ -1,14 +1,17 @@
 # Expressive Messenger
 
-_Symfony Messenger + Enqueue for Zend Expressive_
+_Message bus and queue for Zend Expressive with Symfony Messenger + Enqueue_
 
 [![Build Status](https://travis-ci.org/xtreamwayz/expressive-messenger.svg)](https://travis-ci.org/xtreamwayz/expressive-messenger)
 [![Packagist](https://img.shields.io/packagist/v/xtreamwayz/expressive-messenger.svg)](https://packagist.org/packages/xtreamwayz/expressive-messenger)
 [![Packagist](https://img.shields.io/packagist/vpre/xtreamwayz/expressive-messenger.svg)](https://packagist.org/packages/xtreamwayz/expressive-messenger)
 
-This packages brings a command bus and optional queue to your Zend Expressive project. Basically it's a bundle of
-factories to make life easier for you. The real work is done by [Symfony Messenger](https://github.com/symfony/messenger)
+This packages brings message buses to your Zend Expressive project. Basically it's a bundle of factories to make 
+life easier for you. The real work is done by [Symfony Messenger](https://github.com/symfony/messenger)
 and [enqueue](https://github.com/php-enqueue/enqueue).
+
+It comes with pre-configured command, event and query buses for your convenience. Or don't use them if you want to 
+create your own. Transports are used to queue your messages or send and receive them to/from 3rd parties. 
 
 ## Installation
 
@@ -111,7 +114,7 @@ return [
 ];
 ```
 
-### Using the command bus
+### Using the command bus in your middleware or handler
 
 ```php
 <?php
