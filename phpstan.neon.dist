@@ -5,6 +5,7 @@ parameters:
         - %currentWorkingDirectory%/test
     excludes_analyse:
         - %currentWorkingDirectory%/src/Transport/EnqueueTransportFactory.php
+        - %currentWorkingDirectory%/test/Transport/EnqueueTransportTest.php
 
     ignoreErrors:
         # extension not available

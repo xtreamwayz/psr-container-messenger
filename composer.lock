@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a3abd78b59c5817adae3c735b82d185c",
+    "content-hash": "9f8f117074f7c115bf161d236b3852b2",
     "packages": [
         {
             "name": "psr/container",
@@ -777,6 +777,66 @@
                 "testing"
             ],
             "time": "2018-03-23T10:52:55+00:00"
+        },
+        {
+            "name": "enqueue/redis",
+            "version": "0.8.23",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-enqueue/redis.git",
+                "reference": "f453d7a2af54ec2edfe66dd05427ca4f295efefb"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-enqueue/redis/zipball/f453d7a2af54ec2edfe66dd05427ca4f295efefb",
+                "reference": "f453d7a2af54ec2edfe66dd05427ca4f295efefb",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.6",
+                "queue-interop/queue-interop": "^0.6@dev|^1.0.0-alpha1"
+            },
+            "require-dev": {
+                "enqueue/enqueue": "^0.8@dev",
+                "enqueue/null": "^0.8@dev",
+                "enqueue/test": "^0.8@dev",
+                "phpunit/phpunit": "~5.4.0",
+                "predis/predis": "^1.1",
+                "queue-interop/queue-spec": "^0.5.3@dev",
+                "symfony/config": "^2.8|^3|^4",
+                "symfony/dependency-injection": "^2.8|^3|^4"
+            },
+            "suggest": {
+                "enqueue/enqueue": "If you'd like to use advanced features like Client abstract layer or Symfony integration features",
+                "ext-redis": "Either this PHP extension or predis/predis extension has to be installed.",
+                "predis/predis": "Either this PHP library or redis extension has to be installed."
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.8.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Enqueue\\Redis\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Message Queue Redis Transport",
+            "homepage": "https://enqueue.forma-pro.com/",
+            "keywords": [
+                "messaging",
+                "queue",
+                "redis"
+            ],
+            "time": "2018-03-06T10:46:03+00:00"
         },
         {
             "name": "jean85/pretty-package-versions",

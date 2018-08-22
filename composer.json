@@ -14,6 +14,7 @@
         "doctrine/coding-standard": "^4.0",
         "enqueue/enqueue": "^0.8.35",
         "enqueue/null": "^0.8.24",
+        "enqueue/redis": "^0.8.23",
         "phpstan/phpstan": "^0.10.2",
         "phpunit/phpunit": "^7.2",
         "symfony/console": "^4.1",
