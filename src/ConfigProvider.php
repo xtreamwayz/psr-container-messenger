@@ -38,12 +38,11 @@ class ConfigProvider
                 Command\CommandQueueWorker::class => Command\CommandQueueWorkerFactory::class,
 
                 // Middleware
-                SendMessageMiddleware::class      => Container\SendMessageMiddlewareFactory::class,
-                HandleMessageMiddleware::class    => Container\HandleMessageMiddlewareFactory::class,
                 AllowNoHandlerMiddleware::class   => InvokableFactory::class,
+                HandleMessageMiddleware::class    => Container\HandleMessageMiddlewareFactory::class,
+                SendMessageMiddleware::class      => Container\SendMessageMiddlewareFactory::class,
 
                 // Transport
-                'messenger.transport.null'        => [Transport\EnqueueTransportFactory::class, 'null:'],
                 SerializerInterface::class        => Container\SerializerFactory::class,
                 Serializer::class                 => Container\TransportSerializerFactory::class,
             ],

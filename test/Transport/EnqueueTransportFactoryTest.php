@@ -37,15 +37,17 @@ class EnqueueTransportFactoryTest extends TestCase
 
     public function testItCanBeConstructed() : void
     {
+        $this->config['dependencies']['factories']['transport.null'] = [EnqueueTransportFactory::class, 'null:'];
+
         /** @var EnqueueTransport $transport */
         $container = $this->getContainer();
-        $transport = $container->get('messenger.transport.null');
+        $transport = $container->get('transport.null');
 
         self::assertInstanceOf(EnqueueTransport::class, $transport);
         self::assertInstanceOf(TransportInterface::class, $transport);
         self::assertInstanceOf(ReceiverInterface::class, $transport);
         self::assertInstanceOf(SenderInterface::class, $transport);
-        self::assertAttributeEquals('messenger.transport.null', 'queueName', $transport);
+        self::assertAttributeEquals('transport.null', 'queueName', $transport);
     }
 
     public function testItUsesCustomDsn() : void

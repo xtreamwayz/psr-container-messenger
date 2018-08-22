@@ -53,6 +53,7 @@ use App\Domain\Handler\RegisterUserHandlerFactory;
 use App\Domain\Handler\UserRegisteredHandler;
 use App\Domain\Handler\UserRegisteredHandlerFactory;
 use App\Domain\Query\FindUser;
+use Xtreamwayz\Expressive\Messenger\Transport\EnqueueTransportFactory;
 
 return [
     'dependencies' => [
@@ -60,6 +61,8 @@ return [
             FindUserHandler::class       => FindUserHandlerFactory::class,
             RegisterUserHandler::class   => RegisterUserHandlerFactory::class,
             UserRegisteredHandler::class => UserRegisteredHandlerFactory::class,
+            
+            'messenger.transport.redis'   => [EnqueueTransportFactory::class, 'redis:'],
         ],
     ],
 
@@ -78,7 +81,7 @@ return [
                 ],
                 'routes'     => [
                     // Transport routes to senders (queue, 3rd party, https endpoint)
-                    RegisterUser::class => 'messenger.bus.command'
+                    RegisterUser::class => 'messenger.transport.redis'
                 ],
             ],
             // Event bus
@@ -114,7 +117,7 @@ return [
 ];
 ```
 
-### Using the command bus in your middleware or handler
+### Using the bus in your middleware or handler
 
 ```php
 <?php
