@@ -20,7 +20,19 @@ class MessageBusFactory
     /** @var string */
     private $name;
 
-    public static function __callStatic(string $name, array $arguments) : MessageBusInterface
+    /**
+     * Creates a new instance from a specified config
+     *
+     * <code>
+     * <?php
+     * return [
+     *     'messenger.bus.default' => [MessageBusFactory::class, 'messenger.bus.default'],
+     * ];
+     * </code>
+     *
+     * @throws InvalidArgumentException
+     */
+    public static function __callStatic(string $dsn, array $arguments) : MessageBusInterface
     {
         if (! isset($arguments[0]) || ! $arguments[0] instanceof ContainerInterface) {
             throw new InvalidArgumentException(
@@ -28,12 +40,12 @@ class MessageBusFactory
             );
         }
 
-        return (new static($name))->__invoke($arguments[0]);
+        return (new self($dsn))($arguments[0]);
     }
 
     public function __construct(?string $name = null)
     {
-        $this->name = $name ?? 'messenger.bus.command';
+        $this->name = $name ?? 'messenger.bus.default';
     }
 
     public function __invoke(ContainerInterface $container) : MessageBusInterface

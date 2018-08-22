@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Xtreamwayz\Expressive\Messenger\Queue;
+namespace Xtreamwayz\Expressive\Messenger\Transport;
 
 use Interop\Queue\PsrContext;
 use Symfony\Component\Messenger\Envelope;
@@ -11,7 +11,7 @@ use Symfony\Component\Messenger\Transport\TransportInterface;
 use Xtreamwayz\Expressive\Messenger\Exception\RejectMessageException;
 use Xtreamwayz\Expressive\Messenger\Exception\RequeueMessageException;
 
-class QueueTransport implements TransportInterface
+class EnqueueTransport implements TransportInterface
 {
     /** @var Serializer */
     private $serializer;
