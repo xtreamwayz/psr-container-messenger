@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace XtreamwayzTest\Expressive\Messenger;
 
 use PHPUnit\Framework\TestCase;
+use Psr\Log\LoggerInterface;
 use Xtreamwayz\Expressive\Messenger\ConfigProvider;
 use Zend\ServiceManager\Config;
 use Zend\ServiceManager\ServiceManager;
@@ -62,9 +63,14 @@ class ConfigProviderTest extends TestCase
 
     public function testServicesDefinedInConfigProvider() : void
     {
+        // Get dependencies
         $dependencies = $this->provider->getDependencies();
-        $container    = $this->getContainer($dependencies);
 
+        // Mock dependencies
+        $dependencies['services'][LoggerInterface::class] = $this->prophesize(LoggerInterface::class)->reveal();
+
+        // Build container
+        $container = $this->getContainer($dependencies);
         foreach ($dependencies['factories'] as $name => $factory) {
             if (is_array($factory)) {
                 $factory = $factory[0];
