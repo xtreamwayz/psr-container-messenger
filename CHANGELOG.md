@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
+## 0.3.1 - TBD
+
+### Added
+
+- Nothing.
+
+### Changed
+
+- Nothing.
+
+### Deprecated
+
+- Nothing.
+
+### Removed
+
+- Nothing.
+
+### Fixed
+
+- [#4](https://github.com/xtreamwayz/expressive-messenger/pull/4) adds the missing LoggingMiddlewareFactory.
+
 ## 0.3.0 - 2018-08-22
 
 ### Added
