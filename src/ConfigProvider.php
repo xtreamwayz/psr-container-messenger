@@ -8,8 +8,10 @@ use Symfony\Component\Messenger\Asynchronous\Middleware\SendMessageMiddleware;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Messenger\Middleware\AllowNoHandlerMiddleware;
 use Symfony\Component\Messenger\Middleware\HandleMessageMiddleware;
+use Symfony\Component\Messenger\Middleware\LoggingMiddleware;
 use Symfony\Component\Messenger\Transport\Serialization\Serializer;
 use Symfony\Component\Serializer\SerializerInterface;
+use Xtreamwayz\Expressive\Messenger\Container\LoggingMiddlewareFactory;
 use Xtreamwayz\Expressive\Messenger\Container\MessageBusFactory;
 use Zend\ServiceManager\Factory\InvokableFactory;
 
@@ -40,6 +42,7 @@ class ConfigProvider
                 // Middleware
                 AllowNoHandlerMiddleware::class   => InvokableFactory::class,
                 HandleMessageMiddleware::class    => Container\HandleMessageMiddlewareFactory::class,
+                LoggingMiddleware::class          => LoggingMiddlewareFactory::class,
                 SendMessageMiddleware::class      => Container\SendMessageMiddlewareFactory::class,
 
                 // Transport
