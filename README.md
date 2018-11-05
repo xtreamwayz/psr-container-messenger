@@ -2,16 +2,16 @@
 
 _Message bus and queue for Zend Expressive with Symfony Messenger + Enqueue_
 
-[![Build Status](https://travis-ci.org/xtreamwayz/expressive-messenger.svg)](https://travis-ci.org/xtreamwayz/expressive-messenger)
+[![Build Status](https://travis-ci.com/xtreamwayz/expressive-messenger.svg)](https://travis-ci.com/xtreamwayz/expressive-messenger)
 [![Packagist](https://img.shields.io/packagist/v/xtreamwayz/expressive-messenger.svg)](https://packagist.org/packages/xtreamwayz/expressive-messenger)
 [![Packagist](https://img.shields.io/packagist/vpre/xtreamwayz/expressive-messenger.svg)](https://packagist.org/packages/xtreamwayz/expressive-messenger)
 
-This packages brings message buses to your Zend Expressive project. Basically it's a bundle of factories to make 
+This packages brings message buses to your Zend Expressive project. Basically it's a bundle of factories to make
 life easier for you. The real work is done by [Symfony Messenger](https://github.com/symfony/messenger)
 and [enqueue](https://github.com/php-enqueue/enqueue).
 
-It comes with pre-configured command, event and query buses for your convenience. Or don't use them if you want to 
-create your own. Transports are used to queue your messages or send and receive them to/from 3rd parties. 
+It comes with pre-configured command, event and query buses for your convenience. Or don't use them if you want to
+create your own. Transports are used to queue your messages or send and receive them to/from 3rd parties.
 
 ## Installation
 
@@ -25,7 +25,7 @@ configuration is added automatically for you.
 By default there are 3 buses registered.
 
 ```php
-// Each dispatched command must have one handler. 
+// Each dispatched command must have one handler.
 $commandBus = $container->get('messenger.bus.command');
 
 // Each dispatched event may have zero or more handlers.
@@ -61,7 +61,7 @@ return [
             FindUserHandler::class       => FindUserHandlerFactory::class,
             RegisterUserHandler::class   => RegisterUserHandlerFactory::class,
             UserRegisteredHandler::class => UserRegisteredHandlerFactory::class,
-            
+
             'messenger.transport.redis'   => [EnqueueTransportFactory::class, 'redis:'],
         ],
     ],
@@ -77,7 +77,7 @@ return [
                     RegisterUser::class => RegisterUserHandler::class
                 ],
                 'middleware' => [
-                    // Add custom middleware    
+                    // Add custom middleware
                 ],
                 'routes'     => [
                     // Transport routes to senders (queue, 3rd party, https endpoint)
@@ -95,7 +95,7 @@ return [
                 ],
                 'middleware' => [
                     AllowNoHandlerMiddleware::class,
-                    // Add custom middleware    
+                    // Add custom middleware
                 ],
                 'routes'     => [
                     // Transport routes to senders (queue, 3rd party, https endpoint)
