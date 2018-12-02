@@ -21,7 +21,7 @@ use Enqueue\Stomp\StompConnectionFactory;
 use Interop\Queue\PsrConnectionFactory;
 use InvalidArgumentException;
 use Psr\Container\ContainerInterface;
-use Symfony\Component\Messenger\Transport\SenderInterface;
+use Symfony\Component\Messenger\Transport\Sender\SenderInterface;
 use Symfony\Component\Messenger\Transport\Serialization\Serializer;
 use Symfony\Component\Messenger\Transport\TransportInterface;
 use function array_key_exists;

@@ -74,7 +74,7 @@ class EnqueueTransport implements TransportInterface
     /**
      * Sends the given envelope.
      */
-    public function send(Envelope $envelope) : void
+    public function send(Envelope $envelope) : Envelope
     {
         $encodedMessage = $this->serializer->encode($envelope);
         $psrMessage     = $this->psrContext->createMessage(
@@ -86,6 +86,8 @@ class EnqueueTransport implements TransportInterface
         $queue    = $this->psrContext->createQueue($this->queueName);
         $producer = $this->psrContext->createProducer();
         $producer->send($queue, $psrMessage);
+
+        return $envelope;
     }
 
     /**

@@ -53,7 +53,8 @@ class EventBusTest extends TestCase
         $eventBus  = $container->get('messenger.bus.event');
         $result    = $eventBus->dispatch($event);
 
-        self::assertNull($result);
+        self::assertSame($event, $result->getMessage());
+        self::assertEmpty($result->all());
     }
 
     public function testItCanHandleEvents() : void
