@@ -98,6 +98,7 @@ class QueryBusTest extends TestCase
         /** @var HandledStamp|null $lastStamp */
         $lastStamp = $result->last(HandledStamp::class);
         self::assertNotNull($lastStamp);
+        /** @var HandledStamp $lastStamp */
         self::assertEquals($data, $lastStamp->getResult());
     }
 }
