@@ -25,11 +25,19 @@ class MessageHandlingMiddleware implements MiddlewareInterface
     /** @var bool */
     private $allowsNoHandler;
 
-    public function __construct(ContainerInterface $handlerResolver, array $messageHandlers, bool $allowsNoHandler)
-    {
+    /** @var string */
+    private $methodName;
+
+    public function __construct(
+        ContainerInterface $handlerResolver,
+        array $messageHandlers,
+        bool $allowsNoHandler,
+        string $methodName
+    )  {
         $this->handlerResolver = $handlerResolver;
         $this->messageHandlers = $messageHandlers;
         $this->allowsNoHandler = $allowsNoHandler;
+        $this->methodName = $methodName;
     }
 
     /**
@@ -52,7 +60,7 @@ class MessageHandlingMiddleware implements MiddlewareInterface
 
         if (! is_array($this->messageHandlers[$messageClass])) {
             $handler = $this->handlerResolver->get($this->messageHandlers[$messageClass]);
-            $result  = $handler($message);
+            $result  = $handler->{$this->methodName}($message);
 
             $stack->next()->handle($envelope, $stack);
 

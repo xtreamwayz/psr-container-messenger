@@ -56,6 +56,7 @@ class MessageBusFactory
         $middlewares       = $config['messenger']['buses'][$this->name]['middleware'] ?? [];
         $routes            = $config['messenger']['buses'][$this->name]['routes'] ?? [];
         $allowsNoHandler   = $config['messenger']['buses'][$this->name]['allows_no_handler'] ?? false;
+        $methodName        = $config['messenger']['buses'][$this->name]['method_name'] ?? '__invoke';
 
         $stack = [];
         // Add default logging middleware
@@ -77,7 +78,7 @@ class MessageBusFactory
 
         // Add default message handling middleware
         if ($defaultMiddleware === true) {
-            $stack[] = new MessageHandlingMiddleware($container, $handlers, $allowsNoHandler);
+            $stack[] = new MessageHandlingMiddleware($container, $handlers, $allowsNoHandler, $methodName);
         }
 
         if (empty($stack)) {
