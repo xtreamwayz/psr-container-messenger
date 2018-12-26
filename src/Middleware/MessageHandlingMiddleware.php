@@ -64,13 +64,25 @@ class MessageHandlingMiddleware implements MiddlewareInterface
 
             $stack->next()->handle($envelope, $stack);
 
-            return $envelope->with(HandledStamp::fromCallable($handler, $result));
+            return $envelope->with(HandledStamp::fromCallable(
+                is_callable($handler) ? $handler : function ($message) use ($handler) {
+                    return $handler->{$this->methodName}($message);
+                },
+                $result
+            ));
         }
 
         $result = [];
         foreach ($this->messageHandlers[$messageClass] as $handlerClass) {
             $handler  = $this->handlerResolver->get($handlerClass);
-            $result[] = HandledStamp::fromCallable($handler, $handler($message));
+            $result  = $handler->{$this->methodName}($message);
+
+            $result[] = HandledStamp::fromCallable(
+                is_callable($handler) ? $handler : function ($message) use ($handler) {
+                    return $handler->{$this->methodName}($message);
+                },
+                $result
+            );
         }
 
         $stack->next()->handle($envelope, $stack);
