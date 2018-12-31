@@ -6,11 +6,10 @@ namespace Xtreamwayz\Expressive\Messenger\Container;
 
 use InvalidArgumentException;
 use Psr\Container\ContainerInterface;
-use Symfony\Component\Messenger\Asynchronous\Middleware\SendMessageMiddleware;
-use Symfony\Component\Messenger\Asynchronous\Routing\SenderLocator;
 use Symfony\Component\Messenger\MessageBus;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Messenger\Middleware\LoggingMiddleware;
+use Symfony\Component\Messenger\Middleware\SendMessageMiddleware;
 use Xtreamwayz\Expressive\Messenger\Exception\InvalidConfigException;
 use Xtreamwayz\Expressive\Messenger\Middleware\MessageHandlingMiddleware;
 use function sprintf;
@@ -56,6 +55,7 @@ class MessageBusFactory
         $handlers          = $config['messenger']['buses'][$this->name]['handlers'] ?? [];
         $middlewares       = $config['messenger']['buses'][$this->name]['middleware'] ?? [];
         $routes            = $config['messenger']['buses'][$this->name]['routes'] ?? [];
+        $allowsNoHandler   = $config['messenger']['buses'][$this->name]['allows_no_handler'] ?? false;
 
         $stack = [];
         // Add default logging middleware
@@ -71,13 +71,13 @@ class MessageBusFactory
         // Add default sender middleware
         if ($routes && $defaultMiddleware === true) {
             $stack[] = new SendMessageMiddleware(
-                new SenderLocator($container, $routes ?? [])
+                (new ContainerSendersLocatorFactory($this->name))($container)
             );
         }
 
         // Add default message handling middleware
         if ($defaultMiddleware === true) {
-            $stack[] = new MessageHandlingMiddleware($container, $handlers);
+            $stack[] = new MessageHandlingMiddleware($container, $handlers, $allowsNoHandler);
         }
 
         if (empty($stack)) {

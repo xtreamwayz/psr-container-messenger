@@ -8,6 +8,7 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\Messenger\Exception\NoHandlerForMessageException;
 use Symfony\Component\Messenger\MessageBus;
 use Symfony\Component\Messenger\MessageBusInterface;
+use Symfony\Component\Messenger\Stamp\HandledStamp;
 use Xtreamwayz\Expressive\Messenger\ConfigProvider;
 use XtreamwayzTest\Expressive\Messenger\Fixtures\DummyQuery;
 use XtreamwayzTest\Expressive\Messenger\Fixtures\DummyQueryHandler;
@@ -94,6 +95,10 @@ class QueryBusTest extends TestCase
         $queryBus  = $container->get('messenger.bus.query');
         $result    = $queryBus->dispatch($query);
 
-        self::assertEquals($data, $result);
+        /** @var HandledStamp|null $lastStamp */
+        $lastStamp = $result->last(HandledStamp::class);
+        self::assertNotNull($lastStamp);
+        /** @var HandledStamp $lastStamp */
+        self::assertEquals($data, $lastStamp->getResult());
     }
 }
