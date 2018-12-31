@@ -1,12 +1,13 @@
 parameters:
     level: 7
+    includes:
+        - vendor/phpstan/phpstan-phpunit/extension.neon
     paths:
         - %currentWorkingDirectory%/src
         - %currentWorkingDirectory%/test
     excludes_analyse:
         - %currentWorkingDirectory%/src/Transport/EnqueueTransportFactory.php
         - %currentWorkingDirectory%/test/Transport/EnqueueTransportTest.php
-
     ignoreErrors:
         # extension not available
         - '#Call to an undefined method Prophecy\\Prophecy\\[a-zA-Z0-9\\_]+::__invoke\(\)#'
