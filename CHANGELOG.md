@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
+## 0.3.2 - 2018-12-31
+
+### Added
+
+- Added phpunit support for phpstan.
+
+### Changed
+
+- Locked to Symfony 4.1 packages as 4.2 contains BC.
+- Changed dev dependencies to fix a phpcodesniffer-composer-installer issue.
+
 ## 0.3.1 - 2018-09-10
 
 ### Added
