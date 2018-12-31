@@ -26,14 +26,12 @@ matrix:
     - php: 7.2
       env:
         - DEPS=latest
-    - php: nightly
+    - php: 7.3
       env:
         - DEPS=lowest
-    - php: nightly
+    - php: 7.3
       env:
         - DEPS=latest
-  allow_failures:
-    - php: nightly
 
 install:
   - if [[ $DEPS == 'latest' ]]; then composer update $COMPOSER_ARGS ; fi
