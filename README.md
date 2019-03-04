@@ -25,13 +25,13 @@ configuration is added automatically for you.
 By default there are 3 buses registered.
 
 ```php
-// Each dispatched command must have one handler.
+// Each dispatched command must have one handler
 $commandBus = $container->get('messenger.bus.command');
 
-// Each dispatched event may have zero or more handlers.
+// Each dispatched event may have zero or more handlers
 $eventBus = $container->get('messenger.bus.event');
 
-// Each dispatched query must have one handler and returns a result.
+// Each dispatched query must have one handler and returns a result
 $queryBus = $container->get('messenger.bus.query');
 ```
 
@@ -72,6 +72,7 @@ return [
         'buses'              => [
             // Command bus
             'messenger.bus.command' => [
+                'allows_no_handler' => false,
                 'handlers'   => [
                     // A command must have one handler
                     RegisterUser::class => RegisterUserHandler::class
@@ -86,6 +87,7 @@ return [
             ],
             // Event bus
             'messenger.bus.event'   => [
+                'allows_no_handler' => true,
                 'handlers'   => [
                     // An event may have multiple handlers
                     UserRegistered::class => [
@@ -94,7 +96,6 @@ return [
                     ],
                 ],
                 'middleware' => [
-                    AllowNoHandlerMiddleware::class,
                     // Add custom middleware
                 ],
                 'routes'     => [
@@ -102,6 +103,7 @@ return [
                 ],
             ],
             'messenger.bus.query'   => [
+                'allows_no_handler' => false,
                 'handlers'   => [
                     FindUser::class => FindUserHandler::class
                 ],
