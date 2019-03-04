@@ -10,7 +10,6 @@ use Symfony\Component\Messenger\Middleware\LoggingMiddleware;
 use Symfony\Component\Messenger\Middleware\SendMessageMiddleware;
 use Symfony\Component\Messenger\Transport\Serialization\Serializer;
 use Symfony\Component\Serializer\SerializerInterface;
-use Xtreamwayz\Expressive\Messenger\Container\LoggingMiddlewareFactory;
 use Xtreamwayz\Expressive\Messenger\Container\MessageBusFactory;
 
 class ConfigProvider
@@ -39,7 +38,7 @@ class ConfigProvider
 
                 // Middleware
                 HandleMessageMiddleware::class    => Container\HandleMessageMiddlewareFactory::class,
-                LoggingMiddleware::class          => LoggingMiddlewareFactory::class,
+                LoggingMiddleware::class          => Container\LoggingMiddlewareFactory::class,
                 SendMessageMiddleware::class      => Container\SendMessageMiddlewareFactory::class,
 
                 // Transport
@@ -58,21 +57,21 @@ class ConfigProvider
             'buses'              => [
                 'messenger.bus.command' => [
                     'allows_no_handler' => false,
-                    'handlers'   => [],
-                    'middleware' => [],
-                    'routes'     => [],
+                    'handlers'          => [],
+                    'middleware'        => [],
+                    'routes'            => [],
                 ],
                 'messenger.bus.event'   => [
                     'allows_no_handler' => true,
-                    'handlers'   => [],
-                    'middleware' => [],
-                    'routes'     => [],
+                    'handlers'          => [],
+                    'middleware'        => [],
+                    'routes'            => [],
                 ],
                 'messenger.bus.query'   => [
                     'allows_no_handler' => false,
-                    'handlers'   => [],
-                    'middleware' => [],
-                    'routes'     => [],
+                    'handlers'          => [],
+                    'middleware'        => [],
+                    'routes'            => [],
                 ],
             ],
         ];
