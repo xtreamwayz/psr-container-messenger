@@ -7,11 +7,11 @@ namespace Xtreamwayz\Expressive\Messenger\Container;
 use Psr\Container\ContainerInterface;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\Transport\Sender\SendersLocatorInterface;
+
 use function class_implements;
 use function class_parents;
 use function get_class;
 use function in_array;
-use function is_array;
 
 class ContainerSendersLocator implements SendersLocatorInterface
 {
@@ -42,7 +42,11 @@ class ContainerSendersLocator implements SendersLocatorInterface
 
         foreach (self::listTypes($envelope) as $type) {
             $senders = $this->senders[$type] ?? [];
-            $senders = is_array($senders) ? $senders : [$senders];
+
+            if (is_string($senders)) {
+                $senders = [$senders];
+            }
+
             foreach ($senders as $alias => $sender) {
                 if (! in_array($sender, $seen, true)) {
                     yield $seen[] = $this->container->get($sender);
