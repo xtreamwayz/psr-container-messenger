@@ -18,7 +18,7 @@
         "enqueue/redis": "^0.8.23",
         "phpstan/phpstan": "^0.10.2",
         "phpstan/phpstan-phpunit": "^0.10.0",
-        "phpunit/phpunit": "^7.2",
+        "phpunit/phpunit": "^7.5",
         "symfony/console": "~4.1.0",
         "zendframework/zend-servicemanager": "^3.3"
     },
