@@ -37,27 +37,27 @@ class ConfigProviderTest extends TestCase
     public function testReturnedArrayContainsDependencies(array $config) : void
     {
         $this->assertArrayHasKey('dependencies', $config);
-        $this->assertInternalType('array', $config['dependencies']);
+        $this->assertIsArray($config['dependencies']);
         $this->assertArrayHasKey('factories', $config['dependencies']);
-        $this->assertInternalType('array', $config['dependencies']['factories']);
+        $this->assertIsArray($config['dependencies']['factories']);
 
         $this->assertArrayHasKey('messenger', $config);
-        $this->assertInternalType('array', $config['messenger']);
+        $this->assertIsArray($config['messenger']);
         $this->assertArrayHasKey('default_middleware', $config['messenger']);
         $this->assertTrue($config['messenger']['default_middleware']);
         $this->assertArrayHasKey('buses', $config['messenger']);
-        $this->assertInternalType('array', $config['messenger']['buses']);
+        $this->assertIsArray($config['messenger']['buses']);
         $this->assertArrayHasKey('messenger.bus.command', $config['messenger']['buses']);
         $this->assertArrayHasKey('messenger.bus.event', $config['messenger']['buses']);
         $this->assertArrayHasKey('messenger.bus.query', $config['messenger']['buses']);
 
         foreach ($config['messenger']['buses'] as $bus) {
             $this->assertArrayHasKey('handlers', $bus);
-            $this->assertInternalType('array', $bus['handlers']);
+            $this->assertIsArray($bus['handlers']);
             $this->assertArrayHasKey('middleware', $bus);
-            $this->assertInternalType('array', $bus['middleware']);
+            $this->assertIsArray($bus['middleware']);
             $this->assertArrayHasKey('routes', $bus);
-            $this->assertInternalType('array', $bus['routes']);
+            $this->assertIsArray($bus['routes']);
         }
     }
 
@@ -77,8 +77,7 @@ class ConfigProviderTest extends TestCase
             }
 
             self::assertTrue($container->has($name), sprintf('Container does not contain service %s', $name));
-            self::assertInternalType(
-                'object',
+            self::assertIsObject(
                 $container->get($name),
                 sprintf('Cannot get service %s from container using factory %s', $name, $factory)
             );
