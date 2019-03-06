@@ -32,9 +32,6 @@ class ContainerSendersLocator implements SendersLocatorInterface
         $this->sendAndHandle = $sendAndHandle;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getSenders(Envelope $envelope, ?bool &$handle = false) : iterable
     {
         $handle = false;
@@ -64,7 +61,6 @@ class ContainerSendersLocator implements SendersLocatorInterface
         $class = get_class($envelope->getMessage());
 
         return [$class => $class]
-            + [$class . 'Sender' => $class . 'Sender']
             + class_parents($class)
             + class_implements($class)
             + ['*' => '*'];
