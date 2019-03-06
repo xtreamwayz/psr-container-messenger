@@ -19,12 +19,15 @@ class ContainerSendersLocator implements SendersLocatorInterface
     /** @var ContainerInterface */
     private $container;
 
-    /** @var array */
+    /** @var string[] */
     private $senders;
 
     /** @var array */
     private $sendAndHandle;
 
+    /**
+     * @param string[] $senders (SenderInterface)
+     */
     public function __construct(ContainerInterface $container, array $senders, array $sendAndHandle = [])
     {
         $this->container     = $container;

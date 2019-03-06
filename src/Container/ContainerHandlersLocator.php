@@ -7,7 +7,6 @@ namespace Xtreamwayz\Expressive\Messenger\Container;
 use Psr\Container\ContainerInterface;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\Handler\HandlersLocatorInterface;
-use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
 
 use function class_implements;
 use function class_parents;
@@ -19,11 +18,11 @@ class ContainerHandlersLocator implements HandlersLocatorInterface
     /** @var ContainerInterface */
     private $container;
 
-    /** @var MessageHandlerInterface[] */
+    /** @var string[] */
     private $handlers;
 
     /**
-     * @param MessageHandlerInterface[] $handlers
+     * @param string[] $handlers (MessageHandlerInterface)
      */
     public function __construct(ContainerInterface $container, array $handlers)
     {
