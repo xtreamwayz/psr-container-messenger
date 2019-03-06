@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
+## 0.4.1 - TBD
+
+### Added
+
+- Nothing.
+
+### Changed
+
+- [#6](https://github.com/xtreamwayz/expressive-messenger/pull/6) uses container locators for handlers and senders.
+
+### Deprecated
+
+- Nothing.
+
+### Removed
+
+- Nothing.
+
+### Fixed
+
+- [#6](https://github.com/xtreamwayz/expressive-messenger/pull/6) fixes senders being wrapped in callables where SenderInterface objects are expected.
+
 ## 0.4.0 - 2018-12-31
 
 ### Added
