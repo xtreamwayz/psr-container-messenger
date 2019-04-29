@@ -60,18 +60,21 @@ class ConfigProvider
                     'handlers'          => [],
                     'middleware'        => [],
                     'routes'            => [],
+                    'send_and_handle'   => [],
                 ],
                 'messenger.bus.event'   => [
                     'allows_no_handler' => true,
                     'handlers'          => [],
                     'middleware'        => [],
                     'routes'            => [],
+                    'send_and_handle'   => [],
                 ],
                 'messenger.bus.query'   => [
                     'allows_no_handler' => false,
                     'handlers'          => [],
                     'middleware'        => [],
                     'routes'            => [],
+                    'send_and_handle'   => [],
                 ],
             ],
         ];

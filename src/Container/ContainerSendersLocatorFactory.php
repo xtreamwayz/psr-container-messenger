@@ -22,7 +22,8 @@ final class ContainerSendersLocatorFactory
         $config  = $container->has('config') ? $container->get('config') : [];
         $config  = $config['messenger']['buses'][$this->busName] ?? [];
         $senders = $config['routes'] ?? [];
+        $sendAndHandle = $config['send_and_handle'] ?? [];
 
-        return new ContainerSendersLocator($container, $senders, []);
+        return new ContainerSendersLocator($container, $senders, $sendAndHandle);
     }
 }
