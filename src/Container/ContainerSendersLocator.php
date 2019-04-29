@@ -53,7 +53,7 @@ class ContainerSendersLocator implements SendersLocatorInterface
                     yield $seen[] = $this->container->get($sender);
                 }
             }
-            $handle = $handle ?: $this->sendAndHandle[$type] ?? false;
+            $handle = $handle ?: in_array($type, $this->sendAndHandle, true);
         }
 
         $handle = $handle || $sender === null;
