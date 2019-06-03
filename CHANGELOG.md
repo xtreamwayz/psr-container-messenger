@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
+## 0.4.2 - 2019-06-03
+
+### Added
+
+- Nothing.
+
+### Changed
+
+- Nothing.
+
+### Deprecated
+
+- Nothing.
+
+### Removed
+
+- Nothing.
+
+### Fixed
+
+- [#9](https://github.com/xtreamwayz/expressive-messenger/pull/9) restricts Symfony to version 4.2.x.
+
 ## 0.4.1 - 2019-03-06
 
 ### Added
@@ -83,15 +105,15 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Added
 
-- [#3](https://github.com/xtreamwayz/expressive-messenger/pull/3) adds message handling middleware which sends messages 
+- [#3](https://github.com/xtreamwayz/expressive-messenger/pull/3) adds message handling middleware which sends messages
   to multiple handlers.
 
-- [#3](https://github.com/xtreamwayz/expressive-messenger/pull/3) adds configuration for transports with DNS. This 
+- [#3](https://github.com/xtreamwayz/expressive-messenger/pull/3) adds configuration for transports with DNS. This
   enables support for all available enqueue transports.
 
 ### Changed
 
-- [#3](https://github.com/xtreamwayz/expressive-messenger/pull/3) changes how a message bus and enqueue transport is 
+- [#3](https://github.com/xtreamwayz/expressive-messenger/pull/3) changes how a message bus and enqueue transport is
   created. This comes with a major configuration overhaul.
 
 ### Deprecated
@@ -100,7 +122,7 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Removed
 
-- [#3](https://github.com/xtreamwayz/expressive-messenger/pull/3) removes the redis factory class. The preferred way is 
+- [#3](https://github.com/xtreamwayz/expressive-messenger/pull/3) removes the redis factory class. The preferred way is
   to use DNS to configure enqueue transports.
 
 ### Fixed
