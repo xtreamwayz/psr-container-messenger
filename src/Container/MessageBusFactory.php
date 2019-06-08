@@ -8,7 +8,6 @@ use InvalidArgumentException;
 use Psr\Container\ContainerInterface;
 use Symfony\Component\Messenger\MessageBus;
 use Symfony\Component\Messenger\MessageBusInterface;
-use Symfony\Component\Messenger\Middleware\LoggingMiddleware;
 use Symfony\Component\Messenger\Middleware\SendMessageMiddleware;
 use Xtreamwayz\Expressive\Messenger\Exception\InvalidConfigException;
 use Xtreamwayz\Expressive\Messenger\Middleware\MessageHandlingMiddleware;
@@ -50,7 +49,6 @@ class MessageBusFactory
     public function __invoke(ContainerInterface $container) : MessageBusInterface
     {
         $config            = $container->has('config') ? $container->get('config') : [];
-        $debug             = $config['debug'] ?? false;
         $defaultMiddleware = $config['messenger']['default_middleware'] ?? false;
         $handlers          = $config['messenger']['buses'][$this->name]['handlers'] ?? [];
         $middlewares       = $config['messenger']['buses'][$this->name]['middleware'] ?? [];
@@ -58,10 +56,6 @@ class MessageBusFactory
         $allowsNoHandler   = $config['messenger']['buses'][$this->name]['allows_no_handler'] ?? false;
 
         $stack = [];
-        // Add default logging middleware
-        if ($debug === true && $defaultMiddleware === true) {
-            $stack[] = $container->get(LoggingMiddleware::class);
-        }
 
         // Add middleware from configuration
         foreach ($middlewares as $middleware) {

@@ -6,7 +6,6 @@ namespace Xtreamwayz\Expressive\Messenger;
 
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Messenger\Middleware\HandleMessageMiddleware;
-use Symfony\Component\Messenger\Middleware\LoggingMiddleware;
 use Symfony\Component\Messenger\Middleware\SendMessageMiddleware;
 use Symfony\Component\Messenger\Transport\Serialization\Serializer;
 use Symfony\Component\Serializer\SerializerInterface;
@@ -38,7 +37,6 @@ class ConfigProvider
 
                 // Middleware
                 HandleMessageMiddleware::class    => Container\HandleMessageMiddlewareFactory::class,
-                LoggingMiddleware::class          => Container\LoggingMiddlewareFactory::class,
                 SendMessageMiddleware::class      => Container\SendMessageMiddlewareFactory::class,
 
                 // Transport
