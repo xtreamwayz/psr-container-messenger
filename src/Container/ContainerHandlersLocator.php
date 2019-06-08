@@ -7,7 +7,6 @@ namespace Xtreamwayz\Expressive\Messenger\Container;
 use Psr\Container\ContainerInterface;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\Handler\HandlersLocatorInterface;
-
 use function class_implements;
 use function class_parents;
 use function get_class;

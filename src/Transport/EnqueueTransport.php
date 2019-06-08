@@ -8,6 +8,7 @@ use Interop\Queue\PsrContext;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\Transport\Serialization\Serializer;
 use Symfony\Component\Messenger\Transport\TransportInterface;
+use Throwable;
 use Xtreamwayz\Expressive\Messenger\Exception\RejectMessageException;
 use Xtreamwayz\Expressive\Messenger\Exception\RequeueMessageException;
 
@@ -65,7 +66,7 @@ class EnqueueTransport implements TransportInterface
                 $consumer->reject($message);
             } catch (RequeueMessageException $e) {
                 $consumer->reject($message, true);
-            } catch (\Throwable $e) {
+            } catch (Throwable $e) {
                 $consumer->reject($message);
             }
         }

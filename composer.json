@@ -11,8 +11,7 @@
     },
     "require-dev": {
         "ext-json": "*",
-        "dealerdirect/phpcodesniffer-composer-installer": "0.5.0 as 0.4.4",
-        "doctrine/coding-standard": "^4.0",
+        "doctrine/coding-standard": "^6.0",
         "enqueue/enqueue": "^0.8.35",
         "enqueue/null": "^0.8.24",
         "enqueue/redis": "^0.8.23",
@@ -27,7 +26,10 @@
         "xtreamwayz/expressive-console": "For auto configuring the cli command."
     },
     "config": {
-        "sort-packages": true
+        "sort-packages": true,
+        "platform": {
+            "php": "7.1.30"
+        }
     },
     "extra": {
         "branch-alias": {

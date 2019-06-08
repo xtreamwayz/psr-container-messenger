@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Xtreamwayz\Expressive\Messenger\Command;
 
 use Psr\Container\ContainerInterface;
+use RuntimeException;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -59,12 +60,12 @@ EOF
     {
         $receiverName = $input->getArgument('receiver');
         if (! $this->receiverLocator->has($receiverName)) {
-            throw new \RuntimeException(sprintf('Receiver "%s" does not exist.', $receiverName));
+            throw new RuntimeException(sprintf('Receiver "%s" does not exist.', $receiverName));
         }
 
         $receiver = $this->receiverLocator->get($receiverName);
         if (! $receiver instanceof ReceiverInterface) {
-            throw new \RuntimeException(sprintf(
+            throw new RuntimeException(sprintf(
                 'Receiver "%s" is not a valid message consumer. It must implement the "%s" interface.',
                 $receiverName,
                 ReceiverInterface::class

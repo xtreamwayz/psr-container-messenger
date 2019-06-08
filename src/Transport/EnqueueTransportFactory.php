@@ -20,6 +20,7 @@ use Enqueue\Sqs\SqsConnectionFactory;
 use Enqueue\Stomp\StompConnectionFactory;
 use Interop\Queue\PsrConnectionFactory;
 use InvalidArgumentException;
+use LogicException;
 use Psr\Container\ContainerInterface;
 use Symfony\Component\Messenger\Transport\Sender\SenderInterface;
 use Symfony\Component\Messenger\Transport\Serialization\Serializer;
@@ -185,13 +186,13 @@ class EnqueueTransportFactory
             $map['mongodb'] = MongodbConnectionFactory::class;
         }
 
-        list($scheme) = explode(':', $dsn, 2);
+        [$scheme] = explode(':', $dsn, 2);
         if ($scheme === false || strpos($dsn, ':') === false) {
-            throw new \LogicException(sprintf('The scheme could not be parsed from DSN "%s"', $dsn));
+            throw new LogicException(sprintf('The scheme could not be parsed from DSN "%s"', $dsn));
         }
 
         if (array_key_exists($scheme, $map) === false) {
-            throw new \LogicException(sprintf(
+            throw new LogicException(sprintf(
                 'The scheme "%s" is not supported. Supported "%s"',
                 $scheme,
                 implode('", "', array_keys($map))

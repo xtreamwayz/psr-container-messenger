@@ -77,7 +77,7 @@ class EnqueueTransportTest extends TestCase
             ->willReturn(json_encode($psrMessage))
             ->shouldBeCalledTimes(1);
 
-        $transport->receive(function (Envelope $envelope) use ($transport) : void {
+        $transport->receive(static function (Envelope $envelope) use ($transport) : void {
             $transport->stop();
             self::assertNotNull($envelope);
             $message = $envelope->getMessage();
