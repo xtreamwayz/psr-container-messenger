@@ -68,7 +68,7 @@ class TransportFactory
     {
         $factory = $this->dsnToTransportFactory($container, $this->dsn);
 
-        return $factory->createTransport($this->dsn, [], $container->get(Serializer::class));
+        return $factory->createTransport($this->dsn, [], new Serializer());
     }
 
     private function dsnToTransportFactory(ContainerInterface $container, string $dsn) : TransportFactoryInterface
