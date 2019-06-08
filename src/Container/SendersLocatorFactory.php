@@ -20,8 +20,8 @@ final class SendersLocatorFactory
 
     public function __invoke(ContainerInterface $container) : SendersLocatorInterface
     {
-        $config  = $container->has('config') ? $container->get('config') : [];
-        $sendersMap  = $config['messenger']['buses'][$this->busName]['routes'] ?? [];
+        $config     = $container->has('config') ? $container->get('config') : [];
+        $sendersMap = $config['messenger']['buses'][$this->busName]['routes'] ?? [];
 
         return new SendersLocator($sendersMap, $container);
     }
