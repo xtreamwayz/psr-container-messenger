@@ -65,7 +65,7 @@ class MessageBusFactory
         // Add default sender middleware
         if ($routes && $defaultMiddleware === true) {
             $stack[] = new SendMessageMiddleware(
-                (new ContainerSendersLocatorFactory($this->name))($container)
+                (new SendersLocatorFactory($this->name))($container)
             );
         }
 

@@ -20,7 +20,7 @@ class SendMessageMiddlewareFactory
 
     public function __invoke(ContainerInterface $container) : MiddlewareInterface
     {
-        $factory = new ContainerSendersLocatorFactory($this->busName);
+        $factory = new SendersLocatorFactory($this->busName);
 
         return new SendMessageMiddleware($factory($container));
     }

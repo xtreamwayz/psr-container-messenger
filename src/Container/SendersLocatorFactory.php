@@ -5,9 +5,10 @@ declare(strict_types=1);
 namespace Xtreamwayz\Expressive\Messenger\Container;
 
 use Psr\Container\ContainerInterface;
+use Symfony\Component\Messenger\Transport\Sender\SendersLocator;
 use Symfony\Component\Messenger\Transport\Sender\SendersLocatorInterface;
 
-final class ContainerSendersLocatorFactory
+final class SendersLocatorFactory
 {
     /** @var string */
     private $busName;
@@ -20,9 +21,8 @@ final class ContainerSendersLocatorFactory
     public function __invoke(ContainerInterface $container) : SendersLocatorInterface
     {
         $config  = $container->has('config') ? $container->get('config') : [];
-        $config  = $config['messenger']['buses'][$this->busName] ?? [];
-        $senders = $config['routes'] ?? [];
+        $sendersMap  = $config['messenger']['buses'][$this->busName]['routes'] ?? [];
 
-        return new ContainerSendersLocator($container, $senders, []);
+        return new SendersLocator($sendersMap, $container);
     }
 }
