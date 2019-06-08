@@ -7,8 +7,7 @@ _Message bus and queue for Zend Expressive with Symfony Messenger + Enqueue_
 [![Packagist](https://img.shields.io/packagist/vpre/xtreamwayz/expressive-messenger.svg)](https://packagist.org/packages/xtreamwayz/expressive-messenger)
 
 This packages brings message buses to your Zend Expressive project. Basically it's a bundle of factories to make
-life easier for you. The real work is done by [Symfony Messenger](https://github.com/symfony/messenger)
-and [enqueue](https://github.com/php-enqueue/enqueue).
+life easier for you. The real work is done by [Symfony Messenger](https://github.com/symfony/messenger).
 
 It comes with pre-configured command, event and query buses for your convenience. Or don't use them if you want to
 create your own. Transports are used to queue your messages or send and receive them to/from 3rd parties.
@@ -53,7 +52,7 @@ use App\Domain\Handler\RegisterUserHandlerFactory;
 use App\Domain\Handler\UserRegisteredHandler;
 use App\Domain\Handler\UserRegisteredHandlerFactory;
 use App\Domain\Query\FindUser;
-use Xtreamwayz\Expressive\Messenger\Transport\EnqueueTransportFactory;
+use Xtreamwayz\Expressive\Messenger\Container\TransportFactory;
 
 return [
     'dependencies' => [
@@ -62,7 +61,7 @@ return [
             RegisterUserHandler::class   => RegisterUserHandlerFactory::class,
             UserRegisteredHandler::class => UserRegisteredHandlerFactory::class,
 
-            'messenger.transport.redis'   => [EnqueueTransportFactory::class, 'redis:'],
+            'messenger.transport.redis'   => [TransportFactory::class, 'redis:'],
         ],
     ],
 
