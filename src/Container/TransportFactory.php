@@ -11,7 +11,7 @@ use Symfony\Component\Messenger\Transport\Doctrine\DoctrineTransportFactory;
 use Symfony\Component\Messenger\Transport\InMemoryTransportFactory;
 use Symfony\Component\Messenger\Transport\RedisExt\RedisTransportFactory;
 use Symfony\Component\Messenger\Transport\Sender\SenderInterface;
-use Symfony\Component\Messenger\Transport\Serialization\Serializer;
+use Symfony\Component\Messenger\Transport\Serialization\PhpSerializer;
 use Symfony\Component\Messenger\Transport\Sync\SyncTransportFactory;
 use Symfony\Component\Messenger\Transport\TransportFactoryInterface;
 use Symfony\Component\Messenger\Transport\TransportInterface;
@@ -35,6 +35,15 @@ class TransportFactory
      * ];
      * </code>
      *
+     * DSN must be a valid transport dsn:
+     *
+     *      redis:
+     *      redis://example.com:6379/messages
+     *      amqp://user:pass@example.com:5672/%2f/messages
+     *      doctrine://doctrine.entity_manager.orm_default
+     *      sync://messenger.command.bus
+     *      in-memory:///
+     *
      * @throws InvalidArgumentException
      */
     public static function __callStatic(string $dsn, array $arguments) : SenderInterface
@@ -45,24 +54,10 @@ class TransportFactory
             );
         }
 
-        return (new self($dsn, $arguments[1] ?? 'messenger.transport.default'))($arguments[0]);
+        return (new self($dsn))($arguments[0]);
     }
 
-    /**
-     * TransportFactory constructor
-     *
-     * DSN must be a valid transport dsn:
-     *
-     *      redis:
-     *      redis://example.com:6379/messages
-     *      amqp://user:pass@example.com:5672/%2f/messages
-     *      doctrine://orm_default
-     *      sync://messenger.command.bus
-     *      in-memory:///
-     *
-     * @see https://github.com/php-enqueue/enqueue-dev/tree/master/docs/transport
-     */
-    public function __construct(string $dsn, ?string $queueName = null)
+    public function __construct(string $dsn)
     {
         $this->dsn = $dsn ?? 'null:';
     }
@@ -71,7 +66,7 @@ class TransportFactory
     {
         $factory = $this->dsnToTransportFactory($container, $this->dsn);
 
-        return $factory->createTransport($this->dsn, [], new Serializer());
+        return $factory->createTransport($this->dsn, [], new PhpSerializer());
     }
 
     private function dsnToTransportFactory(ContainerInterface $container, string $dsn) : TransportFactoryInterface
@@ -81,15 +76,13 @@ class TransportFactory
             case 'amqp':
                 return new AmqpTransportFactory();
             case 'doctrine':
-                return new DoctrineTransportFactory(
-                    $container->get(sprintf('doctrine.entity_manager.%s', $config))
-                );
+                return new DoctrineTransportFactory($container->get(trim($config, '/')));
+            case 'in-memory':
+                return new InMemoryTransportFactory();
             case 'redis':
                 return new RedisTransportFactory();
             case 'sync':
-                return new SyncTransportFactory($container->get(trim('/', $config)));
-            case 'in-memory':
-                return new InMemoryTransportFactory();
+                return new SyncTransportFactory($container->get(trim($config, '/')));
         }
 
         throw new InvalidArgumentException(sprintf('No transport supports the given Messenger DSN "%s".', $dsn));
