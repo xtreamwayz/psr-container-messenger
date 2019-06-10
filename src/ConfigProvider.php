@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Xtreamwayz\Expressive\Messenger;
 
+use Symfony\Component\Messenger\Command\ConsumeMessagesCommand;
 use Xtreamwayz\Expressive\Messenger\Container\HandleMessageMiddlewareFactory;
 use Xtreamwayz\Expressive\Messenger\Container\MessageBusFactory;
 use Xtreamwayz\Expressive\Messenger\Container\SendMessageMiddlewareFactory;
@@ -23,10 +24,7 @@ class ConfigProvider
     {
         return [
             'factories' => [
-                Command\CommandQueueWorker::class => Command\CommandQueueWorkerFactory::class,
-                //HandleMessageMiddleware::class    => Container\HandleMessageMiddlewareFactory::class,
-                //MessageBusInterface::class        => Container\MessageBusFactory::class,
-                //SendMessageMiddleware::class      => Container\SendMessageMiddlewareFactory::class,
+                ConsumeMessagesCommand::class => Command\ConsumeMessagesCommandFactory::class,
 
                 'messenger.command.bus'                => [MessageBusFactory::class, 'messenger.command.bus'],
                 'messenger.command.middleware.handler' => [
@@ -90,7 +88,7 @@ class ConfigProvider
     {
         return [
             'commands' => [
-                'messenger:consume' => Command\CommandQueueWorker::class,
+                'messenger:consume' => ConsumeMessagesCommand::class,
             ],
         ];
     }
