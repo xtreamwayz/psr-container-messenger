@@ -2,13 +2,15 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
-## 0.5.0 - TBD
+## 0.5.0 - 2019-06-10
 
 ### Added
 
 - [#10](https://github.com/xtreamwayz/expressive-messenger/pull/10) adds Symfony Messenger version 4.3.x support.
 
 ### Changed
+
+- [#10](https://github.com/xtreamwayz/expressive-messenger/pull/10) changed to the original consume messages command.
 
 - [#10](https://github.com/xtreamwayz/expressive-messenger/pull/10) changed the naming of supplied busses and related middleware.
 
