@@ -12,6 +12,7 @@ use Symfony\Component\Messenger\Transport\InMemoryTransportFactory;
 use Symfony\Component\Messenger\Transport\RedisExt\RedisTransportFactory;
 use Symfony\Component\Messenger\Transport\Sender\SenderInterface;
 use Symfony\Component\Messenger\Transport\Serialization\Serializer;
+use Symfony\Component\Messenger\Transport\Sync\SyncTransportFactory;
 use Symfony\Component\Messenger\Transport\TransportFactoryInterface;
 use Symfony\Component\Messenger\Transport\TransportInterface;
 use function explode;
@@ -55,6 +56,7 @@ class TransportFactory
      *      redis://example.com:6379/messages
      *      amqp://user:pass@example.com:5672/%2f/messages
      *      doctrine://orm_default
+     *      sync://messenger.command.bus
      *      in-memory:///
      *
      * @see https://github.com/php-enqueue/enqueue-dev/tree/master/docs/transport
@@ -83,6 +85,8 @@ class TransportFactory
                 );
             case 'redis':
                 return new RedisTransportFactory();
+            case 'sync':
+                return new SyncTransportFactory($container->get(trim('/', $config)));
             case 'in-memory':
                 return new InMemoryTransportFactory();
         }
