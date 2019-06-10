@@ -8,9 +8,7 @@ use InvalidArgumentException;
 use Psr\Container\ContainerInterface;
 use Symfony\Component\Messenger\MessageBus;
 use Symfony\Component\Messenger\MessageBusInterface;
-use Symfony\Component\Messenger\Middleware\SendMessageMiddleware;
 use Xtreamwayz\Expressive\Messenger\Exception\InvalidConfigException;
-use Xtreamwayz\Expressive\Messenger\Middleware\MessageHandlingMiddleware;
 use function sprintf;
 
 class MessageBusFactory
@@ -43,17 +41,13 @@ class MessageBusFactory
 
     public function __construct(?string $name = null)
     {
-        $this->name = $name ?? 'messenger.bus.default';
+        $this->name = $name ?? 'messenger.default.bus';
     }
 
     public function __invoke(ContainerInterface $container) : MessageBusInterface
     {
-        $config            = $container->has('config') ? $container->get('config') : [];
-        $defaultMiddleware = $config['messenger']['default_middleware'] ?? false;
-        $handlers          = $config['messenger']['buses'][$this->name]['handlers'] ?? [];
-        $middlewares       = $config['messenger']['buses'][$this->name]['middleware'] ?? [];
-        $routes            = $config['messenger']['buses'][$this->name]['routes'] ?? [];
-        $allowsNoHandler   = $config['messenger']['buses'][$this->name]['allows_no_handler'] ?? false;
+        $config      = $container->has('config') ? $container->get('config') : [];
+        $middlewares = $config['messenger']['buses'][$this->name]['middleware'] ?? [];
 
         $stack = [];
 
@@ -62,22 +56,8 @@ class MessageBusFactory
             $stack[] = $container->get($middleware);
         }
 
-        // Add default sender middleware
-        if ($routes && $defaultMiddleware === true) {
-            $stack[] = new SendMessageMiddleware(
-                (new SendersLocatorFactory($this->name))($container)
-            );
-        }
-
-        // Add default message handling middleware
-        if ($defaultMiddleware === true) {
-            $stack[] = new MessageHandlingMiddleware($container, $handlers, $allowsNoHandler);
-        }
-
         if (empty($stack)) {
-            throw new InvalidConfigException(
-                'Without middleware, messenger does not do anything!'
-            );
+            throw new InvalidConfigException('Without middleware, messenger does not do anything');
         }
 
         return new MessageBus($stack);

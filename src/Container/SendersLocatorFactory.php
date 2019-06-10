@@ -13,7 +13,7 @@ final class SendersLocatorFactory
     /** @var string */
     private $busName;
 
-    public function __construct(string $busName = 'messenger.bus.default')
+    public function __construct(string $busName = 'messenger.default.bus')
     {
         $this->busName = $busName;
     }

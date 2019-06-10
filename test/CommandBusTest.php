@@ -39,7 +39,7 @@ class CommandBusTest extends TestCase
         $container = $this->getContainer();
 
         /** @var MessageBus $commandBus */
-        $commandBus = $container->get('messenger.bus.command');
+        $commandBus = $container->get('messenger.command.bus');
 
         self::assertInstanceOf(MessageBusInterface::class, $commandBus);
         self::assertInstanceOf(MessageBus::class, $commandBus);
@@ -54,7 +54,7 @@ class CommandBusTest extends TestCase
 
         /** @var MessageBus $commandBus */
         $container  = $this->getContainer();
-        $commandBus = $container->get('messenger.bus.command');
+        $commandBus = $container->get('messenger.command.bus');
         $commandBus->dispatch($command);
     }
 
@@ -67,12 +67,12 @@ class CommandBusTest extends TestCase
 
         // @codingStandardsIgnoreStart
         $this->config['dependencies']['services'][DummyCommandHandler::class]                         = $commandHandler->reveal();
-        $this->config['messenger']['buses']['messenger.bus.command']['handlers'][DummyCommand::class] = DummyCommandHandler::class;
+        $this->config['messenger']['buses']['messenger.command.bus']['handlers'][DummyCommand::class] = [DummyCommandHandler::class];
         // @codingStandardsIgnoreEnd
 
         /** @var MessageBus $commandBus */
         $container  = $this->getContainer();
-        $commandBus = $container->get('messenger.bus.command');
+        $commandBus = $container->get('messenger.command.bus');
         $commandBus->dispatch($command);
     }
 }

@@ -11,7 +11,7 @@ class CommandQueueWorkerFactory
     public function __invoke(ContainerInterface $container) : CommandQueueWorker
     {
         return new CommandQueueWorker(
-            $container->get('messenger.bus.command'),
+            $container->get('messenger.command.bus'),
             $container
         );
     }

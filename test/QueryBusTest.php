@@ -40,7 +40,7 @@ class QueryBusTest extends TestCase
         $container = $this->getContainer();
 
         /** @var MessageBus $queryBus */
-        $queryBus = $container->get('messenger.bus.query');
+        $queryBus = $container->get('messenger.query.bus');
 
         self::assertInstanceOf(MessageBusInterface::class, $queryBus);
         self::assertInstanceOf(MessageBus::class, $queryBus);
@@ -55,7 +55,7 @@ class QueryBusTest extends TestCase
 
         /** @var MessageBus $queryBus */
         $container = $this->getContainer();
-        $queryBus  = $container->get('messenger.bus.query');
+        $queryBus  = $container->get('messenger.query.bus');
         $queryBus->dispatch($query);
     }
 
@@ -68,12 +68,12 @@ class QueryBusTest extends TestCase
 
         // @codingStandardsIgnoreStart
         $this->config['dependencies']['services'][DummyQueryHandler::class]                       = $queryHandler->reveal();
-        $this->config['messenger']['buses']['messenger.bus.query']['handlers'][DummyQuery::class] = DummyQueryHandler::class;
+        $this->config['messenger']['buses']['messenger.query.bus']['handlers'][DummyQuery::class] = [DummyQueryHandler::class];
         // @codingStandardsIgnoreEnd
 
         /** @var MessageBus $queryBus */
         $container = $this->getContainer();
-        $queryBus  = $container->get('messenger.bus.query');
+        $queryBus  = $container->get('messenger.query.bus');
         $queryBus->dispatch($query);
     }
 
@@ -87,12 +87,12 @@ class QueryBusTest extends TestCase
 
         // @codingStandardsIgnoreStart
         $this->config['dependencies']['services'][DummyQueryHandler::class]                       = $queryHandler->reveal();
-        $this->config['messenger']['buses']['messenger.bus.query']['handlers'][DummyQuery::class] = DummyQueryHandler::class;
+        $this->config['messenger']['buses']['messenger.query.bus']['handlers'][DummyQuery::class] = [DummyQueryHandler::class];
         // @codingStandardsIgnoreEnd
 
         /** @var MessageBus $queryBus */
         $container = $this->getContainer();
-        $queryBus  = $container->get('messenger.bus.query');
+        $queryBus  = $container->get('messenger.query.bus');
         $result    = $queryBus->dispatch($query);
 
         /** @var HandledStamp|null $lastStamp */
