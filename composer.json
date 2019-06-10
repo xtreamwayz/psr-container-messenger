@@ -10,10 +10,10 @@
     "require-dev": {
         "ext-json": "*",
         "doctrine/coding-standard": "^6.0",
-        "phpstan/phpstan": "^0.10.2",
-        "phpstan/phpstan-phpunit": "^0.10.0",
+        "phpstan/phpstan": "^0.11",
+        "phpstan/phpstan-phpunit": "^0.11",
         "phpunit/phpunit": "^7.5",
-        "symfony/console": "~4.1.0",
+        "symfony/console": "^4.3",
         "symfony/contracts": "^1.1",
         "zendframework/zend-servicemanager": "^3.3"
     },

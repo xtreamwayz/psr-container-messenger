@@ -72,7 +72,7 @@ class ContainerHandlersLocator implements HandlersLocatorInterface
 
     private function shouldHandle(Envelope $envelope, HandlerDescriptor $handlerDescriptor) : bool
     {
-        /** @var ReceivedStamp $received */
+        /** @var ReceivedStamp|null $received */
         $received = $envelope->last(ReceivedStamp::class);
         if ($received === null) {
             return true;
