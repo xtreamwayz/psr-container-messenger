@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace XtreamwayzTest\Expressive\Messenger;
 
 use PHPUnit\Framework\TestCase;
-use Prophecy\Argument;
 use Symfony\Component\Messenger\MessageBus;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Xtreamwayz\Expressive\Messenger\ConfigProvider;

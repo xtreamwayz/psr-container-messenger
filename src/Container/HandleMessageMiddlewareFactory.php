@@ -6,9 +6,9 @@ namespace Xtreamwayz\Expressive\Messenger\Container;
 
 use InvalidArgumentException;
 use Psr\Container\ContainerInterface;
-use function sprintf;
 use Symfony\Component\Messenger\Middleware\HandleMessageMiddleware;
 use Symfony\Component\Messenger\Middleware\MiddlewareInterface;
+use function sprintf;
 
 class HandleMessageMiddlewareFactory
 {
