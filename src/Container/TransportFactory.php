@@ -17,6 +17,7 @@ use Symfony\Component\Messenger\Transport\TransportFactoryInterface;
 use Symfony\Component\Messenger\Transport\TransportInterface;
 use function explode;
 use function sprintf;
+use function trim;
 
 class TransportFactory
 {

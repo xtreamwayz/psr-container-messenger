@@ -13,6 +13,7 @@ use function class_implements;
 use function class_parents;
 use function get_class;
 use function in_array;
+use function is_callable;
 
 class ContainerHandlersLocator implements HandlersLocatorInterface
 {
