@@ -6,12 +6,14 @@ namespace Xtreamwayz\Expressive\Messenger\Container;
 
 use Psr\Container\ContainerInterface;
 use Symfony\Component\Messenger\Envelope;
+use Symfony\Component\Messenger\Handler\HandlerDescriptor;
 use Symfony\Component\Messenger\Handler\HandlersLocatorInterface;
-
+use Symfony\Component\Messenger\Stamp\ReceivedStamp;
 use function class_implements;
 use function class_parents;
 use function get_class;
 use function in_array;
+use function is_callable;
 
 class ContainerHandlersLocator implements HandlersLocatorInterface
 {
@@ -35,10 +37,25 @@ class ContainerHandlersLocator implements HandlersLocatorInterface
         $seen = [];
 
         foreach (self::listTypes($envelope) as $type) {
-            foreach ($this->handlers[$type] ?? [] as $alias => $handler) {
-                if (! in_array($handler, $seen, true)) {
-                    yield $alias => $seen[] = $this->container->get($handler);
+            foreach ($this->handlers[$type] ?? [] as $handlerDescriptor) {
+                if (is_callable($handlerDescriptor)) {
+                    $handlerDescriptor = new HandlerDescriptor($handlerDescriptor);
+                } elseif ($this->container->has($handlerDescriptor)) {
+                    $handlerDescriptor = new HandlerDescriptor($this->container->get($handlerDescriptor));
                 }
+
+                if (! $this->shouldHandle($envelope, $handlerDescriptor)) {
+                    continue;
+                }
+
+                $name = $handlerDescriptor->getName();
+                if (in_array($name, $seen, true)) {
+                    continue;
+                }
+
+                $seen[] = $name;
+
+                yield $handlerDescriptor;
             }
         }
     }
@@ -51,5 +68,21 @@ class ContainerHandlersLocator implements HandlersLocatorInterface
             + class_parents($class)
             + class_implements($class)
             + ['*' => '*'];
+    }
+
+    private function shouldHandle(Envelope $envelope, HandlerDescriptor $handlerDescriptor) : bool
+    {
+        /** @var ReceivedStamp|null $received */
+        $received = $envelope->last(ReceivedStamp::class);
+        if ($received === null) {
+            return true;
+        }
+
+        $expectedTransport = $handlerDescriptor->getOption('from_transport');
+        if ($expectedTransport === null) {
+            return true;
+        }
+
+        return $received->getTransportName() === $expectedTransport;
     }
 }

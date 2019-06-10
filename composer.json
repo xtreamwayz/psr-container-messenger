@@ -5,29 +5,26 @@
     "require": {
         "php": "^7.1",
         "psr/container": "^1.0",
-        "symfony/messenger": "~4.2.0",
-        "symfony/property-access": "~4.2.0",
-        "symfony/serializer": "~4.2.0"
+        "symfony/messenger": "~4.3.1"
     },
     "require-dev": {
         "ext-json": "*",
-        "dealerdirect/phpcodesniffer-composer-installer": "0.5.0 as 0.4.4",
-        "doctrine/coding-standard": "^4.0",
-        "enqueue/enqueue": "^0.8.35",
-        "enqueue/null": "^0.8.24",
-        "enqueue/redis": "^0.8.23",
-        "phpstan/phpstan": "^0.10.2",
-        "phpstan/phpstan-phpunit": "^0.10.0",
+        "doctrine/coding-standard": "^6.0",
+        "phpstan/phpstan": "^0.11",
+        "phpstan/phpstan-phpunit": "^0.11",
         "phpunit/phpunit": "^7.5",
-        "symfony/console": "~4.1.0",
+        "symfony/console": "^4.3",
+        "symfony/contracts": "^1.1",
         "zendframework/zend-servicemanager": "^3.3"
     },
     "suggest": {
-        "enqueue/enqueue": "For using the php-enqueue library as a queue.",
         "xtreamwayz/expressive-console": "For auto configuring the cli command."
     },
     "config": {
-        "sort-packages": true
+        "sort-packages": true,
+        "platform": {
+            "php": "7.1.30"
+        }
     },
     "extra": {
         "branch-alias": {

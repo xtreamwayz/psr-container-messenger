@@ -4,13 +4,10 @@ declare(strict_types=1);
 
 namespace Xtreamwayz\Expressive\Messenger;
 
-use Symfony\Component\Messenger\MessageBusInterface;
-use Symfony\Component\Messenger\Middleware\HandleMessageMiddleware;
-use Symfony\Component\Messenger\Middleware\LoggingMiddleware;
-use Symfony\Component\Messenger\Middleware\SendMessageMiddleware;
-use Symfony\Component\Messenger\Transport\Serialization\Serializer;
-use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\Messenger\Command\ConsumeMessagesCommand;
+use Xtreamwayz\Expressive\Messenger\Container\HandleMessageMiddlewareFactory;
 use Xtreamwayz\Expressive\Messenger\Container\MessageBusFactory;
+use Xtreamwayz\Expressive\Messenger\Container\SendMessageMiddlewareFactory;
 
 class ConfigProvider
 {
@@ -25,52 +22,62 @@ class ConfigProvider
 
     public function getDependencies() : array
     {
-        // @codingStandardsIgnoreStart
         return [
             'factories' => [
-                MessageBusInterface::class        => Container\MessageBusFactory::class,
-                'messenger.bus.command'           => [MessageBusFactory::class, 'messenger.bus.command'],
-                'messenger.bus.event'             => [MessageBusFactory::class, 'messenger.bus.event'],
-                'messenger.bus.query'             => [MessageBusFactory::class, 'messenger.bus.query'],
+                ConsumeMessagesCommand::class => Command\ConsumeMessagesCommandFactory::class,
 
-                // Command
-                Command\CommandQueueWorker::class => Command\CommandQueueWorkerFactory::class,
+                'messenger.command.bus'                => [MessageBusFactory::class, 'messenger.command.bus'],
+                'messenger.command.middleware.handler' => [
+                    HandleMessageMiddlewareFactory::class,
+                    'messenger.command.bus',
+                ],
+                'messenger.command.middleware.sender'  => [
+                    SendMessageMiddlewareFactory::class,
+                    'messenger.command.bus',
+                ],
 
-                // Middleware
-                HandleMessageMiddleware::class    => Container\HandleMessageMiddlewareFactory::class,
-                LoggingMiddleware::class          => Container\LoggingMiddlewareFactory::class,
-                SendMessageMiddleware::class      => Container\SendMessageMiddlewareFactory::class,
+                'messenger.event.bus'                => [MessageBusFactory::class, 'messenger.event.bus'],
+                'messenger.event.middleware.handler' => [HandleMessageMiddlewareFactory::class, 'messenger.event.bus'],
+                'messenger.event.middleware.sender'  => [SendMessageMiddlewareFactory::class, 'messenger.event.bus'],
 
-                // Transport
-                SerializerInterface::class        => Container\SerializerFactory::class,
-                Serializer::class                 => Container\TransportSerializerFactory::class,
+                'messenger.query.bus'                => [MessageBusFactory::class, 'messenger.query.bus'],
+                'messenger.query.middleware.handler' => [HandleMessageMiddlewareFactory::class, 'messenger.query.bus'],
+                'messenger.query.middleware.sender'  => [SendMessageMiddlewareFactory::class, 'messenger.query.bus'],
             ],
         ];
-        // @codingStandardsIgnoreEnd
     }
 
     public function getMessenger() : array
     {
         return [
-            'default_bus'        => 'messenger.bus.command',
+            'default_bus'        => 'messenger.command.bus',
             'default_middleware' => true,
             'buses'              => [
-                'messenger.bus.command' => [
+                'messenger.command.bus' => [
                     'allows_no_handler' => false,
                     'handlers'          => [],
-                    'middleware'        => [],
+                    'middleware'        => [
+                        'messenger.command.middleware.sender',
+                        'messenger.command.middleware.handler',
+                    ],
                     'routes'            => [],
                 ],
-                'messenger.bus.event'   => [
+                'messenger.event.bus'   => [
                     'allows_no_handler' => true,
                     'handlers'          => [],
-                    'middleware'        => [],
+                    'middleware'        => [
+                        'messenger.event.middleware.sender',
+                        'messenger.event.middleware.handler',
+                    ],
                     'routes'            => [],
                 ],
-                'messenger.bus.query'   => [
+                'messenger.query.bus'   => [
                     'allows_no_handler' => false,
                     'handlers'          => [],
-                    'middleware'        => [],
+                    'middleware'        => [
+                        'messenger.query.middleware.sender',
+                        'messenger.query.middleware.handler',
+                    ],
                     'routes'            => [],
                 ],
             ],
@@ -81,7 +88,7 @@ class ConfigProvider
     {
         return [
             'commands' => [
-                'messenger:consume' => Command\CommandQueueWorker::class,
+                'messenger:consume' => ConsumeMessagesCommand::class,
             ],
         ];
     }

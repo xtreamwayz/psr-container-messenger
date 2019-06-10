@@ -1,17 +1,16 @@
 # Expressive Messenger
 
-_Message bus and queue for Zend Expressive with Symfony Messenger + Enqueue_
+_Message bus and queue for Zend Expressive with Symfony Messenger
 
 [![Build Status](https://travis-ci.com/xtreamwayz/expressive-messenger.svg)](https://travis-ci.com/xtreamwayz/expressive-messenger)
 [![Packagist](https://img.shields.io/packagist/v/xtreamwayz/expressive-messenger.svg)](https://packagist.org/packages/xtreamwayz/expressive-messenger)
 [![Packagist](https://img.shields.io/packagist/vpre/xtreamwayz/expressive-messenger.svg)](https://packagist.org/packages/xtreamwayz/expressive-messenger)
 
 This packages brings message buses to your Zend Expressive project. Basically it's a bundle of factories to make
-life easier for you. The real work is done by [Symfony Messenger](https://github.com/symfony/messenger)
-and [enqueue](https://github.com/php-enqueue/enqueue).
+life easier for you. The real work is done by [Symfony Messenger](https://github.com/symfony/messenger).
 
 It comes with pre-configured command, event and query buses for your convenience. Or don't use them if you want to
-create your own. Transports are used to queue your messages or send and receive them to/from 3rd parties.
+create your own. Transports can be used to queue your messages or send and receive them to/from 3rd parties.
 
 ## Installation
 
@@ -26,13 +25,13 @@ By default there are 3 buses registered.
 
 ```php
 // Each dispatched command must have one handler
-$commandBus = $container->get('messenger.bus.command');
+$commandBus = $container->get('messenger.command.bus');
 
 // Each dispatched event may have zero or more handlers
-$eventBus = $container->get('messenger.bus.event');
+$eventBus = $container->get('messenger.event.bus');
 
 // Each dispatched query must have one handler and returns a result
-$queryBus = $container->get('messenger.bus.query');
+$queryBus = $container->get('messenger.query.bus');
 ```
 
 ## Configuration
@@ -53,7 +52,7 @@ use App\Domain\Handler\RegisterUserHandlerFactory;
 use App\Domain\Handler\UserRegisteredHandler;
 use App\Domain\Handler\UserRegisteredHandlerFactory;
 use App\Domain\Query\FindUser;
-use Xtreamwayz\Expressive\Messenger\Transport\EnqueueTransportFactory;
+use Xtreamwayz\Expressive\Messenger\Container\TransportFactory;
 
 return [
     'dependencies' => [
@@ -62,12 +61,12 @@ return [
             RegisterUserHandler::class   => RegisterUserHandlerFactory::class,
             UserRegisteredHandler::class => UserRegisteredHandlerFactory::class,
 
-            'messenger.transport.redis'   => [EnqueueTransportFactory::class, 'redis:'],
+            'messenger.transport.redis'   => [TransportFactory::class, 'redis:'],
         ],
     ],
 
     'messenger' => [
-        'default_bus'        => 'messenger.bus.command',
+        'default_bus'        => 'messenger.command.bus',
         'default_middleware' => true,
         'buses'              => [
             // Command bus
@@ -79,6 +78,8 @@ return [
                 ],
                 'middleware' => [
                     // Add custom middleware
+                    'messenger.command.middleware.sender',
+                    'messenger.command.middleware.handler',
                 ],
                 'routes'     => [
                     // Transport routes to senders (queue, 3rd party, https endpoint)
@@ -86,7 +87,7 @@ return [
                 ],
             ],
             // Event bus
-            'messenger.bus.event'   => [
+            'messenger.event.bus'   => [
                 'allows_no_handler' => true,
                 'handlers'   => [
                     // An event may have multiple handlers
@@ -97,18 +98,22 @@ return [
                 ],
                 'middleware' => [
                     // Add custom middleware
+                    'messenger.event.middleware.sender',
+                    'messenger.event.middleware.handler',
                 ],
                 'routes'     => [
                     // Transport routes to senders (queue, 3rd party, https endpoint)
                 ],
             ],
-            'messenger.bus.query'   => [
+            'messenger.query.bus'   => [
                 'allows_no_handler' => false,
                 'handlers'   => [
                     FindUser::class => FindUserHandler::class
                 ],
                 'middleware' => [
                     // Add custom middleware
+                    'messenger.query.middleware.sender',
+                    'messenger.query.middleware.handler',
                 ],
                 'routes'     => [
                     // Transport routes to senders (queue, 3rd party, https endpoint)

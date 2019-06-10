@@ -2,6 +2,38 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
+## 0.5.0 - 2019-06-10
+
+### Added
+
+- [#10](https://github.com/xtreamwayz/expressive-messenger/pull/10) adds Symfony Messenger version 4.3.x support.
+
+### Changed
+
+- [#10](https://github.com/xtreamwayz/expressive-messenger/pull/10) changed to the original consume messages command.
+
+- [#10](https://github.com/xtreamwayz/expressive-messenger/pull/10) changed the naming of supplied busses and related middleware.
+
+- [#10](https://github.com/xtreamwayz/expressive-messenger/pull/10) changed to the PHP internal serializer.
+
+### Deprecated
+
+- Nothing.
+
+### Removed
+
+- [#10](https://github.com/xtreamwayz/expressive-messenger/pull/10) removed add default middleware config option. Middleware needs to be added manually now. The supplied busses already have the sender and handler middleware setup.
+
+- [#10](https://github.com/xtreamwayz/expressive-messenger/pull/10) removed obsolete symfony serializer factories.
+
+- [#10](https://github.com/xtreamwayz/expressive-messenger/pull/10) removed enqueue transport support as messenger supplies it own.
+
+- [#10](https://github.com/xtreamwayz/expressive-messenger/pull/10) removed deprecated LoggingMiddleware.
+
+### Fixed
+
+- Nothing.
+
 ## 0.4.2 - 2019-06-03
 
 ### Added

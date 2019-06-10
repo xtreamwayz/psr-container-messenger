@@ -47,9 +47,9 @@ class ConfigProviderTest extends TestCase
         $this->assertTrue($config['messenger']['default_middleware']);
         $this->assertArrayHasKey('buses', $config['messenger']);
         $this->assertIsArray($config['messenger']['buses']);
-        $this->assertArrayHasKey('messenger.bus.command', $config['messenger']['buses']);
-        $this->assertArrayHasKey('messenger.bus.event', $config['messenger']['buses']);
-        $this->assertArrayHasKey('messenger.bus.query', $config['messenger']['buses']);
+        $this->assertArrayHasKey('messenger.command.bus', $config['messenger']['buses']);
+        $this->assertArrayHasKey('messenger.event.bus', $config['messenger']['buses']);
+        $this->assertArrayHasKey('messenger.query.bus', $config['messenger']['buses']);
 
         foreach ($config['messenger']['buses'] as $bus) {
             $this->assertArrayHasKey('handlers', $bus);

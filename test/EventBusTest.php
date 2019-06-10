@@ -38,7 +38,7 @@ class EventBusTest extends TestCase
         $container = $this->getContainer();
 
         /** @var MessageBus $eventBus */
-        $eventBus = $container->get('messenger.bus.event');
+        $eventBus = $container->get('messenger.event.bus');
 
         self::assertInstanceOf(MessageBusInterface::class, $eventBus);
         self::assertInstanceOf(MessageBus::class, $eventBus);
@@ -50,7 +50,7 @@ class EventBusTest extends TestCase
 
         /** @var MessageBus $eventBus */
         $container = $this->getContainer();
-        $eventBus  = $container->get('messenger.bus.event');
+        $eventBus  = $container->get('messenger.event.bus');
         $result    = $eventBus->dispatch($event);
 
         self::assertSame($event, $result->getMessage());
@@ -66,12 +66,12 @@ class EventBusTest extends TestCase
 
         // @codingStandardsIgnoreStart
         $this->config['dependencies']['services'][DummyEventHandler::class]                       = $eventHandler->reveal();
-        $this->config['messenger']['buses']['messenger.bus.event']['handlers'][DummyEvent::class] = DummyEventHandler::class;
+        $this->config['messenger']['buses']['messenger.event.bus']['handlers'][DummyEvent::class] = [DummyEventHandler::class];
         // @codingStandardsIgnoreEnd
 
         /** @var MessageBus $eventBus */
         $container = $this->getContainer();
-        $eventBus  = $container->get('messenger.bus.event');
+        $eventBus  = $container->get('messenger.event.bus');
         $eventBus->dispatch($event);
     }
 
@@ -79,20 +79,22 @@ class EventBusTest extends TestCase
     {
         $event = new DummyEvent();
 
-        $eventHandler = $this->prophesize(DummyEventHandler::class);
-        $eventHandler->__invoke($event)->shouldBeCalledTimes(2);
+        $eventHandler1 = $this->prophesize(DummyEventHandler::class);
+        $eventHandler1->__invoke($event)->shouldBeCalledTimes(1);
+        $eventHandler2 = $this->prophesize(DummyEventHandler::class);
+        $eventHandler2->__invoke($event)->shouldBeCalledTimes(1);
 
-        $this->config['dependencies']['services'][DummyEventHandler::class] = $eventHandler->reveal();
-        $this->config['dependencies']['services'][DummyQueryHandler::class] = $eventHandler->reveal();
+        $this->config['dependencies']['services'][DummyEventHandler::class] = $eventHandler1->reveal();
+        $this->config['dependencies']['services'][DummyQueryHandler::class] = $eventHandler2->reveal();
 
-        $this->config['messenger']['buses']['messenger.bus.event']['handlers'][DummyEvent::class] = [
+        $this->config['messenger']['buses']['messenger.event.bus']['handlers'][DummyEvent::class] = [
             DummyEventHandler::class,
             DummyQueryHandler::class,
         ];
 
         /** @var MessageBus $eventBus */
         $container = $this->getContainer();
-        $eventBus  = $container->get('messenger.bus.event');
+        $eventBus  = $container->get('messenger.event.bus');
         $eventBus->dispatch($event);
     }
 }
