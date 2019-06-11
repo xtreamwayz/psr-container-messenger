@@ -14,10 +14,10 @@ use Symfony\Component\Messenger\Transport\Serialization\PhpSerializer;
 use Symfony\Component\Messenger\Transport\Sync\SyncTransportFactory;
 use Symfony\Component\Messenger\Transport\TransportFactoryInterface;
 use Symfony\Component\Messenger\Transport\TransportInterface;
+use Xtreamwayz\Expressive\Messenger\Transport\DoctrineTransportFactory;
 use function explode;
 use function sprintf;
 use function trim;
-use Xtreamwayz\Expressive\Messenger\Transport\DoctrineTransportFactory;
 
 class TransportFactory
 {

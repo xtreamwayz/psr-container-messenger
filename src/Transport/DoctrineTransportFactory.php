@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Xtreamwayz\Expressive\Messenger\Transport;
 
 use Doctrine\ORM\EntityManager;
+use InvalidArgumentException;
 use Psr\Container\ContainerInterface;
 use Symfony\Component\Messenger\Exception\TransportException;
 use Symfony\Component\Messenger\Transport\Doctrine\Connection;
@@ -17,6 +18,7 @@ use function strpos;
 
 class DoctrineTransportFactory implements TransportFactoryInterface
 {
+    /** @var ContainerInterface */
     private $container;
 
     public function __construct(ContainerInterface $container)
@@ -33,9 +35,12 @@ class DoctrineTransportFactory implements TransportFactoryInterface
             if ($driverConnection instanceof EntityManager) {
                 $driverConnection = $driverConnection->getConnection();
             }
-        } catch (\InvalidArgumentException $e) {
-            throw new TransportException(sprintf('Could not find Doctrine connection from Messenger DSN "%s".', $dsn),
-                0, $e);
+        } catch (InvalidArgumentException $e) {
+            throw new TransportException(
+                sprintf('Could not find Doctrine connection from Messenger DSN "%s".', $dsn),
+                0,
+                $e
+            );
         }
 
         $connection = new Connection($configuration, $driverConnection);
@@ -45,6 +50,6 @@ class DoctrineTransportFactory implements TransportFactoryInterface
 
     public function supports(string $dsn, array $options) : bool
     {
-        return 0 === strpos($dsn, 'doctrine://');
+        return strpos($dsn, 'doctrine://') === 0;
     }
 }
