@@ -66,9 +66,8 @@ return [
     ],
 
     'messenger' => [
-        'default_bus'        => 'messenger.command.bus',
-        'default_middleware' => true,
-        'buses'              => [
+        'default_bus' => 'messenger.command.bus',
+        'buses'       => [
             // Command bus
             'messenger.bus.command' => [
                 'allows_no_handler' => false,
