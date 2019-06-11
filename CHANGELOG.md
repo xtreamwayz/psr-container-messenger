@@ -6,6 +6,8 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Added
 
+- [#14](https://github.com/xtreamwayz/expressive-messenger/pull/14) adds proper doctrine transport support.
+
 - [#13](https://github.com/xtreamwayz/expressive-messenger/pull/13) adds optional logging to middleware and console commands.
 
 ### Changed
