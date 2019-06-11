@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace XtreamwayzTest\Expressive\Messenger\Container;
 
+use Doctrine\DBAL\Connection as DBALConnection;
+use Doctrine\ORM\EntityManager;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Messenger\Transport\Receiver\ReceiverInterface;
 use Symfony\Component\Messenger\Transport\Sender\SenderInterface;
@@ -37,10 +39,17 @@ class TransportFactoryTest extends TestCase
      */
     public function testDns(string $dns) : void
     {
-        $this->config['dependencies']['factories']['messenger.transport.test'] = [TransportFactory::class, $dns];
+        $this->config['dependencies']['factories']['transport.test'] = [TransportFactory::class, $dns];
+
+        $dbal = $this->prophesize(DBALConnection::class);
+        $orm  = $this->prophesize(EntityManager::class);
+        $orm->getConnection()->willReturn($dbal->reveal());
+
+        $this->config['dependencies']['services']['doctrine.entity_manager.dbal_default'] = $dbal->reveal();
+        $this->config['dependencies']['services']['doctrine.entity_manager.orm_default']  = $orm->reveal();
 
         /** @var TransportInterface $transport */
-        $transport = $this->getContainer()->get('messenger.transport.test');
+        $transport = $this->getContainer()->get('transport.test');
 
         self::assertInstanceOf(TransportInterface::class, $transport);
         self::assertInstanceOf(ReceiverInterface::class, $transport);
@@ -51,7 +60,8 @@ class TransportFactoryTest extends TestCase
     {
         return [
             ['amqp://user:pass@example.com:5672/%2f/messages'],
-            //['doctrine://orm_default'],
+            ['doctrine://doctrine.entity_manager.dbal_default'],
+            ['doctrine://doctrine.entity_manager.orm_default'],
             ['in-memory:///'],
             ['sync://messenger.command.bus'],
             //['redis:'],

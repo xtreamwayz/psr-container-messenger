@@ -16,3 +16,5 @@ parameters:
           path: %currentWorkingDirectory%/src/Container/ContainerHandlersLocator.php
         - message: '#Call to an undefined method Prophecy\\Prophecy\\[a-zA-Z0-9\\_]+::info\(\)#'
           path: %currentWorkingDirectory%/test/Container/HandleMessageMiddlewareFactoryTest.php
+        - message: '#Call to an undefined method Prophecy\\Prophecy\\[a-zA-Z0-9\\_]+::getConnection\(\)#'
+          path: %currentWorkingDirectory%/test/Container/TransportFactoryTest.php

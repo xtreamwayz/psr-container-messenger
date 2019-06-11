@@ -2,9 +2,11 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
-## 0.5.1 - TBD
+## 0.5.1 - 2019-06-11
 
 ### Added
+
+- [#14](https://github.com/xtreamwayz/expressive-messenger/pull/14) adds proper doctrine transport support.
 
 - [#13](https://github.com/xtreamwayz/expressive-messenger/pull/13) adds optional logging to middleware and console commands.
 
