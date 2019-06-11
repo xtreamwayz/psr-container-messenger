@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
+## 0.5.1 - TBD
+
+### Added
+
+- [#13](https://github.com/xtreamwayz/expressive-messenger/pull/13) adds optional logging to middleware and console commands.
+
+### Changed
+
+- Nothing.
+
+### Deprecated
+
+- Nothing.
+
+### Removed
+
+- Nothing.
+
+### Fixed
+
+- Nothing.
+
 ## 0.5.0 - 2019-06-10
 
 ### Added
