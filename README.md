@@ -1,6 +1,6 @@
 # Expressive Messenger
 
-_Message bus and queue for Zend Expressive with Symfony Messenger
+_Message bus and queue for Zend Expressive with Symfony Messenger_
 
 [![Build Status](https://travis-ci.com/xtreamwayz/expressive-messenger.svg)](https://travis-ci.com/xtreamwayz/expressive-messenger)
 [![Packagist](https://img.shields.io/packagist/v/xtreamwayz/expressive-messenger.svg)](https://packagist.org/packages/xtreamwayz/expressive-messenger)
