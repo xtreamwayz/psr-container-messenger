@@ -50,9 +50,8 @@ class ConfigProvider
     public function getMessenger() : array
     {
         return [
-            'default_bus'        => 'messenger.command.bus',
-            'default_middleware' => true,
-            'buses'              => [
+            'default_bus' => 'messenger.command.bus',
+            'buses'       => [
                 'messenger.command.bus' => [
                     'allows_no_handler' => false,
                     'handlers'          => [],

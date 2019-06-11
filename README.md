@@ -61,14 +61,17 @@ return [
             RegisterUserHandler::class   => RegisterUserHandlerFactory::class,
             UserRegisteredHandler::class => UserRegisteredHandlerFactory::class,
 
-            'messenger.transport.redis'   => [TransportFactory::class, 'redis:'],
+            'messenger.transport.redis'  => [TransportFactory::class, 'redis:'],
+
+            LoggerInterface::class       => MyLoggerFactory::class,
         ],
     ],
 
     'messenger' => [
-        'default_bus'        => 'messenger.command.bus',
-        'default_middleware' => true,
-        'buses'              => [
+        'default_bus' => 'messenger.command.bus',
+        // (optionally) attach a logger to the send/handle middleware and console commands
+        'logger'      => LoggerInterface::class,
+        'buses'       => [
             // Command bus
             'messenger.bus.command' => [
                 'allows_no_handler' => false,

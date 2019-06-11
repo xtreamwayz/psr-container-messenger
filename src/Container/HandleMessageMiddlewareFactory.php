@@ -34,12 +34,18 @@ class HandleMessageMiddlewareFactory
     public function __invoke(ContainerInterface $container) : MiddlewareInterface
     {
         $config = $container->has('config') ? $container->get('config') : [];
+        $logger = $config['messenger']['logger'] ?? null;
         $config = $config['messenger']['buses'][$this->busName] ?? [];
 
         $allowNoHandlers = $config['allows_no_handler'] ?? false;
 
         $handlerLocator = (new ContainerHandlersLocatorFactory($this->busName))($container);
+        $middleware     = new HandleMessageMiddleware($handlerLocator, $allowNoHandlers);
 
-        return new HandleMessageMiddleware($handlerLocator, $allowNoHandlers);
+        if ($logger !== null) {
+            $middleware->setLogger($container->get($logger));
+        }
+
+        return $middleware;
     }
 }
