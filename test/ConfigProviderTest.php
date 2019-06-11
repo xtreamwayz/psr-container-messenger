@@ -26,7 +26,7 @@ class ConfigProviderTest extends TestCase
     {
         $config = ($this->provider)();
 
-        self::assertInternalType('array', $config);
+        self::assertIsArray($config);
 
         return $config;
     }
@@ -43,8 +43,6 @@ class ConfigProviderTest extends TestCase
 
         $this->assertArrayHasKey('messenger', $config);
         $this->assertIsArray($config['messenger']);
-        $this->assertArrayHasKey('default_middleware', $config['messenger']);
-        $this->assertTrue($config['messenger']['default_middleware']);
         $this->assertArrayHasKey('buses', $config['messenger']);
         $this->assertIsArray($config['messenger']['buses']);
         $this->assertArrayHasKey('messenger.command.bus', $config['messenger']['buses']);

@@ -33,8 +33,16 @@ class SendMessageMiddlewareFactory
 
     public function __invoke(ContainerInterface $container) : MiddlewareInterface
     {
-        $factory = new SendersLocatorFactory($this->busName);
+        $config = $container->has('config') ? $container->get('config') : [];
+        $logger = $config['messenger']['logger'] ?? null;
 
-        return new SendMessageMiddleware($factory($container));
+        $factory    = new SendersLocatorFactory($this->busName);
+        $middleware = new SendMessageMiddleware($factory($container));
+
+        if ($logger !== null) {
+            $middleware->setLogger($container->get($logger));
+        }
+
+        return $middleware;
     }
 }

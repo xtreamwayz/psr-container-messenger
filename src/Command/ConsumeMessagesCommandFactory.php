@@ -12,9 +12,13 @@ class ConsumeMessagesCommandFactory
 {
     public function __invoke(ContainerInterface $container) : ConsumeMessagesCommand
     {
+        $config = $container->has('config') ? $container->get('config') : [];
+        $logger = $config['messenger']['logger'] ?? null;
+
         return new ConsumeMessagesCommand(
             new RoutableMessageBus($container),
-            $container
+            $container,
+            $logger ? $container->get($logger) : null
         );
     }
 }
