@@ -7,7 +7,6 @@ namespace Xtreamwayz\Expressive\Messenger\Container;
 use InvalidArgumentException;
 use Psr\Container\ContainerInterface;
 use Symfony\Component\Messenger\Transport\AmqpExt\AmqpTransportFactory;
-use Symfony\Component\Messenger\Transport\Doctrine\DoctrineTransportFactory;
 use Symfony\Component\Messenger\Transport\InMemoryTransportFactory;
 use Symfony\Component\Messenger\Transport\RedisExt\RedisTransportFactory;
 use Symfony\Component\Messenger\Transport\Sender\SenderInterface;
@@ -18,6 +17,7 @@ use Symfony\Component\Messenger\Transport\TransportInterface;
 use function explode;
 use function sprintf;
 use function trim;
+use Xtreamwayz\Expressive\Messenger\Transport\DoctrineTransportFactory;
 
 class TransportFactory
 {
@@ -76,7 +76,7 @@ class TransportFactory
             case 'amqp':
                 return new AmqpTransportFactory();
             case 'doctrine':
-                return new DoctrineTransportFactory($container->get(trim($config, '/')));
+                return new DoctrineTransportFactory($container);
             case 'in-memory':
                 return new InMemoryTransportFactory();
             case 'redis':
