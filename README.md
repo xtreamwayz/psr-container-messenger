@@ -19,8 +19,6 @@ create your own. Transports can be used to queue your messages or send and recei
 If you have the [zend-component-installer](https://github.com/zendframework/zend-component-installer) installed, the
 configuration is added automatically for you.
 
-By default there is no middleware configured. You need to add
-
 ## Command, Query and Event buses
 
 By default there are 3 buses registered.
@@ -35,6 +33,9 @@ $eventBus = $container->get('messenger.event.bus');
 // Each dispatched query must have one handler and returns a result
 $queryBus = $container->get('messenger.query.bus');
 ```
+
+There is no middleware configured. You need to add this your self as the order is important. Look at the examples
+to get some ideas.
 
 ## Configuration
 
@@ -79,16 +80,17 @@ return [
                 'allows_no_handler' => false,
                 'handlers'   => [
                     // A command must have one handler
-                    RegisterUser::class => RegisterUserHandler::class
+                    RegisterUser::class => [RegisterUserHandler::class]
                 ],
                 'middleware' => [
                     // Add custom middleware
+                    ValidationMiddleware::class,
                     'messenger.command.middleware.sender',
                     'messenger.command.middleware.handler',
                 ],
                 'routes'     => [
                     // Transport routes to senders (queue, 3rd party, https endpoint)
-                    RegisterUser::class => 'messenger.transport.redis'
+                    RegisterUser::class => ['messenger.transport.redis']
                 ],
             ],
             // Event bus
@@ -113,7 +115,7 @@ return [
             'messenger.query.bus'   => [
                 'allows_no_handler' => false,
                 'handlers'   => [
-                    FindUser::class => FindUserHandler::class
+                    FindUser::class => [FindUserHandler::class]
                 ],
                 'middleware' => [
                     // Add custom middleware
