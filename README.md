@@ -19,6 +19,8 @@ create your own. Transports can be used to queue your messages or send and recei
 If you have the [zend-component-installer](https://github.com/zendframework/zend-component-installer) installed, the
 configuration is added automatically for you.
 
+By default there is no middleware configured. You need to add
+
 ## Command, Query and Event buses
 
 By default there are 3 buses registered.

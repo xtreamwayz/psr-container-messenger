@@ -14,6 +14,7 @@ use XtreamwayzTest\Expressive\Messenger\Fixtures\DummyQuery;
 use XtreamwayzTest\Expressive\Messenger\Fixtures\DummyQueryHandler;
 use Zend\ServiceManager\Config;
 use Zend\ServiceManager\ServiceManager;
+use function array_replace_recursive;
 use function sprintf;
 
 class QueryBusTest extends TestCase
@@ -23,7 +24,7 @@ class QueryBusTest extends TestCase
 
     public function setUp() : void
     {
-        $this->config = (new ConfigProvider())();
+        $this->config = array_replace_recursive((new ConfigProvider())(), require 'example/basic-config.php');
     }
 
     private function getContainer() : ServiceManager

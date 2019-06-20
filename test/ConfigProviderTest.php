@@ -9,6 +9,7 @@ use Psr\Log\LoggerInterface;
 use Xtreamwayz\Expressive\Messenger\ConfigProvider;
 use Zend\ServiceManager\Config;
 use Zend\ServiceManager\ServiceManager;
+use function array_replace_recursive;
 use function is_array;
 use function sprintf;
 
@@ -86,7 +87,10 @@ class ConfigProviderTest extends TestCase
     {
         $container = new ServiceManager();
         (new Config($dependencies))->configureServiceManager($container);
-        $container->setService('config', ($this->provider)());
+        $container->setService('config', array_replace_recursive(
+            ($this->provider)(),
+            require 'example/basic-config.php'
+        ));
 
         return $container;
     }
