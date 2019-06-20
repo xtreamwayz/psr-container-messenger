@@ -22,19 +22,14 @@ class ConfigProvider
 
     public function getDependencies() : array
     {
+        // phpcs:disable
         return [
             'factories' => [
                 ConsumeMessagesCommand::class => Command\ConsumeMessagesCommandFactory::class,
 
                 'messenger.command.bus'                => [MessageBusFactory::class, 'messenger.command.bus'],
-                'messenger.command.middleware.handler' => [
-                    HandleMessageMiddlewareFactory::class,
-                    'messenger.command.bus',
-                ],
-                'messenger.command.middleware.sender'  => [
-                    SendMessageMiddlewareFactory::class,
-                    'messenger.command.bus',
-                ],
+                'messenger.command.middleware.handler' => [HandleMessageMiddlewareFactory::class, 'messenger.command.bus'],
+                'messenger.command.middleware.sender'  => [SendMessageMiddlewareFactory::class, 'messenger.command.bus'],
 
                 'messenger.event.bus'                => [MessageBusFactory::class, 'messenger.event.bus'],
                 'messenger.event.middleware.handler' => [HandleMessageMiddlewareFactory::class, 'messenger.event.bus'],
@@ -45,6 +40,7 @@ class ConfigProvider
                 'messenger.query.middleware.sender'  => [SendMessageMiddlewareFactory::class, 'messenger.query.bus'],
             ],
         ];
+        // phpcs:enable
     }
 
     public function getMessenger() : array
@@ -55,28 +51,19 @@ class ConfigProvider
                 'messenger.command.bus' => [
                     'allows_no_handler' => false,
                     'handlers'          => [],
-                    'middleware'        => [
-                        'messenger.command.middleware.sender',
-                        'messenger.command.middleware.handler',
-                    ],
+                    'middleware'        => [],
                     'routes'            => [],
                 ],
                 'messenger.event.bus'   => [
                     'allows_no_handler' => true,
                     'handlers'          => [],
-                    'middleware'        => [
-                        'messenger.event.middleware.sender',
-                        'messenger.event.middleware.handler',
-                    ],
+                    'middleware'        => [],
                     'routes'            => [],
                 ],
                 'messenger.query.bus'   => [
                     'allows_no_handler' => false,
                     'handlers'          => [],
-                    'middleware'        => [
-                        'messenger.query.middleware.sender',
-                        'messenger.query.middleware.handler',
-                    ],
+                    'middleware'        => [],
                     'routes'            => [],
                 ],
             ],

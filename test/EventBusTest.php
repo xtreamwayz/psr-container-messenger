@@ -13,6 +13,7 @@ use XtreamwayzTest\Expressive\Messenger\Fixtures\DummyEventHandler;
 use XtreamwayzTest\Expressive\Messenger\Fixtures\DummyQueryHandler;
 use Zend\ServiceManager\Config;
 use Zend\ServiceManager\ServiceManager;
+use function array_replace_recursive;
 
 class EventBusTest extends TestCase
 {
@@ -21,7 +22,7 @@ class EventBusTest extends TestCase
 
     public function setUp() : void
     {
-        $this->config = (new ConfigProvider())();
+        $this->config = array_replace_recursive((new ConfigProvider())(), require 'example/basic-config.php');
     }
 
     private function getContainer() : ServiceManager

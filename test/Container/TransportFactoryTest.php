@@ -14,6 +14,7 @@ use Xtreamwayz\Expressive\Messenger\ConfigProvider;
 use Xtreamwayz\Expressive\Messenger\Container\TransportFactory;
 use Zend\ServiceManager\Config;
 use Zend\ServiceManager\ServiceManager;
+use function array_replace_recursive;
 
 class TransportFactoryTest extends TestCase
 {
@@ -22,7 +23,7 @@ class TransportFactoryTest extends TestCase
 
     public function setUp() : void
     {
-        $this->config = (new ConfigProvider())();
+        $this->config = array_replace_recursive((new ConfigProvider())(), require 'example/basic-config.php');
     }
 
     private function getContainer() : ServiceManager

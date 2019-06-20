@@ -13,6 +13,7 @@ use XtreamwayzTest\Expressive\Messenger\Fixtures\DummyCommand;
 use XtreamwayzTest\Expressive\Messenger\Fixtures\DummyCommandHandler;
 use Zend\ServiceManager\Config;
 use Zend\ServiceManager\ServiceManager;
+use function array_replace_recursive;
 use function sprintf;
 
 class CommandBusTest extends TestCase
@@ -22,7 +23,7 @@ class CommandBusTest extends TestCase
 
     public function setUp() : void
     {
-        $this->config = (new ConfigProvider())();
+        $this->config = array_replace_recursive((new ConfigProvider())(), require 'example/basic-config.php');
     }
 
     private function getContainer() : ServiceManager
