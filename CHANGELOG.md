@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
+## 0.6.0 - TBD
+
+### Added
+
+- Nothing.
+
+### Changed
+
+- [#17](https://github.com/xtreamwayz/expressive-messenger/pull/17) removes default middleware config as it does not work as intended.
+
+### Deprecated
+
+- Nothing.
+
+### Removed
+
+- Nothing.
+
+### Fixed
+
+- Nothing.
+
 ## 0.5.1 - 2019-06-11
 
 ### Added
