@@ -1,6 +1,6 @@
 params:
   expressive-messenger:
-    name: "expressive-messenger"
-    latest: "1.0"
-    develop:
+    name: expressive-messenger
+    latest: v1
     versions:
+      - v1

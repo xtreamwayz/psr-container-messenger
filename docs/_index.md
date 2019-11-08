@@ -1,8 +1,8 @@
 ---
-title: "xtreamwayz/expressive-messenger"
-type: "project"
-layout: "landingpage"
-project: "expressive-messenger"
+title: xtreamwayz/expressive-messenger
+type: project
+layout: landingpage
+project: expressive-messenger
 ---
 
 This packages brings message buses to your Zend Expressive project. Basically it's a bundle of factories to make

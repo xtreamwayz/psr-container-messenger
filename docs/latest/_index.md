@@ -1,9 +1,9 @@
 ---
-title: "Getting started"
-type: "project"
-layout: "page"
-project: "expressive-messenger"
-version: "1.0"
+title: Getting started
+type: project
+layout: page
+project: expressive-messenger
+version: v1
 ---
 
 This packages brings message buses to your Zend Expressive project. Basically it's a bundle of factories to make
