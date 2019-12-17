@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
+## 1.0.0 - 2019-12-17
+
+### Added
+
+- [#18](https://github.com/xtreamwayz/expressive-messenger/pull/18) adds support for messenger 4.4.
+
+### Changed
+
+- Nothing.
+
+### Deprecated
+
+- Nothing.
+
+### Removed
+
+- Nothing.
+
+### Fixed
+
+- Nothing.
+
 ## 0.6.0 - 2019-06-20
 
 ### Added

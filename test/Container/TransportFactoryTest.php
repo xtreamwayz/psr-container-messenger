@@ -60,7 +60,6 @@ class TransportFactoryTest extends TestCase
     public function dnsProvider() : array
     {
         return [
-            ['amqp://user:pass@example.com:5672/%2f/messages'],
             ['doctrine://doctrine.entity_manager.dbal_default'],
             ['doctrine://doctrine.entity_manager.orm_default'],
             ['in-memory:///'],
