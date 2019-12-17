@@ -42,7 +42,7 @@ class HandleMessageMiddlewareFactoryTest extends TestCase
         $commandHandler->__invoke($command)->shouldBeCalled();
 
         $logger = $this->prophesize(LoggerInterface::class);
-        $logger->info('Message "{class}" handled by "{handler}"', Argument::type('array'))->shouldBeCalled();
+        $logger->info('Message {class} handled by {handler}', Argument::type('array'))->shouldBeCalled();
 
         // @codingStandardsIgnoreStart
         $this->config['dependencies']['services'][LoggerInterface::class]                             = $logger->reveal();
