@@ -10,7 +10,7 @@ use Symfony\Component\Messenger\MessageBusInterface;
 use Xtreamwayz\Expressive\Messenger\ConfigProvider;
 use XtreamwayzTest\Expressive\Messenger\Fixtures\DummyEvent;
 use XtreamwayzTest\Expressive\Messenger\Fixtures\DummyEventHandler;
-use XtreamwayzTest\Expressive\Messenger\Fixtures\DummyQueryHandler;
+use XtreamwayzTest\Expressive\Messenger\Fixtures\DummyEventHandlerTwo;
 use Zend\ServiceManager\Config;
 use Zend\ServiceManager\ServiceManager;
 use function array_replace_recursive;
@@ -82,15 +82,15 @@ class EventBusTest extends TestCase
 
         $eventHandler1 = $this->prophesize(DummyEventHandler::class);
         $eventHandler1->__invoke($event)->shouldBeCalledTimes(1);
-        $eventHandler2 = $this->prophesize(DummyEventHandler::class);
+        $eventHandler2 = $this->prophesize(DummyEventHandlerTwo::class);
         $eventHandler2->__invoke($event)->shouldBeCalledTimes(1);
 
-        $this->config['dependencies']['services'][DummyEventHandler::class] = $eventHandler1->reveal();
-        $this->config['dependencies']['services'][DummyQueryHandler::class] = $eventHandler2->reveal();
+        $this->config['dependencies']['services'][DummyEventHandler::class]    = $eventHandler1->reveal();
+        $this->config['dependencies']['services'][DummyEventHandlerTwo::class] = $eventHandler2->reveal();
 
         $this->config['messenger']['buses']['messenger.event.bus']['handlers'][DummyEvent::class] = [
             DummyEventHandler::class,
-            DummyQueryHandler::class,
+            DummyEventHandlerTwo::class,
         ];
 
         /** @var MessageBus $eventBus */
