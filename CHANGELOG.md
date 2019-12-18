@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
+## 1.0.1 - TBD
+
+### Added
+
+- Nothing.
+
+### Changed
+
+- Nothing.
+
+### Deprecated
+
+- Nothing.
+
+### Removed
+
+- Nothing.
+
+### Fixed
+
+- [#19](https://github.com/xtreamwayz/expressive-messenger/pull/19) fixes the version constrain for the event-dispatcher.
+
 ## 1.0.0 - 2019-12-17
 
 ### Added
