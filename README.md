@@ -23,7 +23,7 @@ composer require xtreamwayz/psr-container-messenger
 
 All project documentation is located in the [./docs](./docs) folder. If you would like to contribute
 to the documentation, please submit a pull request. You can read the docs online:
-https://xtreamwayz.netlify.com/psr-container-messenger/
+https://xtreamwayz.netlify.app/psr-container-messenger/
 
 ## Contributing
 

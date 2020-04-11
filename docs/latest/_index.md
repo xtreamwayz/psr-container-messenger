@@ -2,11 +2,11 @@
 title: Getting started
 type: project
 layout: page
-project: expressive-messenger
+project: psr-container-messenger
 version: v2
 ---
 
-This packages brings message buses to your Zend Expressive project. Basically it's a bundle of factories to make
+This packages brings message buses to PSR container compatible project. It's a bundle of factories to make
 life easier for you. The real work is done by [Symfony Messenger](https://github.com/symfony/messenger).
 
 It comes with pre-configured command, event and query buses for your convenience. Or don't use them if you want to
@@ -15,11 +15,11 @@ create your own. Transports can be used to queue your messages or send and recei
 ## Installation
 
 ```bash
-composer require xtreamwayz/expressive-messenger
+composer require xtreamwayz/psr-container-messenger
 ```
 
-If you have the [zend-component-installer](https://github.com/zendframework/zend-component-installer) installed, the
-configuration is added automatically added to your expressive application.
+If you have [laminas-component-installer](https://github.com/laminas/laminas-component-installer) installed, the
+configuration is added automatically added to your mezzio application.
 
 ## Command, Query and Event buses
 
