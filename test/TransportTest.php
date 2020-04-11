@@ -45,7 +45,7 @@ class TransportTest extends TestCase
         $envelope = new Envelope($message);
         $result   = $transport->send($envelope);
 
-        self::assertEquals($result, $envelope);
-        self::assertSame([$envelope], $transport->get());
+        $this->assertEquals($result, $envelope);
+        $this->assertSame([$envelope], $transport->get());
     }
 }

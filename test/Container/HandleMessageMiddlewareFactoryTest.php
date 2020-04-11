@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Xtreamwayz\PsrContainerMessenger\Test\Container;
 
 use PHPUnit\Framework\TestCase;
-use Prophecy\Argument;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Messenger\MessageBus;
 use Xtreamwayz\PsrContainerMessenger\ConfigProvider;
@@ -37,17 +36,19 @@ class HandleMessageMiddlewareFactoryTest extends TestCase
 
     public function testItLogs(): void
     {
-        $command = new DummyCommand();
+        $command        = new DummyCommand();
+        $commandHandler = $this->createMock(DummyCommandHandler::class);
+        $commandHandler->expects($this->once())->method('__invoke')->with($command);
 
-        $commandHandler = $this->prophesize(DummyCommandHandler::class);
-        $commandHandler->__invoke($command)->shouldBeCalled();
-
-        $logger = $this->prophesize(LoggerInterface::class);
-        $logger->info('Message {class} handled by {handler}', Argument::type('array'))->shouldBeCalled();
+        $logger = $this->createMock(LoggerInterface::class);
+        $logger->expects($this->once())->method('info')->with(
+            'Message {class} handled by {handler}',
+            $this->isType('array')
+        );
 
         // @codingStandardsIgnoreStart
-        $this->config['dependencies']['services'][LoggerInterface::class]                             = $logger->reveal();
-        $this->config['dependencies']['services'][DummyCommandHandler::class]                         = $commandHandler->reveal();
+        $this->config['dependencies']['services'][LoggerInterface::class]                             = $logger;
+        $this->config['dependencies']['services'][DummyCommandHandler::class]                         = $commandHandler;
         $this->config['messenger']['logger']                                                          = LoggerInterface::class;
         $this->config['messenger']['buses']['messenger.command.bus']['handlers'][DummyCommand::class] = [DummyCommandHandler::class];
         // @codingStandardsIgnoreEnd

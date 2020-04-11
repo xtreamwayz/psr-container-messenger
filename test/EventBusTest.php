@@ -42,8 +42,8 @@ class EventBusTest extends TestCase
         /** @var MessageBus $eventBus */
         $eventBus = $container->get('messenger.event.bus');
 
-        self::assertInstanceOf(MessageBusInterface::class, $eventBus);
-        self::assertInstanceOf(MessageBus::class, $eventBus);
+        $this->assertInstanceOf(MessageBusInterface::class, $eventBus);
+        $this->assertInstanceOf(MessageBus::class, $eventBus);
     }
 
     public function testItCanHaveNoHandlers(): void
@@ -55,19 +55,19 @@ class EventBusTest extends TestCase
         $eventBus  = $container->get('messenger.event.bus');
         $result    = $eventBus->dispatch($event);
 
-        self::assertSame($event, $result->getMessage());
-        self::assertEmpty($result->all());
+        $this->assertSame($event, $result->getMessage());
+        $this->assertEmpty($result->all());
     }
 
     public function testItCanHandleEvents(): void
     {
         $event = new DummyEvent();
 
-        $eventHandler = $this->prophesize(DummyEventHandler::class);
-        $eventHandler->__invoke($event)->shouldBeCalled();
+        $eventHandler = $this->createMock(DummyEventHandler::class);
+        $eventHandler->expects($this->once())->method('__invoke')->with($event);
 
         // @codingStandardsIgnoreStart
-        $this->config['dependencies']['services'][DummyEventHandler::class]                       = $eventHandler->reveal();
+        $this->config['dependencies']['services'][DummyEventHandler::class]                       = $eventHandler;
         $this->config['messenger']['buses']['messenger.event.bus']['handlers'][DummyEvent::class] = [DummyEventHandler::class];
         // @codingStandardsIgnoreEnd
 
@@ -81,13 +81,13 @@ class EventBusTest extends TestCase
     {
         $event = new DummyEvent();
 
-        $eventHandler1 = $this->prophesize(DummyEventHandler::class);
-        $eventHandler1->__invoke($event)->shouldBeCalledTimes(1);
-        $eventHandler2 = $this->prophesize(DummyEventHandlerTwo::class);
-        $eventHandler2->__invoke($event)->shouldBeCalledTimes(1);
+        $eventHandler1 = $this->createMock(DummyEventHandler::class);
+        $eventHandler1->expects($this->once())->method('__invoke')->with($event);
+        $eventHandler2 = $this->createMock(DummyEventHandlerTwo::class);
+        $eventHandler2->expects($this->once())->method('__invoke')->with($event);
 
-        $this->config['dependencies']['services'][DummyEventHandler::class]    = $eventHandler1->reveal();
-        $this->config['dependencies']['services'][DummyEventHandlerTwo::class] = $eventHandler2->reveal();
+        $this->config['dependencies']['services'][DummyEventHandler::class]    = $eventHandler1;
+        $this->config['dependencies']['services'][DummyEventHandlerTwo::class] = $eventHandler2;
 
         $this->config['messenger']['buses']['messenger.event.bus']['handlers'][DummyEvent::class] = [
             DummyEventHandler::class,

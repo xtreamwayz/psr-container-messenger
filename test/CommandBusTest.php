@@ -43,8 +43,8 @@ class CommandBusTest extends TestCase
         /** @var MessageBus $commandBus */
         $commandBus = $container->get('messenger.command.bus');
 
-        self::assertInstanceOf(MessageBusInterface::class, $commandBus);
-        self::assertInstanceOf(MessageBus::class, $commandBus);
+        $this->assertInstanceOf(MessageBusInterface::class, $commandBus);
+        $this->assertInstanceOf(MessageBus::class, $commandBus);
     }
 
     public function testItMustHaveOneCommandHandler(): void
@@ -62,13 +62,12 @@ class CommandBusTest extends TestCase
 
     public function testItCanHandleCommands(): void
     {
-        $command = new DummyCommand();
-
-        $commandHandler = $this->prophesize(DummyCommandHandler::class);
-        $commandHandler->__invoke($command)->shouldBeCalled();
+        $command        = new DummyCommand();
+        $commandHandler = $this->createMock(DummyCommandHandler::class);
+        $commandHandler->expects($this->once())->method('__invoke')->with($command);
 
         // @codingStandardsIgnoreStart
-        $this->config['dependencies']['services'][DummyCommandHandler::class]                         = $commandHandler->reveal();
+        $this->config['dependencies']['services'][DummyCommandHandler::class]                         = $commandHandler;
         $this->config['messenger']['buses']['messenger.command.bus']['handlers'][DummyCommand::class] = [DummyCommandHandler::class];
         // @codingStandardsIgnoreEnd
 

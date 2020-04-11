@@ -43,19 +43,19 @@ class TransportFactoryTest extends TestCase
     {
         $this->config['dependencies']['factories']['transport.test'] = [TransportFactory::class, $dns];
 
-        $dbal = $this->prophesize(DBALConnection::class);
-        $orm  = $this->prophesize(EntityManager::class);
-        $orm->getConnection()->willReturn($dbal->reveal());
+        $dbal = $this->createMock(DBALConnection::class);
+        $orm  = $this->createMock(EntityManager::class);
+        $orm->method('getConnection')->willReturn($dbal);
 
-        $this->config['dependencies']['services']['doctrine.entity_manager.dbal_default'] = $dbal->reveal();
-        $this->config['dependencies']['services']['doctrine.entity_manager.orm_default']  = $orm->reveal();
+        $this->config['dependencies']['services']['doctrine.entity_manager.dbal_default'] = $dbal;
+        $this->config['dependencies']['services']['doctrine.entity_manager.orm_default']  = $orm;
 
         /** @var TransportInterface $transport */
         $transport = $this->getContainer()->get('transport.test');
 
-        self::assertInstanceOf(TransportInterface::class, $transport);
-        self::assertInstanceOf(ReceiverInterface::class, $transport);
-        self::assertInstanceOf(SenderInterface::class, $transport);
+        $this->assertInstanceOf(TransportInterface::class, $transport);
+        $this->assertInstanceOf(ReceiverInterface::class, $transport);
+        $this->assertInstanceOf(SenderInterface::class, $transport);
     }
 
     public function dnsProvider(): array

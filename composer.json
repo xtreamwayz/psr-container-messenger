@@ -12,7 +12,6 @@
         "ext-json": "*",
         "doctrine/dbal": "^2.6",
         "doctrine/orm": "^2.6",
-        "jangregor/phpstan-prophecy": "^0.6.2",
         "laminas/laminas-coding-standard": "^2.0rc1 | ^2.0",
         "laminas/laminas-servicemanager": "^3.4",
         "phpstan/phpstan": "^0.12",
