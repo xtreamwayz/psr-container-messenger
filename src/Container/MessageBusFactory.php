@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Xtreamwayz\Expressive\Messenger\Container;
+namespace Xtreamwayz\PsrContainerMessenger\Container;
 
 use InvalidArgumentException;
 use Psr\Container\ContainerInterface;
 use Symfony\Component\Messenger\MessageBus;
 use Symfony\Component\Messenger\MessageBusInterface;
-use Xtreamwayz\Expressive\Messenger\Exception\InvalidConfigException;
+use Xtreamwayz\PsrContainerMessenger\Exception\InvalidConfigException;
 use function sprintf;
 
 class MessageBusFactory

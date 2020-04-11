@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Xtreamwayz\Expressive\Messenger\Container;
+namespace Xtreamwayz\PsrContainerMessenger\Container;
 
 use InvalidArgumentException;
 use Psr\Container\ContainerInterface;
@@ -14,7 +14,7 @@ use Symfony\Component\Messenger\Transport\Serialization\PhpSerializer;
 use Symfony\Component\Messenger\Transport\Sync\SyncTransportFactory;
 use Symfony\Component\Messenger\Transport\TransportFactoryInterface;
 use Symfony\Component\Messenger\Transport\TransportInterface;
-use Xtreamwayz\Expressive\Messenger\Transport\DoctrineTransportFactory;
+use Xtreamwayz\PsrContainerMessenger\Transport\DoctrineTransportFactory;
 use function explode;
 use function sprintf;
 use function trim;

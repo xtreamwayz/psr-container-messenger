@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Xtreamwayz\Expressive\Messenger\Command;
+namespace Xtreamwayz\PsrContainerMessenger\Command;
 
 use Psr\Container\ContainerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcher;

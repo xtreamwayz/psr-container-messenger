@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Xtreamwayz\Expressive\Messenger\Container;
+namespace Xtreamwayz\PsrContainerMessenger\Container;
 
 use Psr\Container\ContainerInterface;
 use Symfony\Component\Messenger\Transport\Sender\SendersLocator;

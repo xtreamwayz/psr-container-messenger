@@ -1,6 +1,7 @@
 params:
-  expressive-messenger:
-    name: expressive-messenger
-    latest: v1
+  psr-container-messenger:
+    name: psr-container-messenger
+    latest: v2
     versions:
       - v1
+      - v2

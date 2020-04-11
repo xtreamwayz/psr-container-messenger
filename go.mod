@@ -1,3 +1,3 @@
-module github.com/xtreamwayz/expressive-messenger
+module github.com/xtreamwayz/psr-container-messenger
 
 go 1.13

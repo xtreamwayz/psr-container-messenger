@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Xtreamwayz\Expressive\Messenger\Exception;
+namespace Xtreamwayz\PsrContainerMessenger\Exception;
 
 interface ExceptionInterface
 {

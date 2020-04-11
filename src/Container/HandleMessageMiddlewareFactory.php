@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Xtreamwayz\Expressive\Messenger\Container;
+namespace Xtreamwayz\PsrContainerMessenger\Container;
 
 use InvalidArgumentException;
 use Psr\Container\ContainerInterface;

@@ -1,11 +1,11 @@
 ---
-title: xtreamwayz/expressive-messenger
+title: xtreamwayz/psr-container-messenger
 type: project
 layout: landingpage
-project: expressive-messenger
+project: psr-container-messenger
 ---
 
-This packages brings message buses to your Zend Expressive project. Basically it's a bundle of factories to make
+This packages brings message buses to PSR container compatible project. It's a bundle of factories to make
 life easier for you. The real work is done by [Symfony Messenger](https://github.com/symfony/messenger).
 
 It comes with pre-configured command, event and query buses for your convenience. Or don't use them if you want to

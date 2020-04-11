@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace XtreamwayzTest\Expressive\Messenger;
+namespace Xtreamwayz\PsrContainerMessenger\Test;
 
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
-use Xtreamwayz\Expressive\Messenger\ConfigProvider;
+use Xtreamwayz\PsrContainerMessenger\ConfigProvider;
 use Zend\ServiceManager\Config;
 use Zend\ServiceManager\ServiceManager;
 use function array_replace_recursive;

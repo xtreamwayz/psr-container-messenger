@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Xtreamwayz\Expressive\Messenger\Transport;
+namespace Xtreamwayz\PsrContainerMessenger\Transport;
 
 use Doctrine\ORM\EntityManager;
 use InvalidArgumentException;

@@ -1,6 +1,6 @@
 {
-    "name": "xtreamwayz/expressive-messenger",
-    "description": "Symfony Messenger for Zend Expressive",
+    "name": "xtreamwayz/psr-container-messenger",
+    "description": "PSR Container compatible Symfony Messenger",
     "license": "MIT",
     "require": {
         "php": "^7.1",
@@ -33,20 +33,20 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "1.0.x-dev"
+            "dev-master": "2.0.x-dev"
         },
         "zf": {
-            "config-provider": "Xtreamwayz\\Expressive\\Messenger\\ConfigProvider"
+            "config-provider": "Xtreamwayz\\PsrContainerMessenger\\ConfigProvider"
         }
     },
     "autoload": {
         "psr-4": {
-            "Xtreamwayz\\Expressive\\Messenger\\": "src/"
+            "Xtreamwayz\\PsrContainerMessenger\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "XtreamwayzTest\\Expressive\\Messenger\\": "test/"
+            "Xtreamwayz\\PsrContainerMessenger\\Test\\": "test/"
         }
     },
     "scripts": {
@@ -62,8 +62,8 @@
         "test-coverage": "phpunit --coverage-clover clover.xml"
     },
     "support": {
-        "issues": "https://github.com/Xtreamwayz/expressive-session/issues",
-        "source": "https://github.com/Xtreamwayz/expressive-session",
-        "rss": "https://github.com/Xtreamwayz/expressive-session/releases.atom"
+        "issues": "https://github.com/xtreamwayz/psr-container-messenger/issues",
+        "source": "https://github.com/xtreamwayz/psr-container-messenger",
+        "rss": "https://github.com/xtreamwayz/psr-container-messenger/releases.atom"
     }
 }

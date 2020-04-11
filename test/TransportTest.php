@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace XtreamwayzTest\Expressive\Messenger;
+namespace Xtreamwayz\PsrContainerMessenger\Test;
 
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\Transport\TransportInterface;
-use Xtreamwayz\Expressive\Messenger\ConfigProvider;
-use Xtreamwayz\Expressive\Messenger\Container\TransportFactory;
-use XtreamwayzTest\Expressive\Messenger\Fixtures\DummyMessage;
+use Xtreamwayz\PsrContainerMessenger\ConfigProvider;
+use Xtreamwayz\PsrContainerMessenger\Container\TransportFactory;
+use Xtreamwayz\PsrContainerMessenger\Test\Fixtures\DummyMessage;
 use Zend\ServiceManager\Config;
 use Zend\ServiceManager\ServiceManager;
 use function array_replace_recursive;

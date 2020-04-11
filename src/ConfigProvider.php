@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Xtreamwayz\Expressive\Messenger;
+namespace Xtreamwayz\PsrContainerMessenger;
 
 use Symfony\Component\Messenger\Command\ConsumeMessagesCommand;
-use Xtreamwayz\Expressive\Messenger\Container\HandleMessageMiddlewareFactory;
-use Xtreamwayz\Expressive\Messenger\Container\MessageBusFactory;
-use Xtreamwayz\Expressive\Messenger\Container\SendMessageMiddlewareFactory;
+use Xtreamwayz\PsrContainerMessenger\Container\HandleMessageMiddlewareFactory;
+use Xtreamwayz\PsrContainerMessenger\Container\MessageBusFactory;
+use Xtreamwayz\PsrContainerMessenger\Container\SendMessageMiddlewareFactory;
 
 class ConfigProvider
 {
