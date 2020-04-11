@@ -23,7 +23,7 @@
         "symfony/contracts": "^1.1"
     },
     "suggest": {
-        "xtreamwayz/expressive-console": "For auto configuring the cli command."
+        "laminas/laminas-cli": "For auto configuring the cli command."
     },
     "config": {
         "platform": {
