@@ -41,7 +41,6 @@ class QueryBusTest extends TestCase
     {
         $container = $this->getContainer();
 
-        /** @var MessageBus $queryBus */
         $queryBus = $container->get('messenger.query.bus');
 
         $this->assertInstanceOf(MessageBusInterface::class, $queryBus);
@@ -55,7 +54,6 @@ class QueryBusTest extends TestCase
         $this->expectException(NoHandlerForMessageException::class);
         $this->expectExceptionMessage(sprintf('No handler for message "%s"', DummyQuery::class));
 
-        /** @var MessageBus $queryBus */
         $container = $this->getContainer();
         $queryBus  = $container->get('messenger.query.bus');
         $queryBus->dispatch($query);
@@ -73,7 +71,6 @@ class QueryBusTest extends TestCase
         $this->config['messenger']['buses']['messenger.query.bus']['handlers'][DummyQuery::class] = [DummyQueryHandler::class];
         // @codingStandardsIgnoreEnd
 
-        /** @var MessageBus $queryBus */
         $container = $this->getContainer();
         $queryBus  = $container->get('messenger.query.bus');
         $queryBus->dispatch($query);
@@ -92,7 +89,6 @@ class QueryBusTest extends TestCase
         $this->config['messenger']['buses']['messenger.query.bus']['handlers'][DummyQuery::class] = [DummyQueryHandler::class];
         // @codingStandardsIgnoreEnd
 
-        /** @var MessageBus $queryBus */
         $container = $this->getContainer();
         $queryBus  = $container->get('messenger.query.bus');
         $result    = $queryBus->dispatch($query);

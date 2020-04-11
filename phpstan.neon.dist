@@ -1,8 +1,8 @@
+includes:
+    - vendor/phpstan/phpstan-phpunit/extension.neon
+
 parameters:
     level: 4
-    includes:
-        - vendor/phpstan/phpstan-phpunit/extension.neon
-        - vendor/jangregor/phpstan-prophecy/src/extension.neon
     paths:
         - %currentWorkingDirectory%/src
         - %currentWorkingDirectory%/test
@@ -10,11 +10,5 @@ parameters:
         - %currentWorkingDirectory%/src/Transport/EnqueueTransportFactory.php
         - %currentWorkingDirectory%/test/Transport/EnqueueTransportTest.php
     ignoreErrors:
-        # extension not available
-        - '#Call to an undefined method Prophecy\\Prophecy\\[a-zA-Z0-9\\_]+::__invoke\(\)#'
         - message: '#Empty array passed to foreach.#'
           path: %currentWorkingDirectory%/src/Container/ContainerHandlersLocator.php
-        - message: '#Call to an undefined method Prophecy\\Prophecy\\[a-zA-Z0-9\\_]+::info\(\)#'
-          path: %currentWorkingDirectory%/test/Container/HandleMessageMiddlewareFactoryTest.php
-        - message: '#Call to an undefined method Prophecy\\Prophecy\\[a-zA-Z0-9\\_]+::getConnection\(\)#'
-          path: %currentWorkingDirectory%/test/Container/TransportFactoryTest.php

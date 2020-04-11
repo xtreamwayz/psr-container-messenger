@@ -40,7 +40,6 @@ class CommandBusTest extends TestCase
     {
         $container = $this->getContainer();
 
-        /** @var MessageBus $commandBus */
         $commandBus = $container->get('messenger.command.bus');
 
         $this->assertInstanceOf(MessageBusInterface::class, $commandBus);
@@ -54,7 +53,6 @@ class CommandBusTest extends TestCase
         $this->expectException(NoHandlerForMessageException::class);
         $this->expectExceptionMessage(sprintf('No handler for message "%s"', DummyCommand::class));
 
-        /** @var MessageBus $commandBus */
         $container  = $this->getContainer();
         $commandBus = $container->get('messenger.command.bus');
         $commandBus->dispatch($command);
@@ -71,7 +69,6 @@ class CommandBusTest extends TestCase
         $this->config['messenger']['buses']['messenger.command.bus']['handlers'][DummyCommand::class] = [DummyCommandHandler::class];
         // @codingStandardsIgnoreEnd
 
-        /** @var MessageBus $commandBus */
         $container  = $this->getContainer();
         $commandBus = $container->get('messenger.command.bus');
         $commandBus->dispatch($command);

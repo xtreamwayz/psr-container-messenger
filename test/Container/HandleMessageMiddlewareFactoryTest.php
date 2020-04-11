@@ -6,7 +6,6 @@ namespace Xtreamwayz\PsrContainerMessenger\Test\Container;
 
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
-use Symfony\Component\Messenger\MessageBus;
 use Xtreamwayz\PsrContainerMessenger\ConfigProvider;
 use Xtreamwayz\PsrContainerMessenger\Test\Fixtures\DummyCommand;
 use Xtreamwayz\PsrContainerMessenger\Test\Fixtures\DummyCommandHandler;
@@ -53,7 +52,6 @@ class HandleMessageMiddlewareFactoryTest extends TestCase
         $this->config['messenger']['buses']['messenger.command.bus']['handlers'][DummyCommand::class] = [DummyCommandHandler::class];
         // @codingStandardsIgnoreEnd
 
-        /** @var MessageBus $commandBus */
         $container  = $this->getContainer();
         $commandBus = $container->get('messenger.command.bus');
         $commandBus->dispatch($command);

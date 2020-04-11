@@ -39,7 +39,6 @@ class EventBusTest extends TestCase
     {
         $container = $this->getContainer();
 
-        /** @var MessageBus $eventBus */
         $eventBus = $container->get('messenger.event.bus');
 
         $this->assertInstanceOf(MessageBusInterface::class, $eventBus);
@@ -50,7 +49,6 @@ class EventBusTest extends TestCase
     {
         $event = new DummyEvent();
 
-        /** @var MessageBus $eventBus */
         $container = $this->getContainer();
         $eventBus  = $container->get('messenger.event.bus');
         $result    = $eventBus->dispatch($event);
@@ -71,7 +69,6 @@ class EventBusTest extends TestCase
         $this->config['messenger']['buses']['messenger.event.bus']['handlers'][DummyEvent::class] = [DummyEventHandler::class];
         // @codingStandardsIgnoreEnd
 
-        /** @var MessageBus $eventBus */
         $container = $this->getContainer();
         $eventBus  = $container->get('messenger.event.bus');
         $eventBus->dispatch($event);
@@ -94,7 +91,6 @@ class EventBusTest extends TestCase
             DummyEventHandlerTwo::class,
         ];
 
-        /** @var MessageBus $eventBus */
         $container = $this->getContainer();
         $eventBus  = $container->get('messenger.event.bus');
         $eventBus->dispatch($event);
