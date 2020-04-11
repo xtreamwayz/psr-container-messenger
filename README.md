@@ -2,7 +2,7 @@
 
 _PSR-11 Container compatible Symfony Messenger message bus and queue._
 
-[![Docs Status](https://github.com/xtreamwayz/psr-container-messenger/workflows/build-docs/badge.svg)](https://github.com/xtreamwayz/psr-container-messenger/actions)
+[![Docs Status](https://github.com/xtreamwayz/psr-container-messenger/workflows/build-docs/badge.svg)](https://xtreamwayz.netlify.com/psr-container-messenger/)
 [![Build Status](https://github.com/xtreamwayz/psr-container-messenger/workflows/qa-tests/badge.svg)](https://github.com/xtreamwayz/psr-container-messenger/actions)
 [![Downloads](https://img.shields.io/packagist/dt/xtreamwayz/psr-container-messenger.svg)](https://packagist.org/packages/xtreamwayz/psr-container-messenger)
 [![Packagist](https://img.shields.io/packagist/v/xtreamwayz/psr-container-messenger.svg)](https://packagist.org/packages/xtreamwayz/psr-container-messenger)
@@ -23,7 +23,7 @@ composer require xtreamwayz/psr-container-messenger
 
 All project documentation is located in the [./docs](./docs) folder. If you would like to contribute
 to the documentation, please submit a pull request. You can read the docs online:
-https://xtreamwayz.netlify.app/psr-container-messenger/
+https://xtreamwayz.netlify.com/psr-container-messenger/
 
 ## Contributing
 
