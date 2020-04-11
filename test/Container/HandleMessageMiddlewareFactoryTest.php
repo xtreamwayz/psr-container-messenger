@@ -13,6 +13,7 @@ use Xtreamwayz\PsrContainerMessenger\Test\Fixtures\DummyCommand;
 use Xtreamwayz\PsrContainerMessenger\Test\Fixtures\DummyCommandHandler;
 use Zend\ServiceManager\Config;
 use Zend\ServiceManager\ServiceManager;
+
 use function array_replace_recursive;
 
 class HandleMessageMiddlewareFactoryTest extends TestCase
@@ -20,12 +21,12 @@ class HandleMessageMiddlewareFactoryTest extends TestCase
     /** @var array */
     private $config;
 
-    public function setUp() : void
+    public function setUp(): void
     {
         $this->config = array_replace_recursive((new ConfigProvider())(), require 'example/basic-config.php');
     }
 
-    private function getContainer() : ServiceManager
+    private function getContainer(): ServiceManager
     {
         $container = new ServiceManager();
         (new Config($this->config['dependencies']))->configureServiceManager($container);
@@ -34,7 +35,7 @@ class HandleMessageMiddlewareFactoryTest extends TestCase
         return $container;
     }
 
-    public function testItLogs() : void
+    public function testItLogs(): void
     {
         $command = new DummyCommand();
 

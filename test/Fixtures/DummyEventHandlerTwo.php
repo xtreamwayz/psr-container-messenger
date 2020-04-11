@@ -6,7 +6,7 @@ namespace Xtreamwayz\PsrContainerMessenger\Test\Fixtures;
 
 class DummyEventHandlerTwo
 {
-    public function __invoke(DummyEvent $event) : void
+    public function __invoke(DummyEvent $event): void
     {
     }
 }

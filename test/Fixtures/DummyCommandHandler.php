@@ -6,7 +6,7 @@ namespace Xtreamwayz\PsrContainerMessenger\Test\Fixtures;
 
 class DummyCommandHandler
 {
-    public function __invoke(DummyCommand $command) : void
+    public function __invoke(DummyCommand $command): void
     {
     }
 }

@@ -14,6 +14,7 @@ use Xtreamwayz\PsrContainerMessenger\Test\Fixtures\DummyQuery;
 use Xtreamwayz\PsrContainerMessenger\Test\Fixtures\DummyQueryHandler;
 use Zend\ServiceManager\Config;
 use Zend\ServiceManager\ServiceManager;
+
 use function array_replace_recursive;
 use function sprintf;
 
@@ -22,12 +23,12 @@ class QueryBusTest extends TestCase
     /** @var array */
     private $config;
 
-    public function setUp() : void
+    public function setUp(): void
     {
         $this->config = array_replace_recursive((new ConfigProvider())(), require 'example/basic-config.php');
     }
 
-    private function getContainer() : ServiceManager
+    private function getContainer(): ServiceManager
     {
         $container = new ServiceManager();
         (new Config($this->config['dependencies']))->configureServiceManager($container);
@@ -36,7 +37,7 @@ class QueryBusTest extends TestCase
         return $container;
     }
 
-    public function testItCanBeConstructed() : void
+    public function testItCanBeConstructed(): void
     {
         $container = $this->getContainer();
 
@@ -47,7 +48,7 @@ class QueryBusTest extends TestCase
         self::assertInstanceOf(MessageBus::class, $queryBus);
     }
 
-    public function testItMustHaveOneQueryHandler() : void
+    public function testItMustHaveOneQueryHandler(): void
     {
         $query = new DummyQuery();
 
@@ -60,7 +61,7 @@ class QueryBusTest extends TestCase
         $queryBus->dispatch($query);
     }
 
-    public function testItCanHandleQueries() : void
+    public function testItCanHandleQueries(): void
     {
         $query = new DummyQuery();
 
@@ -78,7 +79,7 @@ class QueryBusTest extends TestCase
         $queryBus->dispatch($query);
     }
 
-    public function testItReturnsTheQueryResult() : void
+    public function testItReturnsTheQueryResult(): void
     {
         $query = new DummyQuery();
         $data  = ['foo' => 'bar'];

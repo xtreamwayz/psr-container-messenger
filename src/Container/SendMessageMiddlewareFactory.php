@@ -8,6 +8,7 @@ use InvalidArgumentException;
 use Psr\Container\ContainerInterface;
 use Symfony\Component\Messenger\Middleware\MiddlewareInterface;
 use Symfony\Component\Messenger\Middleware\SendMessageMiddleware;
+
 use function sprintf;
 
 class SendMessageMiddlewareFactory
@@ -15,7 +16,7 @@ class SendMessageMiddlewareFactory
     /** @var string */
     private $busName;
 
-    public static function __callStatic(string $busName, array $arguments) : MiddlewareInterface
+    public static function __callStatic(string $busName, array $arguments): MiddlewareInterface
     {
         if (! isset($arguments[0]) || ! $arguments[0] instanceof ContainerInterface) {
             throw new InvalidArgumentException(
@@ -31,7 +32,7 @@ class SendMessageMiddlewareFactory
         $this->busName = $busName;
     }
 
-    public function __invoke(ContainerInterface $container) : MiddlewareInterface
+    public function __invoke(ContainerInterface $container): MiddlewareInterface
     {
         $config = $container->has('config') ? $container->get('config') : [];
         $logger = $config['messenger']['logger'] ?? null;

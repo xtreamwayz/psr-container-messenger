@@ -17,7 +17,7 @@ final class ContainerHandlersLocatorFactory
         $this->busName = $busName;
     }
 
-    public function __invoke(ContainerInterface $container) : HandlersLocatorInterface
+    public function __invoke(ContainerInterface $container): HandlersLocatorInterface
     {
         $config   = $container->has('config') ? $container->get('config') : [];
         $config   = $config['messenger']['buses'][$this->busName] ?? [];
