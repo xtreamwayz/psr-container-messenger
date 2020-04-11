@@ -10,8 +10,7 @@ use Symfony\Component\Messenger\Transport\Sender\SendersLocatorInterface;
 
 final class SendersLocatorFactory
 {
-    /** @var string */
-    private $busName;
+    private string $busName;
 
     public function __construct(string $busName = 'messenger.default.bus')
     {

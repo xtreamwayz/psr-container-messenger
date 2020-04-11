@@ -18,8 +18,7 @@ use function array_replace_recursive;
 
 class EventBusTest extends TestCase
 {
-    /** @var array */
-    private $config;
+    private array $config;
 
     public function setUp(): void
     {

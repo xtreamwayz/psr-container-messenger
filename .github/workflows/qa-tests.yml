@@ -40,3 +40,5 @@ jobs:
       run: composer run-script test
     - name: Run coding style check
       run: composer run-script cs-check
+    - name: Run static analysis
+      run: composer run-script static-analysis

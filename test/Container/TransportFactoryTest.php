@@ -9,7 +9,6 @@ use Doctrine\ORM\EntityManager;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Messenger\Transport\Receiver\ReceiverInterface;
 use Symfony\Component\Messenger\Transport\Sender\SenderInterface;
-use Symfony\Component\Messenger\Transport\TransportInterface;
 use Xtreamwayz\PsrContainerMessenger\ConfigProvider;
 use Xtreamwayz\PsrContainerMessenger\Container\TransportFactory;
 use Zend\ServiceManager\Config;
@@ -19,8 +18,7 @@ use function array_replace_recursive;
 
 class TransportFactoryTest extends TestCase
 {
-    /** @var array */
-    private $config;
+    private array $config;
 
     public function setUp(): void
     {
@@ -50,10 +48,8 @@ class TransportFactoryTest extends TestCase
         $this->config['dependencies']['services']['doctrine.entity_manager.dbal_default'] = $dbal;
         $this->config['dependencies']['services']['doctrine.entity_manager.orm_default']  = $orm;
 
-        /** @var TransportInterface $transport */
         $transport = $this->getContainer()->get('transport.test');
 
-        $this->assertInstanceOf(TransportInterface::class, $transport);
         $this->assertInstanceOf(ReceiverInterface::class, $transport);
         $this->assertInstanceOf(SenderInterface::class, $transport);
     }

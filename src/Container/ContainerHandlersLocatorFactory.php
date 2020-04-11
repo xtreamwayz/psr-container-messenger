@@ -9,8 +9,7 @@ use Symfony\Component\Messenger\Handler\HandlersLocatorInterface;
 
 final class ContainerHandlersLocatorFactory
 {
-    /** @var string */
-    private $busName;
+    private string $busName;
 
     public function __construct(string $busName = 'messenger.default.bus')
     {

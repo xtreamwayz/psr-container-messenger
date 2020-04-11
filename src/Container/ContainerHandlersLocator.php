@@ -18,14 +18,11 @@ use function is_callable;
 
 class ContainerHandlersLocator implements HandlersLocatorInterface
 {
-    /** @var ContainerInterface */
-    private $container;
-
-    /** @var string[] */
-    private $handlers;
+    private ContainerInterface $container;
+    private array $handlers;
 
     /**
-     * @param string[] $handlers (MessageHandlerInterface)
+     * @param array[] $handlers (MessageHandlerInterface)
      */
     public function __construct(ContainerInterface $container, array $handlers)
     {
@@ -61,10 +58,14 @@ class ContainerHandlersLocator implements HandlersLocatorInterface
         }
     }
 
+    /**
+     * @psalm-suppress InvalidReturnType
+     */
     private static function listTypes(Envelope $envelope): array
     {
         $class = get_class($envelope->getMessage());
 
+        /** @psalm-suppress InvalidReturnStatement */
         return [$class => $class]
             + class_parents($class)
             + class_implements($class)

@@ -14,8 +14,7 @@ use function sprintf;
 
 class MessageBusFactory
 {
-    /** @var string */
-    private $name;
+    private string $name;
 
     /**
      * Creates a new instance from a specified config

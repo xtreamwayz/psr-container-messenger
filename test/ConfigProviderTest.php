@@ -16,8 +16,7 @@ use function sprintf;
 
 class ConfigProviderTest extends TestCase
 {
-    /** @var ConfigProvider */
-    private $provider;
+    private ConfigProvider $provider;
 
     public function setUp(): void
     {
@@ -28,7 +27,7 @@ class ConfigProviderTest extends TestCase
     {
         $config = ($this->provider)();
 
-        $this->assertIsArray($config);
+        $this->assertNotEmpty($config);
 
         return $config;
     }

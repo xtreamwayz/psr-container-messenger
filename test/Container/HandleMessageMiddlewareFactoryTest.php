@@ -16,8 +16,7 @@ use function array_replace_recursive;
 
 class HandleMessageMiddlewareFactoryTest extends TestCase
 {
-    /** @var array */
-    private $config;
+    private array $config;
 
     public function setUp(): void
     {

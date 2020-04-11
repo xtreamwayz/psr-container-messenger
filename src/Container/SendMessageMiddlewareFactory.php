@@ -13,8 +13,7 @@ use function sprintf;
 
 class SendMessageMiddlewareFactory
 {
-    /** @var string */
-    private $busName;
+    private string $busName;
 
     public static function __callStatic(string $busName, array $arguments): MiddlewareInterface
     {
