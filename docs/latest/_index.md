@@ -19,7 +19,7 @@ composer require xtreamwayz/psr-container-messenger
 ```
 
 If you have [laminas-component-installer](https://github.com/laminas/laminas-component-installer) installed, the
-configuration is added automatically added to your mezzio application.
+configuration is added automatically added to your [mezzio](https://docs.mezzio.dev/mezzio/) application.
 
 ## Command, Query and Event buses
 
