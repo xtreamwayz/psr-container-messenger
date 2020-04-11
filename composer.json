@@ -35,7 +35,7 @@
         "branch-alias": {
             "dev-master": "2.0.x-dev"
         },
-        "zf": {
+        "laminas": {
             "config-provider": "Xtreamwayz\\PsrContainerMessenger\\ConfigProvider"
         }
     },
