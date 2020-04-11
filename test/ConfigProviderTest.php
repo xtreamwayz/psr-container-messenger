@@ -28,7 +28,7 @@ class ConfigProviderTest extends TestCase
     {
         $config = ($this->provider)();
 
-        $this->assertIsArray($config);
+        $this->assertNotEmpty($config);
 
         return $config;
     }

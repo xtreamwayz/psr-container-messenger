@@ -21,11 +21,11 @@ class ContainerHandlersLocator implements HandlersLocatorInterface
     /** @var ContainerInterface */
     private $container;
 
-    /** @var string[] */
+    /** @var string[][] */
     private $handlers;
 
     /**
-     * @param string[] $handlers (MessageHandlerInterface)
+     * @param string[][] $handlers (MessageHandlerInterface)
      */
     public function __construct(ContainerInterface $container, array $handlers)
     {

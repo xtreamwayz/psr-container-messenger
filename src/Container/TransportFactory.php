@@ -58,7 +58,7 @@ class TransportFactory
         return (new self($dsn))($arguments[0]);
     }
 
-    public function __construct(string $dsn)
+    public function __construct(?string $dsn = null)
     {
         $this->dsn = $dsn ?? 'null:';
     }

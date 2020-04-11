@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<psalm
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="https://getpsalm.org/schema/config"
+        xsi:schemaLocation="https://getpsalm.org/schema/config ./vendor/vimeo/psalm/config.xsd">
+    <projectFiles>
+        <directory name="src" />
+        <directory name="test" />
+        <ignoreFiles>
+            <directory name="vendor" />
+        </ignoreFiles>
+    </projectFiles>
+
+    <plugins>
+        <pluginClass class="Psalm\PhpUnitPlugin\Plugin"/>
+    </plugins>
+
+    <issueHandlers>
+        <InternalMethod>
+            <errorLevel type="suppress">
+                <!-- This is marked @internal API in Doctrine, unsure of how to handle these otherwise -->
+                <referencedMethod name="Doctrine\DBAL\Configuration::setResultCacheImpl"/>
+                <referencedMethod name="Doctrine\DBAL\Configuration::getResultCacheImpl"/>
+                <referencedMethod name="Doctrine\DBAL\Configuration::setSQLLogger"/>
+
+                <!-- We consume AbstractFactory methods in the tests, but namespaces differ so Psalm complains -->
+                <referencedMethod name="Roave\PsrContainerDoctrine\AbstractFactory::retrieveConfig"/>
+                <referencedMethod name="Roave\PsrContainerDoctrine\AbstractFactory::__callStatic"/>
+                <referencedMethod name="Roave\PsrContainerDoctrine\AbstractFactory::__invoke"/>
+
+                <!-- InvocationMocker is still internal. See https://github.com/sebastianbergmann/phpunit/issues/3742 -->
+                <referencedMethod name="PHPUnit\Framework\MockObject\Builder\InvocationMocker::willReturn" />
+                <referencedMethod name="PHPUnit\Framework\MockObject\Builder\InvocationMocker::method" />
+                <referencedMethod name="PHPUnit\Framework\MockObject\Builder\InvocationMocker::willReturnOnConsecutiveCalls" />
+                <referencedMethod name="PHPUnit\Framework\MockObject\Builder\InvocationMocker::with" />
+                <referencedMethod name="PHPUnit\Framework\MockObject\Builder\InvocationMocker::will" />
+                <referencedMethod name="PHPUnit\Framework\MockObject\Builder\InvocationMocker::withConsecutive" />
+                <referencedMethod name="PHPUnit\Framework\MockObject\Builder\InvocationMocker::willReturnCallback" />
+            </errorLevel>
+        </InternalMethod>
+        <InternalClass>
+            <errorLevel type="suppress">
+                <!-- We consume AbstractFactory methods in the tests, but namespaces differ so Psalm complains -->
+                <referencedClass name="Roave\PsrContainerDoctrine\AbstractFactory"/>
+            </errorLevel>
+        </InternalClass>
+    </issueHandlers>
+</psalm>

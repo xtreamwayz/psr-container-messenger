@@ -53,7 +53,6 @@ class TransportFactoryTest extends TestCase
         /** @var TransportInterface $transport */
         $transport = $this->getContainer()->get('transport.test');
 
-        $this->assertInstanceOf(TransportInterface::class, $transport);
         $this->assertInstanceOf(ReceiverInterface::class, $transport);
         $this->assertInstanceOf(SenderInterface::class, $transport);
     }
