@@ -16,7 +16,7 @@ class ConfigProvider
         return [
             'dependencies' => $this->getDependencies(),
             'messenger'    => $this->getMessenger(),
-            'console'      => $this->getConsole(),
+            'laminas-cli'  => $this->getCommands(),
         ];
     }
 
@@ -70,7 +70,7 @@ class ConfigProvider
         ];
     }
 
-    public function getConsole(): array
+    public function getCommands(): array
     {
         return [
             'commands' => [
