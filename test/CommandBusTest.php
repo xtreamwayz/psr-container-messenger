@@ -19,8 +19,7 @@ use function sprintf;
 
 class CommandBusTest extends TestCase
 {
-    /** @var array */
-    private $config;
+    private array $config;
 
     public function setUp(): void
     {

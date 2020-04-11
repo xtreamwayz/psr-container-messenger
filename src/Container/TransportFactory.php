@@ -22,8 +22,7 @@ use function trim;
 
 class TransportFactory
 {
-    /** @var string */
-    private $dsn;
+    private string $dsn;
 
     /**
      * Creates a new instance from a specified config

@@ -20,8 +20,7 @@ use function sprintf;
 
 class QueryBusTest extends TestCase
 {
-    /** @var array */
-    private $config;
+    private array $config;
 
     public function setUp(): void
     {
@@ -93,10 +92,8 @@ class QueryBusTest extends TestCase
         $queryBus  = $container->get('messenger.query.bus');
         $result    = $queryBus->dispatch($query);
 
-        /** @var HandledStamp|null $lastStamp */
         $lastStamp = $result->last(HandledStamp::class);
         $this->assertNotNull($lastStamp);
-        /** @var HandledStamp $lastStamp */
         $this->assertEquals($data, $lastStamp->getResult());
     }
 }
