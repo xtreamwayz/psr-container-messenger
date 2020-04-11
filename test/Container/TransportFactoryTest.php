@@ -14,6 +14,7 @@ use Xtreamwayz\PsrContainerMessenger\ConfigProvider;
 use Xtreamwayz\PsrContainerMessenger\Container\TransportFactory;
 use Zend\ServiceManager\Config;
 use Zend\ServiceManager\ServiceManager;
+
 use function array_replace_recursive;
 
 class TransportFactoryTest extends TestCase
@@ -21,12 +22,12 @@ class TransportFactoryTest extends TestCase
     /** @var array */
     private $config;
 
-    public function setUp() : void
+    public function setUp(): void
     {
         $this->config = array_replace_recursive((new ConfigProvider())(), require 'example/basic-config.php');
     }
 
-    private function getContainer() : ServiceManager
+    private function getContainer(): ServiceManager
     {
         $container = new ServiceManager();
         (new Config($this->config['dependencies']))->configureServiceManager($container);
@@ -38,7 +39,7 @@ class TransportFactoryTest extends TestCase
     /**
      * @dataProvider dnsProvider
      */
-    public function testDns(string $dns) : void
+    public function testDns(string $dns): void
     {
         $this->config['dependencies']['factories']['transport.test'] = [TransportFactory::class, $dns];
 
@@ -57,7 +58,7 @@ class TransportFactoryTest extends TestCase
         self::assertInstanceOf(SenderInterface::class, $transport);
     }
 
-    public function dnsProvider() : array
+    public function dnsProvider(): array
     {
         return [
             ['doctrine://doctrine.entity_manager.dbal_default'],

@@ -12,6 +12,7 @@ use Xtreamwayz\PsrContainerMessenger\Container\TransportFactory;
 use Xtreamwayz\PsrContainerMessenger\Test\Fixtures\DummyMessage;
 use Zend\ServiceManager\Config;
 use Zend\ServiceManager\ServiceManager;
+
 use function array_replace_recursive;
 
 class TransportTest extends TestCase
@@ -19,12 +20,12 @@ class TransportTest extends TestCase
     /** @var array */
     private $config;
 
-    public function setUp() : void
+    public function setUp(): void
     {
         $this->config = array_replace_recursive((new ConfigProvider())(), require 'example/basic-config.php');
     }
 
-    private function getContainer() : ServiceManager
+    private function getContainer(): ServiceManager
     {
         $container = new ServiceManager();
         (new Config($this->config['dependencies']))->configureServiceManager($container);
@@ -33,7 +34,7 @@ class TransportTest extends TestCase
         return $container;
     }
 
-    public function testItCanSendAndReceiveMessages() : void
+    public function testItCanSendAndReceiveMessages(): void
     {
         $this->config['dependencies']['factories']['in-memory-transport'] = [TransportFactory::class, 'in-memory:///'];
 

@@ -11,7 +11,7 @@ use Xtreamwayz\PsrContainerMessenger\Container\SendMessageMiddlewareFactory;
 
 class ConfigProvider
 {
-    public function __invoke() : array
+    public function __invoke(): array
     {
         return [
             'dependencies' => $this->getDependencies(),
@@ -20,7 +20,7 @@ class ConfigProvider
         ];
     }
 
-    public function getDependencies() : array
+    public function getDependencies(): array
     {
         // phpcs:disable
         return [
@@ -43,7 +43,7 @@ class ConfigProvider
         // phpcs:enable
     }
 
-    public function getMessenger() : array
+    public function getMessenger(): array
     {
         return [
             'default_bus' => 'messenger.command.bus',
@@ -70,7 +70,7 @@ class ConfigProvider
         ];
     }
 
-    public function getConsole() : array
+    public function getConsole(): array
     {
         return [
             'commands' => [

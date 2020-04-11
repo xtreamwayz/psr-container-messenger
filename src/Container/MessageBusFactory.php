@@ -9,6 +9,7 @@ use Psr\Container\ContainerInterface;
 use Symfony\Component\Messenger\MessageBus;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Xtreamwayz\PsrContainerMessenger\Exception\InvalidConfigException;
+
 use function sprintf;
 
 class MessageBusFactory
@@ -28,7 +29,7 @@ class MessageBusFactory
      *
      * @throws InvalidArgumentException
      */
-    public static function __callStatic(string $dsn, array $arguments) : MessageBusInterface
+    public static function __callStatic(string $dsn, array $arguments): MessageBusInterface
     {
         if (! isset($arguments[0]) || ! $arguments[0] instanceof ContainerInterface) {
             throw new InvalidArgumentException(
@@ -44,7 +45,7 @@ class MessageBusFactory
         $this->name = $name ?? 'messenger.default.bus';
     }
 
-    public function __invoke(ContainerInterface $container) : MessageBusInterface
+    public function __invoke(ContainerInterface $container): MessageBusInterface
     {
         $config      = $container->has('config') ? $container->get('config') : [];
         $middlewares = $config['messenger']['buses'][$this->name]['middleware'] ?? [];

@@ -6,7 +6,8 @@ namespace Xtreamwayz\PsrContainerMessenger\Test\Fixtures;
 
 class DummyQueryHandler
 {
-    public function __invoke(DummyQuery $query) : array
+    public function __invoke(DummyQuery $query): array
     {
+        return [];
     }
 }

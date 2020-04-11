@@ -15,6 +15,7 @@ use Symfony\Component\Messenger\Transport\Sync\SyncTransportFactory;
 use Symfony\Component\Messenger\Transport\TransportFactoryInterface;
 use Symfony\Component\Messenger\Transport\TransportInterface;
 use Xtreamwayz\PsrContainerMessenger\Transport\DoctrineTransportFactory;
+
 use function explode;
 use function sprintf;
 use function trim;
@@ -46,7 +47,7 @@ class TransportFactory
      *
      * @throws InvalidArgumentException
      */
-    public static function __callStatic(string $dsn, array $arguments) : SenderInterface
+    public static function __callStatic(string $dsn, array $arguments): SenderInterface
     {
         if (! isset($arguments[0]) || ! $arguments[0] instanceof ContainerInterface) {
             throw new InvalidArgumentException(
@@ -62,14 +63,14 @@ class TransportFactory
         $this->dsn = $dsn ?? 'null:';
     }
 
-    public function __invoke(ContainerInterface $container) : TransportInterface
+    public function __invoke(ContainerInterface $container): TransportInterface
     {
         $factory = $this->dsnToTransportFactory($container, $this->dsn);
 
         return $factory->createTransport($this->dsn, [], new PhpSerializer());
     }
 
-    private function dsnToTransportFactory(ContainerInterface $container, string $dsn) : TransportFactoryInterface
+    private function dsnToTransportFactory(ContainerInterface $container, string $dsn): TransportFactoryInterface
     {
         [$type, $config] = explode(':', $dsn, 2);
         switch ($type) {

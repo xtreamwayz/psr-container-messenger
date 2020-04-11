@@ -9,6 +9,7 @@ use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\Handler\HandlerDescriptor;
 use Symfony\Component\Messenger\Handler\HandlersLocatorInterface;
 use Symfony\Component\Messenger\Stamp\ReceivedStamp;
+
 use function class_implements;
 use function class_parents;
 use function get_class;
@@ -32,7 +33,7 @@ class ContainerHandlersLocator implements HandlersLocatorInterface
         $this->handlers  = $handlers;
     }
 
-    public function getHandlers(Envelope $envelope) : iterable
+    public function getHandlers(Envelope $envelope): iterable
     {
         $seen = [];
 
@@ -60,7 +61,7 @@ class ContainerHandlersLocator implements HandlersLocatorInterface
         }
     }
 
-    private static function listTypes(Envelope $envelope) : array
+    private static function listTypes(Envelope $envelope): array
     {
         $class = get_class($envelope->getMessage());
 
@@ -70,7 +71,7 @@ class ContainerHandlersLocator implements HandlersLocatorInterface
             + ['*' => '*'];
     }
 
-    private function shouldHandle(Envelope $envelope, HandlerDescriptor $handlerDescriptor) : bool
+    private function shouldHandle(Envelope $envelope, HandlerDescriptor $handlerDescriptor): bool
     {
         /** @var ReceivedStamp|null $received */
         $received = $envelope->last(ReceivedStamp::class);

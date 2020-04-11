@@ -9,6 +9,7 @@ use Psr\Log\LoggerInterface;
 use Xtreamwayz\PsrContainerMessenger\ConfigProvider;
 use Zend\ServiceManager\Config;
 use Zend\ServiceManager\ServiceManager;
+
 use function array_replace_recursive;
 use function is_array;
 use function sprintf;
@@ -18,12 +19,12 @@ class ConfigProviderTest extends TestCase
     /** @var ConfigProvider */
     private $provider;
 
-    public function setUp() : void
+    public function setUp(): void
     {
         $this->provider = new ConfigProvider();
     }
 
-    public function testInvocationReturnsArray() : array
+    public function testInvocationReturnsArray(): array
     {
         $config = ($this->provider)();
 
@@ -35,7 +36,7 @@ class ConfigProviderTest extends TestCase
     /**
      * @depends testInvocationReturnsArray
      */
-    public function testReturnedArrayContainsDependencies(array $config) : void
+    public function testReturnedArrayContainsDependencies(array $config): void
     {
         $this->assertArrayHasKey('dependencies', $config);
         $this->assertIsArray($config['dependencies']);
@@ -60,7 +61,7 @@ class ConfigProviderTest extends TestCase
         }
     }
 
-    public function testServicesDefinedInConfigProvider() : void
+    public function testServicesDefinedInConfigProvider(): void
     {
         // Get dependencies
         $dependencies = $this->provider->getDependencies();
@@ -83,7 +84,7 @@ class ConfigProviderTest extends TestCase
         }
     }
 
-    private function getContainer(array $dependencies) : ServiceManager
+    private function getContainer(array $dependencies): ServiceManager
     {
         $container = new ServiceManager();
         (new Config($dependencies))->configureServiceManager($container);

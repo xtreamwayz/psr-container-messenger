@@ -6,5 +6,5 @@ namespace Xtreamwayz\PsrContainerMessenger\Test\Fixtures;
 
 interface DummyMessageHandlerInterface
 {
-    public function __invoke(DummyMessageInterface $message) : void;
+    public function __invoke(DummyMessageInterface $message): void;
 }

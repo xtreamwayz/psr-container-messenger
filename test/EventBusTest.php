@@ -13,6 +13,7 @@ use Xtreamwayz\PsrContainerMessenger\Test\Fixtures\DummyEventHandler;
 use Xtreamwayz\PsrContainerMessenger\Test\Fixtures\DummyEventHandlerTwo;
 use Zend\ServiceManager\Config;
 use Zend\ServiceManager\ServiceManager;
+
 use function array_replace_recursive;
 
 class EventBusTest extends TestCase
@@ -20,12 +21,12 @@ class EventBusTest extends TestCase
     /** @var array */
     private $config;
 
-    public function setUp() : void
+    public function setUp(): void
     {
         $this->config = array_replace_recursive((new ConfigProvider())(), require 'example/basic-config.php');
     }
 
-    private function getContainer() : ServiceManager
+    private function getContainer(): ServiceManager
     {
         $container = new ServiceManager();
         (new Config($this->config['dependencies']))->configureServiceManager($container);
@@ -34,7 +35,7 @@ class EventBusTest extends TestCase
         return $container;
     }
 
-    public function testItCanBeConstructed() : void
+    public function testItCanBeConstructed(): void
     {
         $container = $this->getContainer();
 
@@ -45,7 +46,7 @@ class EventBusTest extends TestCase
         self::assertInstanceOf(MessageBus::class, $eventBus);
     }
 
-    public function testItCanHaveNoHandlers() : void
+    public function testItCanHaveNoHandlers(): void
     {
         $event = new DummyEvent();
 
@@ -58,7 +59,7 @@ class EventBusTest extends TestCase
         self::assertEmpty($result->all());
     }
 
-    public function testItCanHandleEvents() : void
+    public function testItCanHandleEvents(): void
     {
         $event = new DummyEvent();
 
@@ -76,7 +77,7 @@ class EventBusTest extends TestCase
         $eventBus->dispatch($event);
     }
 
-    public function testItCanHaveMultipleHandlersForTheSameEvent() : void
+    public function testItCanHaveMultipleHandlersForTheSameEvent(): void
     {
         $event = new DummyEvent();
 
