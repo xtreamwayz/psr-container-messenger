@@ -10,17 +10,17 @@
     },
     "require-dev": {
         "ext-json": "*",
-        "doctrine/coding-standard": "^6.0",
         "doctrine/dbal": "^2.6",
         "doctrine/orm": "^2.6",
-        "jangregor/phpstan-prophecy": "^0.4.0",
-        "phpstan/phpstan": "^0.11",
-        "phpstan/phpstan-phpunit": "^0.11",
-        "phpunit/phpunit": "^7.5",
+        "jangregor/phpstan-prophecy": "^0.6.2",
+        "laminas/laminas-coding-standard": "^2.0rc1 | ^2.0",
+        "laminas/laminas-servicemanager": "^3.4",
+        "phpstan/phpstan": "^0.12",
+        "phpstan/phpstan-phpunit": "^0.12",
+        "phpunit/phpunit": "^7.0",
         "psr/log": "^1.1",
         "symfony/console": "^4.4",
-        "symfony/contracts": "^1.1",
-        "zendframework/zend-servicemanager": "^3.3"
+        "symfony/contracts": "^1.1"
     },
     "suggest": {
         "xtreamwayz/expressive-console": "For auto configuring the cli command."
