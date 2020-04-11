@@ -41,11 +41,10 @@ class QueryBusTest extends TestCase
     {
         $container = $this->getContainer();
 
-        /** @var MessageBus $queryBus */
         $queryBus = $container->get('messenger.query.bus');
 
-        self::assertInstanceOf(MessageBusInterface::class, $queryBus);
-        self::assertInstanceOf(MessageBus::class, $queryBus);
+        $this->assertInstanceOf(MessageBusInterface::class, $queryBus);
+        $this->assertInstanceOf(MessageBus::class, $queryBus);
     }
 
     public function testItMustHaveOneQueryHandler(): void
@@ -55,7 +54,6 @@ class QueryBusTest extends TestCase
         $this->expectException(NoHandlerForMessageException::class);
         $this->expectExceptionMessage(sprintf('No handler for message "%s"', DummyQuery::class));
 
-        /** @var MessageBus $queryBus */
         $container = $this->getContainer();
         $queryBus  = $container->get('messenger.query.bus');
         $queryBus->dispatch($query);
@@ -65,15 +63,14 @@ class QueryBusTest extends TestCase
     {
         $query = new DummyQuery();
 
-        $queryHandler = $this->prophesize(DummyQueryHandler::class);
-        $queryHandler->__invoke($query)->shouldBeCalled();
+        $queryHandler = $this->createMock(DummyQueryHandler::class);
+        $queryHandler->expects($this->once())->method('__invoke')->with($query);
 
         // @codingStandardsIgnoreStart
-        $this->config['dependencies']['services'][DummyQueryHandler::class]                       = $queryHandler->reveal();
+        $this->config['dependencies']['services'][DummyQueryHandler::class]                       = $queryHandler;
         $this->config['messenger']['buses']['messenger.query.bus']['handlers'][DummyQuery::class] = [DummyQueryHandler::class];
         // @codingStandardsIgnoreEnd
 
-        /** @var MessageBus $queryBus */
         $container = $this->getContainer();
         $queryBus  = $container->get('messenger.query.bus');
         $queryBus->dispatch($query);
@@ -84,23 +81,22 @@ class QueryBusTest extends TestCase
         $query = new DummyQuery();
         $data  = ['foo' => 'bar'];
 
-        $queryHandler = $this->prophesize(DummyQueryHandler::class);
-        $queryHandler->__invoke($query)->shouldBeCalled()->willReturn($data);
+        $queryHandler = $this->createMock(DummyQueryHandler::class);
+        $queryHandler->expects($this->once())->method('__invoke')->with($query)->willReturn($data);
 
         // @codingStandardsIgnoreStart
-        $this->config['dependencies']['services'][DummyQueryHandler::class]                       = $queryHandler->reveal();
+        $this->config['dependencies']['services'][DummyQueryHandler::class]                       = $queryHandler;
         $this->config['messenger']['buses']['messenger.query.bus']['handlers'][DummyQuery::class] = [DummyQueryHandler::class];
         // @codingStandardsIgnoreEnd
 
-        /** @var MessageBus $queryBus */
         $container = $this->getContainer();
         $queryBus  = $container->get('messenger.query.bus');
         $result    = $queryBus->dispatch($query);
 
         /** @var HandledStamp|null $lastStamp */
         $lastStamp = $result->last(HandledStamp::class);
-        self::assertNotNull($lastStamp);
+        $this->assertNotNull($lastStamp);
         /** @var HandledStamp $lastStamp */
-        self::assertEquals($data, $lastStamp->getResult());
+        $this->assertEquals($data, $lastStamp->getResult());
     }
 }

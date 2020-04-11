@@ -28,7 +28,7 @@ class ConfigProviderTest extends TestCase
     {
         $config = ($this->provider)();
 
-        self::assertIsArray($config);
+        $this->assertIsArray($config);
 
         return $config;
     }
@@ -67,7 +67,7 @@ class ConfigProviderTest extends TestCase
         $dependencies = $this->provider->getDependencies();
 
         // Mock dependencies
-        $dependencies['services'][LoggerInterface::class] = $this->prophesize(LoggerInterface::class)->reveal();
+        $dependencies['services'][LoggerInterface::class] = $this->createMock(LoggerInterface::class);
 
         // Build container
         $container = $this->getContainer($dependencies);
@@ -76,8 +76,8 @@ class ConfigProviderTest extends TestCase
                 $factory = $factory[0];
             }
 
-            self::assertTrue($container->has($name), sprintf('Container does not contain service %s', $name));
-            self::assertIsObject(
+            $this->assertTrue($container->has($name), sprintf('Container does not contain service %s', $name));
+            $this->assertIsObject(
                 $container->get($name),
                 sprintf('Cannot get service %s from container using factory %s', $name, $factory)
             );
