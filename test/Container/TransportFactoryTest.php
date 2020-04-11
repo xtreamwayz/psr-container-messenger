@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace XtreamwayzTest\Expressive\Messenger\Container;
+namespace Xtreamwayz\PsrContainerMessenger\Test\Container;
 
 use Doctrine\DBAL\Connection as DBALConnection;
 use Doctrine\ORM\EntityManager;
@@ -10,8 +10,8 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\Messenger\Transport\Receiver\ReceiverInterface;
 use Symfony\Component\Messenger\Transport\Sender\SenderInterface;
 use Symfony\Component\Messenger\Transport\TransportInterface;
-use Xtreamwayz\Expressive\Messenger\ConfigProvider;
-use Xtreamwayz\Expressive\Messenger\Container\TransportFactory;
+use Xtreamwayz\PsrContainerMessenger\ConfigProvider;
+use Xtreamwayz\PsrContainerMessenger\Container\TransportFactory;
 use Zend\ServiceManager\Config;
 use Zend\ServiceManager\ServiceManager;
 use function array_replace_recursive;

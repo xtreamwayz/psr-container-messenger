@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace XtreamwayzTest\Expressive\Messenger;
+namespace Xtreamwayz\PsrContainerMessenger\Test;
 
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Messenger\Exception\NoHandlerForMessageException;
 use Symfony\Component\Messenger\MessageBus;
 use Symfony\Component\Messenger\MessageBusInterface;
-use Xtreamwayz\Expressive\Messenger\ConfigProvider;
-use XtreamwayzTest\Expressive\Messenger\Fixtures\DummyCommand;
-use XtreamwayzTest\Expressive\Messenger\Fixtures\DummyCommandHandler;
+use Xtreamwayz\PsrContainerMessenger\ConfigProvider;
+use Xtreamwayz\PsrContainerMessenger\Test\Fixtures\DummyCommand;
+use Xtreamwayz\PsrContainerMessenger\Test\Fixtures\DummyCommandHandler;
 use Zend\ServiceManager\Config;
 use Zend\ServiceManager\ServiceManager;
 use function array_replace_recursive;

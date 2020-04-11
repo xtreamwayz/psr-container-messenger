@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace XtreamwayzTest\Expressive\Messenger\Container;
+namespace Xtreamwayz\PsrContainerMessenger\Test\Container;
 
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Messenger\MessageBus;
-use Xtreamwayz\Expressive\Messenger\ConfigProvider;
-use XtreamwayzTest\Expressive\Messenger\Fixtures\DummyCommand;
-use XtreamwayzTest\Expressive\Messenger\Fixtures\DummyCommandHandler;
+use Xtreamwayz\PsrContainerMessenger\ConfigProvider;
+use Xtreamwayz\PsrContainerMessenger\Test\Fixtures\DummyCommand;
+use Xtreamwayz\PsrContainerMessenger\Test\Fixtures\DummyCommandHandler;
 use Zend\ServiceManager\Config;
 use Zend\ServiceManager\ServiceManager;
 use function array_replace_recursive;

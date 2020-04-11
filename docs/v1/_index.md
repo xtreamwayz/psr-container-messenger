@@ -2,8 +2,8 @@
 title: Getting started
 type: project
 layout: page
-project: expressive-messenger
-version: v2
+project: psr-container-messenger
+version: v1
 ---
 
 This packages brings message buses to your Zend Expressive project. Basically it's a bundle of factories to make
@@ -57,7 +57,7 @@ use App\Domain\Handler\RegisterUserHandlerFactory;
 use App\Domain\Handler\UserRegisteredHandler;
 use App\Domain\Handler\UserRegisteredHandlerFactory;
 use App\Domain\Query\FindUser;
-use Xtreamwayz\PsrContainerMessenger\Container\TransportFactory;
+use Xtreamwayz\Expressive\Messenger\Container\TransportFactory;
 
 return [
     'dependencies' => [

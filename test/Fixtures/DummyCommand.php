@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace XtreamwayzTest\Expressive\Messenger\Fixtures;
+namespace Xtreamwayz\PsrContainerMessenger\Test\Fixtures;
 
 class DummyCommand
 {
