@@ -4,8 +4,11 @@ declare(strict_types=1);
 
 namespace Xtreamwayz\PsrContainerMessenger\Container;
 
+use InvalidArgumentException;
 use Psr\Container\ContainerInterface;
 use Symfony\Component\Messenger\Middleware\AddBusNameStampMiddleware;
+
+use function sprintf;
 
 final class AddBusNameStampMiddlewareFactory
 {
@@ -18,8 +21,8 @@ final class AddBusNameStampMiddlewareFactory
 
     public static function __callStatic(string $name, array $arguments): AddBusNameStampMiddleware
     {
-        if (!isset($arguments[0]) || !$arguments[0] instanceof ContainerInterface) {
-            throw new \InvalidArgumentException(
+        if (! isset($arguments[0]) || ! $arguments[0] instanceof ContainerInterface) {
+            throw new InvalidArgumentException(
                 sprintf('The first argument must be of type %s', ContainerInterface::class)
             );
         }
@@ -29,8 +32,8 @@ final class AddBusNameStampMiddlewareFactory
 
     public function __invoke(ContainerInterface $container): AddBusNameStampMiddleware
     {
-        if (!$container->has($this->busName)) {
-            throw new \InvalidArgumentException(sprintf('No service with name %s found', $this->busName));
+        if (! $container->has($this->busName)) {
+            throw new InvalidArgumentException(sprintf('No service with name %s found', $this->busName));
         }
 
         return new AddBusNameStampMiddleware($this->busName);
