@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Xtreamwayz\PsrContainerMessenger;
 
 use Symfony\Component\Messenger\Command\ConsumeMessagesCommand;
+use Xtreamwayz\PsrContainerMessenger\Container\AddBusNameStampMiddlewareFactory;
 use Xtreamwayz\PsrContainerMessenger\Container\HandleMessageMiddlewareFactory;
 use Xtreamwayz\PsrContainerMessenger\Container\MessageBusFactory;
 use Xtreamwayz\PsrContainerMessenger\Container\SendMessageMiddlewareFactory;
@@ -38,6 +39,8 @@ class ConfigProvider
                 'messenger.query.bus'                => [MessageBusFactory::class, 'messenger.query.bus'],
                 'messenger.query.middleware.handler' => [HandleMessageMiddlewareFactory::class, 'messenger.query.bus'],
                 'messenger.query.middleware.sender'  => [SendMessageMiddlewareFactory::class, 'messenger.query.bus'],
+
+                'messenger.command.middleware.add_bus_stamp' => [AddBusNameStampMiddlewareFactory::class, 'messenger.command.bus'],
             ],
         ];
         // phpcs:enable
