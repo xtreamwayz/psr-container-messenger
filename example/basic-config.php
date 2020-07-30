@@ -7,7 +7,6 @@ namespace App;
 return [
     // phpcs:disable
     'dependencies' => [
-        'factories' => [],
     ],
 
     'messenger' => [
@@ -17,6 +16,7 @@ return [
                 'allows_no_handler' => false,
                 'handlers'          => [],
                 'middleware'        => [
+                    'messenger.command.middleware.add_bus_stamp',
                     'messenger.command.middleware.handler',
                 ],
                 'routes'            => [],

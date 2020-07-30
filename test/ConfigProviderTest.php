@@ -64,7 +64,6 @@ class ConfigProviderTest extends TestCase
     {
         // Get dependencies
         $dependencies = $this->provider->getDependencies();
-
         // Mock dependencies
         $dependencies['services'][LoggerInterface::class] = $this->createMock(LoggerInterface::class);
 
