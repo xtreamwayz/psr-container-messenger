@@ -25,15 +25,9 @@
         "laminas/laminas-cli": "For auto configuring the cli command."
     },
     "config": {
-        "platform": {
-            "php": "7.4.4"
-        },
         "sort-packages": true
     },
     "extra": {
-        "branch-alias": {
-            "dev-master": "2.0.x-dev"
-        },
         "laminas": {
             "config-provider": "Xtreamwayz\\PsrContainerMessenger\\ConfigProvider"
         }
@@ -65,32 +59,4 @@
         "source": "https://github.com/xtreamwayz/psr-container-messenger",
         "rss": "https://github.com/xtreamwayz/psr-container-messenger/releases.atom"
     }
-  },
-  "autoload": {
-    "psr-4": {
-      "Xtreamwayz\\PsrContainerMessenger\\": "src/"
-    }
-  },
-  "autoload-dev": {
-    "psr-4": {
-      "Xtreamwayz\\PsrContainerMessenger\\Test\\": "test/"
-    }
-  },
-  "scripts": {
-    "check": [
-      "@cs-check",
-      "@test",
-      "@static-analysis"
-    ],
-    "cs-check": "phpcs",
-    "cs-fix": "phpcbf",
-    "static-analysis": "psalm",
-    "test": "phpunit",
-    "test-coverage": "phpunit --coverage-clover clover.xml"
-  },
-  "support": {
-    "issues": "https://github.com/xtreamwayz/psr-container-messenger/issues",
-    "source": "https://github.com/xtreamwayz/psr-container-messenger",
-    "rss": "https://github.com/xtreamwayz/psr-container-messenger/releases.atom"
-  }
 }
