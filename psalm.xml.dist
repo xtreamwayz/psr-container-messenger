@@ -16,8 +16,14 @@
     </plugins>
 
     <issueHandlers>
+        <InternalClass>
+             <errorLevel type="suppress">
+                <referencedClass name="Symfony\Component\Messenger\Bridge\Doctrine\Transport\Connection" />
+            </errorLevel>
+        </InternalClass>
         <InternalMethod>
             <errorLevel type="suppress">
+                <referencedMethod name="Symfony\Component\Messenger\Bridge\Doctrine\Transport\Connection::buildConfiguration" />
                 <referencedMethod name="PHPUnit\Framework\MockObject\Builder\InvocationMocker::method" />
                 <referencedMethod name="PHPUnit\Framework\MockObject\Builder\InvocationMocker::will" />
                 <referencedMethod name="PHPUnit\Framework\MockObject\Builder\InvocationMocker::willReturn" />
