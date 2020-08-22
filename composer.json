@@ -65,4 +65,32 @@
         "source": "https://github.com/xtreamwayz/psr-container-messenger",
         "rss": "https://github.com/xtreamwayz/psr-container-messenger/releases.atom"
     }
+  },
+  "autoload": {
+    "psr-4": {
+      "Xtreamwayz\\PsrContainerMessenger\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Xtreamwayz\\PsrContainerMessenger\\Test\\": "test/"
+    }
+  },
+  "scripts": {
+    "check": [
+      "@cs-check",
+      "@test",
+      "@static-analysis"
+    ],
+    "cs-check": "phpcs",
+    "cs-fix": "phpcbf",
+    "static-analysis": "psalm",
+    "test": "phpunit",
+    "test-coverage": "phpunit --coverage-clover clover.xml"
+  },
+  "support": {
+    "issues": "https://github.com/xtreamwayz/psr-container-messenger/issues",
+    "source": "https://github.com/xtreamwayz/psr-container-messenger",
+    "rss": "https://github.com/xtreamwayz/psr-container-messenger/releases.atom"
+  }
 }
