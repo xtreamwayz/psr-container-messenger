@@ -22,10 +22,14 @@
         "psr/log": "^1.1",
         "symfony/console": "^4.4 || ^5.0",
         "symfony/contracts": "^1.1 || ^2.0",
+        "symfony/property-access": "^4.4 || ^5.0",
+        "symfony/serializer": "^4.4 || ^5.0",
         "vimeo/psalm": "^3.10"
     },
     "suggest": {
-        "laminas/laminas-cli": "For auto configuring the cli command."
+        "laminas/laminas-cli": "For auto configuring the cli command.",
+        "symfony/serializer": "For converting objects to JSON or XML.",
+        "symfony/property-access": "Required if using symfony/serializer and not providing a default serializer."
     },
     "config": {
         "sort-packages": true
