@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Xtreamwayz\PsrContainerMessenger\Test;
 
+use Laminas\ServiceManager\Config;
+use Laminas\ServiceManager\ServiceManager;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
 use Xtreamwayz\PsrContainerMessenger\ConfigProvider;
-use Zend\ServiceManager\Config;
-use Zend\ServiceManager\ServiceManager;
 
 use function array_replace_recursive;
 use function is_array;

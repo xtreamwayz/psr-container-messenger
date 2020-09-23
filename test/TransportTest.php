@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Xtreamwayz\PsrContainerMessenger\Test;
 
+use Laminas\ServiceManager\Config;
+use Laminas\ServiceManager\ServiceManager;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Messenger\Envelope;
 use Xtreamwayz\PsrContainerMessenger\ConfigProvider;
 use Xtreamwayz\PsrContainerMessenger\Container\TransportFactory;
 use Xtreamwayz\PsrContainerMessenger\Test\Fixtures\DummyMessage;
-use Zend\ServiceManager\Config;
-use Zend\ServiceManager\ServiceManager;
 
 use function array_replace_recursive;
 
