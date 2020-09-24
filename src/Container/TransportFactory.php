@@ -10,7 +10,6 @@ use Symfony\Component\Messenger\Bridge\Amqp\Transport\AmqpTransportFactory;
 use Symfony\Component\Messenger\Bridge\Redis\Transport\RedisTransportFactory;
 use Symfony\Component\Messenger\Transport\InMemoryTransportFactory;
 use Symfony\Component\Messenger\Transport\Sender\SenderInterface;
-use Symfony\Component\Messenger\Transport\Serialization\PhpSerializer;
 use Symfony\Component\Messenger\Transport\Sync\SyncTransportFactory;
 use Symfony\Component\Messenger\Transport\TransportFactoryInterface;
 use Symfony\Component\Messenger\Transport\TransportInterface;
@@ -66,7 +65,7 @@ class TransportFactory
     {
         $factory = $this->dsnToTransportFactory($container, $this->dsn);
 
-        return $factory->createTransport($this->dsn, [], new PhpSerializer());
+        return $factory->createTransport($this->dsn, [], $container->get('messenger.serializer'));
     }
 
     private function dsnToTransportFactory(ContainerInterface $container, string $dsn): TransportFactoryInterface
