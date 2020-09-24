@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Xtreamwayz\PsrContainerMessenger\Test\Container;
+namespace Xtreamwayz\PsrContainerMessenger\Test\Serializer;
 
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Messenger\Transport\Serialization\Serializer;
