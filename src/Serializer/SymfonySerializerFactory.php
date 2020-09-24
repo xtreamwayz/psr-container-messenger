@@ -9,7 +9,7 @@ use Symfony\Component\Messenger\Transport\Serialization\Serializer;
 
 final class SymfonySerializerFactory
 {
-    public function __invoke(ContainerInterface $container, ?string $requestedName = null): Serializer
+    public function __invoke(ContainerInterface $container): Serializer
     {
         $config  = $container->has('config') ? $container->get('config') : [];
         $config  = $config['messenger']['serializer'] ?? [];
