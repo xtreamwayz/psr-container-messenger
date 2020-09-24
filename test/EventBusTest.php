@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Xtreamwayz\PsrContainerMessenger\Test;
 
+use Laminas\ServiceManager\Config;
+use Laminas\ServiceManager\ServiceManager;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Messenger\MessageBus;
 use Symfony\Component\Messenger\MessageBusInterface;
@@ -11,8 +13,6 @@ use Xtreamwayz\PsrContainerMessenger\ConfigProvider;
 use Xtreamwayz\PsrContainerMessenger\Test\Fixtures\DummyEvent;
 use Xtreamwayz\PsrContainerMessenger\Test\Fixtures\DummyEventHandler;
 use Xtreamwayz\PsrContainerMessenger\Test\Fixtures\DummyEventHandlerTwo;
-use Zend\ServiceManager\Config;
-use Zend\ServiceManager\ServiceManager;
 
 use function array_replace_recursive;
 

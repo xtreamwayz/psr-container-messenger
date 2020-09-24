@@ -6,13 +6,13 @@ namespace Xtreamwayz\PsrContainerMessenger\Test\Container;
 
 use Doctrine\DBAL\Connection as DBALConnection;
 use Doctrine\ORM\EntityManager;
+use Laminas\ServiceManager\Config;
+use Laminas\ServiceManager\ServiceManager;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Messenger\Transport\Receiver\ReceiverInterface;
 use Symfony\Component\Messenger\Transport\Sender\SenderInterface;
 use Xtreamwayz\PsrContainerMessenger\ConfigProvider;
 use Xtreamwayz\PsrContainerMessenger\Container\TransportFactory;
-use Zend\ServiceManager\Config;
-use Zend\ServiceManager\ServiceManager;
 
 use function array_replace_recursive;
 
