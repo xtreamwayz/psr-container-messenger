@@ -12,10 +12,12 @@
         "symfony/redis-messenger": "^5.1"
     },
     "require-dev": {
-        "doctrine/coding-standard": "^7.0",
         "ext-json": "*",
+        "doctrine/coding-standard": "^7.0",
         "doctrine/dbal": "^2.6",
         "doctrine/orm": "^2.6",
+        "laminas/laminas-auradi-config": "^2.0",
+        "laminas/laminas-pimple-config": "^1.1",
         "laminas/laminas-servicemanager": "^3.4",
         "phpunit/phpunit": "^9.0",
         "psalm/plugin-phpunit": "^0.10.0",

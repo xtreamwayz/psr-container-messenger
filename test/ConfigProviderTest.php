@@ -4,21 +4,14 @@ declare(strict_types=1);
 
 namespace Xtreamwayz\PsrContainerMessenger\Test;
 
-use Laminas\ServiceManager\Config;
-use Laminas\ServiceManager\ServiceManager;
 use PHPUnit\Framework\TestCase;
-use Psr\Log\LoggerInterface;
 use Xtreamwayz\PsrContainerMessenger\ConfigProvider;
-
-use function array_replace_recursive;
-use function is_array;
-use function sprintf;
 
 class ConfigProviderTest extends TestCase
 {
     private ConfigProvider $provider;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->provider = new ConfigProvider();
     }
@@ -58,39 +51,5 @@ class ConfigProviderTest extends TestCase
             $this->assertArrayHasKey('routes', $bus);
             $this->assertIsArray($bus['routes']);
         }
-    }
-
-    public function testServicesDefinedInConfigProvider(): void
-    {
-        // Get dependencies
-        $dependencies = $this->provider->getDependencies();
-        // Mock dependencies
-        $dependencies['services'][LoggerInterface::class] = $this->createMock(LoggerInterface::class);
-
-        // Build container
-        $container = $this->getContainer($dependencies);
-        foreach ($dependencies['factories'] as $name => $factory) {
-            if (is_array($factory)) {
-                $factory = $factory[0];
-            }
-
-            $this->assertTrue($container->has($name), sprintf('Container does not contain service %s', $name));
-            $this->assertIsObject(
-                $container->get($name),
-                sprintf('Cannot get service %s from container using factory %s', $name, $factory)
-            );
-        }
-    }
-
-    private function getContainer(array $dependencies): ServiceManager
-    {
-        $container = new ServiceManager();
-        (new Config($dependencies))->configureServiceManager($container);
-        $container->setService('config', array_replace_recursive(
-            ($this->provider)(),
-            require 'example/basic-config.php'
-        ));
-
-        return $container;
     }
 }
