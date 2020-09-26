@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6142f503ff1ece41a7621f90f632ed22",
+    "content-hash": "1e62bf10b778948ef8aeb7b7e7403040",
     "packages": [
         {
             "name": "psr/cache",
@@ -908,6 +908,59 @@
                 "stream"
             ],
             "time": "2020-06-29T18:35:05+00:00"
+        },
+        {
+            "name": "aura/di",
+            "version": "4.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/auraphp/Aura.Di.git",
+                "reference": "fefda6b3db5cb04feb2bcf36f845317cfead857e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/auraphp/Aura.Di/zipball/fefda6b3db5cb04feb2bcf36f845317cfead857e",
+                "reference": "fefda6b3db5cb04feb2bcf36f845317cfead857e",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.2.0",
+                "psr/container": "^1.0"
+            },
+            "provide": {
+                "psr/container-implementation": "^1.0"
+            },
+            "require-dev": {
+                "acclimate/container": "^2",
+                "phpunit/phpunit": "^8",
+                "producer/producer": "^2.3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Aura\\Di\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Aura.Di Contributors",
+                    "homepage": "https://github.com/auraphp/Aura.Di/contributors"
+                }
+            ],
+            "description": "A serializable dependency injection container with constructor and setter injection, interface and trait awareness, configuration inheritance, and much more.",
+            "homepage": "https://github.com/auraphp/Aura.Di",
+            "keywords": [
+                "container",
+                "dependency injection",
+                "dependency injection container",
+                "di",
+                "di container"
+            ],
+            "time": "2020-05-26T11:19:26+00:00"
         },
         {
             "name": "composer/package-versions-deprecated",
@@ -2427,6 +2480,119 @@
             "time": "2019-06-23T21:03:50+00:00"
         },
         {
+            "name": "laminas/laminas-auradi-config",
+            "version": "2.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laminas/laminas-auradi-config.git",
+                "reference": "27fbedc97313daee0ecd9bb4c70c5076e40aa73c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laminas/laminas-auradi-config/zipball/27fbedc97313daee0ecd9bb4c70c5076e40aa73c",
+                "reference": "27fbedc97313daee0ecd9bb4c70c5076e40aa73c",
+                "shasum": ""
+            },
+            "require": {
+                "aura/di": "^3.4 || ^4.0",
+                "php": "^7.1"
+            },
+            "conflict": {
+                "container-interop/container-interop": "<1.2.0"
+            },
+            "require-dev": {
+                "laminas/laminas-coding-standard": "~1.0.0",
+                "laminas/laminas-container-config-test": "^0.2 || ^1.0",
+                "phpunit/phpunit": "^7.1.2"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.0.x-dev",
+                    "dev-develop": "2.1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Laminas\\AuraDi\\Config\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "description": "PSR-11 Aura.DI container configurator for Laminas and Mezzio applications",
+            "homepage": "https://laminas.dev",
+            "keywords": [
+                "PSR-11",
+                "aura di",
+                "container",
+                "laminas",
+                "mezzio"
+            ],
+            "funding": [
+                {
+                    "url": "https://funding.communitybridge.org/projects/laminas-project",
+                    "type": "community_bridge"
+                }
+            ],
+            "time": "2020-04-21T17:59:55+00:00"
+        },
+        {
+            "name": "laminas/laminas-pimple-config",
+            "version": "1.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laminas/laminas-pimple-config.git",
+                "reference": "2f62d16388ff53e3f1423d633d8e309e1cade7aa"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laminas/laminas-pimple-config/zipball/2f62d16388ff53e3f1423d633d8e309e1cade7aa",
+                "reference": "2f62d16388ff53e3f1423d633d8e309e1cade7aa",
+                "shasum": ""
+            },
+            "require": {
+                "laminas/laminas-zendframework-bridge": "^1.0",
+                "php": "^7.1",
+                "pimple/pimple": "^3.2.2"
+            },
+            "replace": {
+                "zendframework/zend-pimple-config": "self.version"
+            },
+            "require-dev": {
+                "laminas/laminas-coding-standard": "~1.0.0",
+                "laminas/laminas-container-config-test": "^0.2 || ^1.0",
+                "phpunit/phpunit": "^7.1.2"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.1.x-dev",
+                    "dev-develop": "1.2.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Laminas\\Pimple\\Config\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "description": "PSR-11 Pimple container configurator for Laminas and Mezzio applications",
+            "homepage": "https://laminas.dev",
+            "keywords": [
+                "PSR-11",
+                "container",
+                "laminas",
+                "mezzio",
+                "pimple"
+            ],
+            "time": "2019-12-31T17:38:01+00:00"
+        },
+        {
             "name": "laminas/laminas-servicemanager",
             "version": "3.4.1",
             "source": {
@@ -3572,6 +3738,56 @@
                 }
             ],
             "time": "2020-09-12T09:34:39+00:00"
+        },
+        {
+            "name": "pimple/pimple",
+            "version": "v3.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/silexphp/Pimple.git",
+                "reference": "e55d12f9d6a0e7f9c85992b73df1267f46279930"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/silexphp/Pimple/zipball/e55d12f9d6a0e7f9c85992b73df1267f46279930",
+                "reference": "e55d12f9d6a0e7f9c85992b73df1267f46279930",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.2.5",
+                "psr/container": "^1.0"
+            },
+            "require-dev": {
+                "symfony/phpunit-bridge": "^3.4|^4.4|^5.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.3.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Pimple": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                }
+            ],
+            "description": "Pimple, a simple Dependency Injection Container",
+            "homepage": "https://pimple.symfony.com",
+            "keywords": [
+                "container",
+                "dependency injection"
+            ],
+            "time": "2020-03-03T09:12:48+00:00"
         },
         {
             "name": "psalm/plugin-phpunit",
