@@ -46,8 +46,8 @@ class LaminasServiceManagerTest extends TestCase
             $this->assertContainerHasService($container, $name, $factory);
         }
 
-        foreach ($config['dependencies']['invokables'] as $name => $factory) {
-            $this->assertContainerHasService($container, $name, $factory);
+        foreach ($config['dependencies']['invokables'] as $name) {
+            $this->assertContainerHasService($container, $name, $name);
         }
 
         foreach ($config['dependencies']['factories'] as $name => $factory) {

@@ -11,6 +11,12 @@ use Xtreamwayz\PsrContainerMessenger\Container\SendMessageMiddlewareFactory;
 return [
     // phpcs:disable
     'dependencies' => [
+        'aliases' => [
+            'messenger.serializer' => PhpSerializer::class,
+        ],
+        'invokables' => [
+            PhpSerializer::class,
+        ],
         'factories' => [
             'messenger.default.bus'                => [MessageBusFactory::class, 'default'],
             'messenger.default.middleware.handler' => [HandleMessageMiddlewareFactory::class, 'default'],

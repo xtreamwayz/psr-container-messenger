@@ -6,7 +6,6 @@ namespace Xtreamwayz\PsrContainerMessenger;
 
 use Symfony\Component\Messenger\Command\ConsumeMessagesCommand;
 use Symfony\Component\Messenger\Transport\Serialization\PhpSerializer;
-use Symfony\Component\Messenger\Transport\Serialization\Serializer as SymfonySerializer;
 use Xtreamwayz\PsrContainerMessenger\Container\AddBusNameStampMiddlewareFactory;
 use Xtreamwayz\PsrContainerMessenger\Container\HandleMessageMiddlewareFactory;
 use Xtreamwayz\PsrContainerMessenger\Container\MessageBusFactory;
@@ -31,7 +30,7 @@ class ConfigProvider
                 'messenger.serializer' => PhpSerializer::class,
             ],
             'invokables' => [
-                PhpSerializer::class => PhpSerializer::class,
+                PhpSerializer::class,
             ],
             'factories' => [
                 ConsumeMessagesCommand::class => Command\ConsumeMessagesCommandFactory::class,
@@ -49,8 +48,6 @@ class ConfigProvider
                 'messenger.query.middleware.sender'  => [SendMessageMiddlewareFactory::class, 'messenger.query.bus'],
 
                 'messenger.command.middleware.add_bus_stamp' => [AddBusNameStampMiddlewareFactory::class, 'messenger.command.bus'],
-
-                SymfonySerializer::class => Serializer\SymfonySerializerFactory::class,
             ],
         ];
         // phpcs:enable
@@ -78,13 +75,6 @@ class ConfigProvider
                     'handlers'          => [],
                     'middleware'        => [],
                     'routes'            => [],
-                ],
-            ],
-            'serializer' => [
-                'default_serializer' => null,
-                'symfony_serializer' => [
-                    'format' => 'json',
-                    'context' => [],
                 ],
             ],
         ];
