@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App;
 
-use Symfony\Component\Mailer\Messenger\MessageHandler;
 use Symfony\Component\Mailer\Messenger\SendEmailMessage;
 
 return [

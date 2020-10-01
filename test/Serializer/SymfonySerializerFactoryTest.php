@@ -18,7 +18,7 @@ class SymfonySerializerFactoryTest extends TestCase
 
     public function setUp(): void
     {
-        $this->config = array_replace_recursive((new ConfigProvider())(), require 'example/basic-config.php');
+        $this->config = array_replace_recursive((new ConfigProvider())(), require 'example/serializer-config.php');
     }
 
     private function getContainer(): ServiceManager
@@ -32,8 +32,6 @@ class SymfonySerializerFactoryTest extends TestCase
 
     public function testSymfonySerializerIsLoaded(): void
     {
-        $this->config['dependencies']['aliases']['messenger.serializer'] = Serializer::class;
-
         $serializer = $this->getContainer()->get('messenger.serializer');
 
         $this->assertInstanceOf(Serializer::class, $serializer);
