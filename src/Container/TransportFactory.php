@@ -74,12 +74,16 @@ class TransportFactory
         switch ($type) {
             case 'amqp':
                 return new AmqpTransportFactory();
+
             case 'doctrine':
                 return new DoctrineTransportFactory($container);
+
             case 'in-memory':
                 return new InMemoryTransportFactory();
+
             case 'redis':
                 return new RedisTransportFactory();
+
             case 'sync':
                 return new SyncTransportFactory($container->get(trim($config, '/')));
         }
