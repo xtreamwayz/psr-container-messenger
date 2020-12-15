@@ -3,7 +3,7 @@
     "description": "PSR Container compatible Symfony Messenger",
     "license": "MIT",
     "require": {
-        "php": "^7.4",
+        "php": "^7.4 || ^8.0",
         "psr/container": "^1.0",
         "symfony/amqp-messenger": "^5.1",
         "symfony/doctrine-messenger": "^5.1",
