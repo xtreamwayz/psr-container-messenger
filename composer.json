@@ -1,5 +1,6 @@
 {
     "name": "xtreamwayz/psr-container-messenger",
+    "type": "library",
     "description": "PSR Container compatible Symfony Messenger",
     "license": "MIT",
     "authors": [

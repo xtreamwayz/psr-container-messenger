@@ -1,4 +1,5 @@
 name: Check PR title
+
 on:
   pull_request:
     types:
@@ -19,4 +20,3 @@ jobs:
           preset: conventional-changelog-angular@latest
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
- 
