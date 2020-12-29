@@ -20,10 +20,10 @@
     },
     "require-dev": {
         "ext-json": "*",
-        "doctrine/coding-standard": "^8.1",
         "doctrine/dbal": "^2.6",
         "doctrine/orm": "^2.6",
         "laminas/laminas-auradi-config": "^2.0",
+        "laminas/laminas-coding-standard": "^2.0",
         "laminas/laminas-pimple-config": "^1.1",
         "laminas/laminas-servicemanager": "^3.4",
         "phpunit/phpunit": "^9.5",
