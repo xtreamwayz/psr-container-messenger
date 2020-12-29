@@ -2,4 +2,4 @@
 .phpunit.result.cache
 composer.lock
 phpunit.xml
-/vendor/
+vendor/
