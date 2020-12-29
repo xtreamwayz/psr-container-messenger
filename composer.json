@@ -2,8 +2,14 @@
     "name": "xtreamwayz/psr-container-messenger",
     "description": "PSR Container compatible Symfony Messenger",
     "license": "MIT",
+    "authors": [
+        {
+            "name": "Geert Eltink",
+            "homepage": "https://github.com/geerteltink"
+        }
+    ],
     "require": {
-        "php": "^7.4 || ^8.0",
+        "php": "^7.3 || ^8.0",
         "psr/container": "^1.0",
         "symfony/amqp-messenger": "^5.1",
         "symfony/doctrine-messenger": "^5.1",
@@ -19,7 +25,7 @@
         "laminas/laminas-auradi-config": "^2.0",
         "laminas/laminas-pimple-config": "^1.1",
         "laminas/laminas-servicemanager": "^3.4",
-        "phpunit/phpunit": "^9.3",
+        "phpunit/phpunit": "^9.4",
         "psalm/plugin-phpunit": "^0.10.0",
         "psr/log": "^1.1",
         "symfony/console": "^4.4 || ^5.0",
@@ -30,10 +36,13 @@
     },
     "suggest": {
         "laminas/laminas-cli": "For auto configuring the cli command.",
-        "symfony/serializer": "For converting objects to JSON or XML.",
-        "symfony/property-access": "Required if using symfony/serializer and not providing a default serializer."
+        "symfony/property-access": "Required if using symfony/serializer and not providing a default serializer.",
+        "symfony/serializer": "For converting objects to JSON or XML."
     },
     "config": {
+        "platform": {
+            "php": "7.4.13"
+        },
         "sort-packages": true
     },
     "extra": {
@@ -65,7 +74,8 @@
     },
     "support": {
         "issues": "https://github.com/xtreamwayz/psr-container-messenger/issues",
+        "forum": "https://github.com/xtreamwayz/community/discussions",
         "source": "https://github.com/xtreamwayz/psr-container-messenger",
-        "rss": "https://github.com/xtreamwayz/psr-container-messenger/releases.atom"
+        "docs": "https://xtreamwayz.github.io/psr-container-messenger/"
     }
 }
