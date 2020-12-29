@@ -9,7 +9,7 @@
         }
     ],
     "require": {
-        "php": "^7.3 || ^8.0",
+        "php": "^7.4 || ^8.0",
         "psr/container": "^1.0",
         "symfony/amqp-messenger": "^5.1",
         "symfony/doctrine-messenger": "^5.1",
@@ -25,7 +25,7 @@
         "laminas/laminas-auradi-config": "^2.0",
         "laminas/laminas-pimple-config": "^1.1",
         "laminas/laminas-servicemanager": "^3.4",
-        "phpunit/phpunit": "^9.4",
+        "phpunit/phpunit": "^9.5",
         "psalm/plugin-phpunit": "^0.10.0",
         "psr/log": "^1.1",
         "symfony/console": "^4.4 || ^5.0",
@@ -40,9 +40,6 @@
         "symfony/serializer": "For converting objects to JSON or XML."
     },
     "config": {
-        "platform": {
-            "php": "7.4.13"
-        },
         "sort-packages": true
     },
     "extra": {
