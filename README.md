@@ -2,10 +2,7 @@
 
 _PSR-11 Container compatible Symfony Messenger message bus and queue._
 
-[![Docs Status](https://github.com/xtreamwayz/psr-container-messenger/workflows/build-docs/badge.svg)](https://xtreamwayz.netlify.com/psr-container-messenger/)
-[![Build Status](https://github.com/xtreamwayz/psr-container-messenger/workflows/qa-tests/badge.svg)](https://github.com/xtreamwayz/psr-container-messenger/actions)
-[![Downloads](https://img.shields.io/packagist/dt/xtreamwayz/psr-container-messenger.svg)](https://packagist.org/packages/xtreamwayz/psr-container-messenger)
-[![Packagist](https://img.shields.io/packagist/v/xtreamwayz/psr-container-messenger.svg)](https://packagist.org/packages/xtreamwayz/psr-container-messenger)
+[![Continuous Integration](https://github.com/xtreamwayz/psr-container-messenger/actions/workflows/continuous-integration.yml/badge.svg)](https://github.com/xtreamwayz/psr-container-messenger/actions/workflows/continuous-integration.yml)
 
 This packages brings message buses to your PSR-11 container based project. It's a bundle of factories to make
 life easier for you. The real work is done by [Symfony Messenger](https://github.com/symfony/messenger).
