@@ -20,7 +20,7 @@
     },
     "require-dev": {
         "ext-json": "*",
-        "doctrine/dbal": "^2.6",
+        "doctrine/dbal": "^2.6 || ^3.0",
         "doctrine/orm": "^2.6",
         "laminas/laminas-auradi-config": "^2.0",
         "laminas/laminas-coding-standard": "^2.0",
