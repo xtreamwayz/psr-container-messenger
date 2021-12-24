@@ -38,10 +38,10 @@ class TransportTest extends TestCase
 
         $transport = $this->getContainer()->get('in-memory-transport');
 
-        $message  = new DummyMessage('Hello');
-        $envelope = new Envelope($message);
-        $result   = $transport->send($envelope);
-        $messages = $transport->get();
+        $message         = new DummyMessage('Hello');
+        $envelope        = new Envelope($message);
+        $result          = $transport->send($envelope);
+        $messages        = $transport->get();
         $receivedMessage = $messages[0];
 
         $this->assertInstanceOf(Envelope::class, $result);
