@@ -27,13 +27,13 @@
         "laminas/laminas-pimple-config": "^1.4",
         "laminas/laminas-servicemanager": "^3.10.0",
         "phpunit/phpunit": "^9.5",
-        "psalm/plugin-phpunit": "^0.12.0 || ^0.16.0",
+        "psalm/plugin-phpunit": "^0.16.0",
         "psr/log": "^1.1 || ^2.0 || ^3.0",
         "symfony/console": "^5.4 || ^6.0",
         "symfony/contracts": "^2.0 || ^3.0",
         "symfony/property-access": "^5.4 || ^6.0",
         "symfony/serializer": "^5.4 || ^6.0",
-        "vimeo/psalm": "^3.18"
+        "vimeo/psalm": "^4.0"
     },
     "suggest": {
         "laminas/laminas-cli": "For auto configuring the cli command.",
@@ -41,7 +41,11 @@
         "symfony/serializer": "For converting objects to JSON or XML."
     },
     "config": {
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "composer/package-versions-deprecated": true,
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
     },
     "extra": {
         "laminas": {
