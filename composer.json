@@ -33,7 +33,7 @@
         "symfony/contracts": "^2.0 || ^3.0",
         "symfony/property-access": "^5.4 || ^6.0",
         "symfony/serializer": "^5.4 || ^6.0",
-        "vimeo/psalm": "^3.18"
+        "vimeo/psalm": "^3.18 || ^4.0"
     },
     "suggest": {
         "laminas/laminas-cli": "For auto configuring the cli command.",
