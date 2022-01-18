@@ -49,7 +49,7 @@ class DoctrineTransportFactory implements TransportFactoryInterface
             );
         }
 
-        /** @psalm-suppress InternalClass */
+        /** @psalm-suppress InternalClass,InternalMethod */
         $transportConnection = new TransportConnection($configuration, $driverConnection);
 
         return new DoctrineTransport($transportConnection, $serializer);

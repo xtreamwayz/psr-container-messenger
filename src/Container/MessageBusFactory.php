@@ -60,6 +60,7 @@ class MessageBusFactory
             throw new InvalidConfigException('Without middleware, messenger does not do anything');
         }
 
+        /** @psalm-suppress PossiblyInvalidArgument */
         return new MessageBus($stack);
     }
 }
