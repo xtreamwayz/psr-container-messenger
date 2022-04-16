@@ -13,7 +13,6 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
-    versioning-strategy: increase
     open-pull-requests-limit: 20
     allow:
       - dependency-type: "all"
