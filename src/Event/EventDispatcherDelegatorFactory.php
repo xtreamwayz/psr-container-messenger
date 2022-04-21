@@ -61,8 +61,6 @@ class EventDispatcherDelegatorFactory implements DelegatorFactoryInterface
         $eventDispatcher->addSubscriber(
             new SendFailedMessageToFailureTransportListener($failureContainer, $logger)
         );
-        $eventDispatcher->addSubscriber($container->get(Worker\LogFailedWorkerEventSubscriber::class));
-        $eventDispatcher->addSubscriber($container->get(Worker\LogWorkerMessageRuntimeSubscriber::class));
         return $eventDispatcher;
     }
 
