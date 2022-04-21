@@ -1,6 +1,5 @@
 <?php
 
-
 declare(strict_types=1);
 
 namespace Xtreamwayz\PsrContainerMessenger\Event;
@@ -16,10 +15,10 @@ use Symfony\Component\Messenger\Retry\MultiplierRetryStrategy;
 
 class EventDispatcherDelegatorFactory implements DelegatorFactoryInterface
 {
-    protected const MAX_RETRIES = 3;
+    protected const     MAX_RETRIES = 3;
     protected const WAIT_IN_SECONDS = 5 * 60;
     protected const WAIT_MULTIPLIER = 4;
-    public const FAILED_QUEUE = 'failed';
+    public const       FAILED_QUEUE = 'failed';
 
     public function __invoke(
         ContainerInterface $container,
@@ -70,6 +69,6 @@ class EventDispatcherDelegatorFactory implements DelegatorFactoryInterface
         string $requestedName,
         callable $callback
     ): EventDispatcherInterface {
-        return ($this)($serviceLocator, $name, $callback);
+        return $this($serviceLocator, $name, $callback);
     }
 }
