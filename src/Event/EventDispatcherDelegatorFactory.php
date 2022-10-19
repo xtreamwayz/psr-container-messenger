@@ -20,13 +20,16 @@ class EventDispatcherDelegatorFactory implements DelegatorFactoryInterface
     protected const WAIT_MULTIPLIER = 4;
     public const       FAILED_QUEUE = 'failed';
 
+    /**
+     * @param string $name
+     */
     public function __invoke(
         ContainerInterface $container,
         $name,
         callable $callback,
-        array $options = null
+        ?array $options = null
     ): EventDispatcherInterface {
-        $config = $container->get('config');
+        $config          = $container->get('config');
         $availableRoutes = [];
         foreach ($config['messenger']['buses']['messenger.command.bus']['routes'] as $routes) {
             foreach ($routes as $route) {
@@ -41,7 +44,7 @@ class EventDispatcherDelegatorFactory implements DelegatorFactoryInterface
         $eventDispatcher = $callback();
 
         $strategieContainer = new ContainerBuilder();
-        $failureContainer = new ContainerBuilder();
+        $failureContainer   = new ContainerBuilder();
 
         $logger = $container->get($config['messenger']['logger']);
 
