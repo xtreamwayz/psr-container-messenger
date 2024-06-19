@@ -12,7 +12,7 @@
     "require": {
         "php": "^7.4 || ^8.0",
         "psr/container": "^1.0 || ^2.0",
-        "symfony/amqp-messenger": "^5.4 || ^6.0",
+        "symfony/amqp-messenger": "^5.4 || ^6.0 || ^7.0",
         "symfony/doctrine-messenger": "^5.4 || ^6.0",
         "symfony/event-dispatcher": "^5.4 || ^6.0",
         "symfony/messenger": "^5.4 || ^6.0",
