@@ -13,6 +13,7 @@ use Symfony\Component\Messenger\Transport\Sender\SenderInterface;
 use Symfony\Component\Messenger\Transport\Sync\SyncTransportFactory;
 use Symfony\Component\Messenger\Transport\TransportFactoryInterface;
 use Symfony\Component\Messenger\Transport\TransportInterface;
+use Throwable;
 use Xtreamwayz\PsrContainerMessenger\Transport\DoctrineTransportFactory;
 
 use function explode;
@@ -21,7 +22,7 @@ use function trim;
 
 class TransportFactory
 {
-    private string $dsn;
+    private string $dsnOrName;
 
     /**
      * Creates a new instance from a specified config
@@ -58,19 +59,35 @@ class TransportFactory
 
     public function __construct(?string $dsn = null)
     {
-        $this->dsn = $dsn ?? 'null:';
+        $this->dsnOrName = $dsn ?? 'null:';
     }
 
     public function __invoke(ContainerInterface $container): TransportInterface
     {
-        $factory = $this->dsnToTransportFactory($container, $this->dsn);
+        $config = $container->get('config')['messenger']['transports'] ?? [];
+        $dsnOrName = $this->dsnOrName;
+        $options = [];
+        if (isset($config[$dsnOrName])) {
+            $transportConfig = $config[$dsnOrName];
+            $dsnOrName = $transportConfig['dsn'] ?? null;
+            $options = $transportConfig['options'] ?? [];
+        }
+        $factory = $this->dsnToTransportFactory($container, $dsnOrName);
 
-        return $factory->createTransport($this->dsn, [], $container->get('messenger.serializer'));
+        return $factory->createTransport($dsnOrName, $options, $container->get('messenger.serializer'));
     }
 
     private function dsnToTransportFactory(ContainerInterface $container, string $dsn): TransportFactoryInterface
     {
-        [$type, $config] = explode(':', $dsn, 2);
+        try {
+            [$type, $config] = explode(':', $dsn, 2);
+        } catch (Throwable $throwable) {
+            throw new InvalidArgumentException(
+                sprintf('Invalid dsn string "%s".', $dsn),
+                $throwable->getCode(),
+                $throwable
+            );
+        }
         switch ($type) {
             case 'amqp':
                 return new AmqpTransportFactory();
