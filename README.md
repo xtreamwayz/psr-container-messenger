@@ -1,8 +1,12 @@
-# PSR Container Messenger
+[![No Maintenance Intended](http://unmaintained.tech/badge.svg)](http://unmaintained.tech/)
+
+Thank you so much for being interested in this project! Open Source is rewarding, but it can also be exhausting. Therefor this code is provided as-is, and is currently not actively maintained. We invite you to peruse the code and even use it in your next project, provided you follow the included license!
+
+No guarantee of support for the code is provided, and there is no promise that pull requests will be reviewed or merged. It’s open source, so forking is allowed; just be sure to give credit where it’s due!
+
+---
 
 _PSR-11 Container compatible Symfony Messenger message bus and queue._
-
-[![Continuous Integration](https://github.com/xtreamwayz/psr-container-messenger/actions/workflows/continuous-integration.yml/badge.svg)](https://github.com/xtreamwayz/psr-container-messenger/actions/workflows/continuous-integration.yml)
 
 This packages brings message buses to your PSR-11 container based project. It's a bundle of factories to make
 life easier for you. The real work is done by [Symfony Messenger](https://github.com/symfony/messenger).
