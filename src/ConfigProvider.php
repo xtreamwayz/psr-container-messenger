@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace Xtreamwayz\PsrContainerMessenger;
 
+use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\Messenger\Command\ConsumeMessagesCommand;
 use Symfony\Component\Messenger\Transport\Serialization\PhpSerializer;
 use Xtreamwayz\PsrContainerMessenger\Container\AddBusNameStampMiddlewareFactory;
 use Xtreamwayz\PsrContainerMessenger\Container\HandleMessageMiddlewareFactory;
 use Xtreamwayz\PsrContainerMessenger\Container\MessageBusFactory;
 use Xtreamwayz\PsrContainerMessenger\Container\SendMessageMiddlewareFactory;
+use Xtreamwayz\PsrContainerMessenger\Event\EventDispatcherDelegatorFactory;
 
 class ConfigProvider
 {
@@ -48,6 +50,9 @@ class ConfigProvider
                 'messenger.query.middleware.sender'  => [SendMessageMiddlewareFactory::class, 'messenger.query.bus'],
 
                 'messenger.command.middleware.add_bus_stamp' => [AddBusNameStampMiddlewareFactory::class, 'messenger.command.bus'],
+            ],
+            'delegators' => [
+                EventDispatcher::class => [EventDispatcherDelegatorFactory::class],
             ],
         ];
         // phpcs:enable
