@@ -33,7 +33,7 @@
         "symfony/console": "^5.4 || ^6.0",
         "symfony/contracts": "^2.0 || ^3.0",
         "symfony/property-access": "^5.4 || ^6.0",
-        "symfony/serializer": "^5.4 || ^6.0",
+        "symfony/serializer": "^5.4 || ^6.0 || ^7.0",
         "vimeo/psalm": "^4.18"
     },
     "suggest": {
