@@ -21,7 +21,7 @@
     },
     "require-dev": {
         "ext-json": "*",
-        "doctrine/dbal": "^2.13 || ^3.2",
+        "doctrine/dbal": "^2.13 || ^3.2 || ^4.0",
         "doctrine/orm": "^2.11",
         "laminas/laminas-auradi-config": "^2.2",
         "laminas/laminas-coding-standard": "^2.3",
